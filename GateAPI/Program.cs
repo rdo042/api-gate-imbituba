@@ -1,0 +1,39 @@
+using GateAPI.Application;
+using GateAPI.Extensions;
+using GateAPI.Infra;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+//var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
+
+builder.Services
+    .ConfigureSwagger()
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration.GetConnectionString("Default"));
+
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GATE API v1");
+        c.RoutePrefix = string.Empty;
+    });
+
+    using var scope = app.Services.CreateScope();
+}
+
+// Configure the HTTP request pipeline.
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
