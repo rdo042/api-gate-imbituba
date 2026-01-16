@@ -1,4 +1,5 @@
 ﻿using GateAPI.Infra.Models;
+using GateAPI.Infra.Models.Configuracao;
 using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Infra.Persistence.Context

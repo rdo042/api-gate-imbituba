@@ -1,6 +1,6 @@
 ﻿using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
-using GateAPI.Infra.Mappers;
+using GateAPI.Infra.Mappers.Configuracao;
 using GateAPI.Infra.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 

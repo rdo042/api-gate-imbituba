@@ -1,7 +1,7 @@
 ﻿using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
-using GateAPI.Infra.Mappers;
-using GateAPI.Infra.Models;
+using GateAPI.Infra.Mappers.Configuracao;
+using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
 using Microsoft.AspNetCore.Http;

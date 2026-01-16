@@ -1,7 +1,7 @@
 ﻿using GateAPI.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace GateAPI.Infra.Models
+namespace GateAPI.Infra.Models.Configuracao
 {
     public class TipoLacreModel : BaseModel
     {

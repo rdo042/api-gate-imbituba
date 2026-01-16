@@ -1,7 +1,7 @@
 ﻿using GateAPI.Domain.Entities.Configuracao;
-using GateAPI.Infra.Models;
+using GateAPI.Infra.Models.Configuracao;
 
-namespace GateAPI.Infra.Mappers
+namespace GateAPI.Infra.Mappers.Configuracao
 {
     public static class TipoLacreMapper
     {
