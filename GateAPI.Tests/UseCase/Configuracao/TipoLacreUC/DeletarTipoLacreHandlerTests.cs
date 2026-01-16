@@ -11,7 +11,6 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
     {
         private readonly Mock<ITipoLacreRepository> _repositoryMock;
         private readonly DeletarTipoLacreHandler _handler;
-        private readonly StatusEnum _validStatusEnum = StatusEnum.ATIVO;
 
         public DeletarTipoLacreHandlerTests()
         {
