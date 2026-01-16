@@ -20,6 +20,8 @@ namespace GateAPI.Domain.Entities.Configuracao
             Perfil = perfil;
             Status = StatusEnum.ATIVO;
             EmailConfirmado = false;
+
+            Validation();
         }
 
         private Usuario() { }

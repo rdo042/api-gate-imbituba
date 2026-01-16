@@ -1,5 +1,6 @@
 ﻿using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
+using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Services;
 
 namespace GateAPI.Tests.Entities.Configuracao
@@ -39,7 +40,7 @@ namespace GateAPI.Tests.Entities.Configuracao
             // Act & Assert
             var senhaHash = _hasher.HashPassword("#Senha123");
             Assert.Throws<ArgumentException>(() => new Usuario(
-                nome, "email", senhaHash, _perfil
+                nome, "email", senhaHash, null
             ));
         }
 
@@ -66,32 +67,33 @@ namespace GateAPI.Tests.Entities.Configuracao
             Assert.NotEqual(nome, entity.Nome);
         }
 
-        //[Fact]
-        //public void Load_WithValidNewUsuario_ShouldLoadUsuario()
-        //{
-        //    // Arrange
-        //    var model = new TipoLacreModel()
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Tipo = "LAC001",
-        //        Descricao = "",
-        //        Status = _validStatusEnum
-        //    };
+        [Fact]
+        public void Load_WithValidNewUsuario_ShouldLoadUsuario()
+        {
+            // Arrange
+            var model = new UsuarioModel()
+            {
+                Id = Guid.NewGuid(),
+                Nome = "Teste",
+                Email = "teste@email.com",
+                SenhaHash = _hasher.HashPassword("Senha123"),
+                Status = _validStatusEnum
+            };
 
-        //    // Act
-        //    var entidade = Usuario.Load(
-        //        model.Id,
-        //        model.Nome,
-        //        model.Email,
-        //        model.SenhaHash,
-        //        model.Perfil,
-        //        model.Status);
+            // Act
+            var entidade = Usuario.Load(
+                model.Id,
+                model.Nome,
+                model.Email,
+                model.SenhaHash,
+                null,
+                model.Status);
 
-        //    // Assert
-        //    Assert.Equal(model.Id, entidade.Id);
-        //    Assert.Equal(model.Nome, entidade.Nome);
-        //    Assert.Equal(model.Email, entidade.Email);
-        //    Assert.Equal(model.Status, entidade.Status);
-        //}
+            // Assert
+            Assert.Equal(model.Id, entidade.Id);
+            Assert.Equal(model.Nome, entidade.Nome);
+            Assert.Equal(model.Email, entidade.Email);
+            Assert.Equal(model.Status, entidade.Status);
+        }
     }
 }

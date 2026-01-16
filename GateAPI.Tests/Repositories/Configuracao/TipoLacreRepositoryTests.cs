@@ -4,7 +4,6 @@ using GateAPI.Infra.Mappers.Configuracao;
 using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Tests.Repositories.Configuracao

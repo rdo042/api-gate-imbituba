@@ -1,6 +1,6 @@
 ﻿using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
-using GateAPI.Infra.Models;
+using GateAPI.Infra.Models.Configuracao;
 
 namespace GateAPI.Tests.Entities.Configuracao
 {
