@@ -5,9 +5,11 @@ namespace GateAPI.Infra.Mappers.Configuracao
 {
     public static class UsuarioMapper
     {
-        public static Usuario ToDomain(UsuarioModel model, Perfil perfil)
+        public static Usuario ToDomain(UsuarioModel model)
         {
-            //var perfil = Perfil.Load(model.Perfil.Id, model.Perfil.Nome, model.Status);
+            Perfil? perfil = null;
+            if (model.Perfil != null)
+                perfil = Perfil.Load(model.Perfil.Id, model.Perfil.Nome, model.Status);
 
             return Usuario.Load(
                 model.Id,
@@ -26,7 +28,7 @@ namespace GateAPI.Infra.Mappers.Configuracao
                 Nome = entity.Nome,
                 Email = entity.Email,
                 SenhaHash = entity.SenhaHash,
-                PerfilId = entity.Perfil.Id,
+                PerfilId = entity.Perfil?.Id,
                 Status = entity.Status
             };
         }

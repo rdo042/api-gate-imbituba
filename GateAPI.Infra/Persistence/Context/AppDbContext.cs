@@ -6,6 +6,7 @@ namespace GateAPI.Infra.Persistence.Context
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
+        public DbSet<UsuarioModel> Usuario { get; set; }
         public DbSet<TipoLacreModel> TipoLacre { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

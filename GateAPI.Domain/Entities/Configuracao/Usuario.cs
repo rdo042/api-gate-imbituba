@@ -8,10 +8,10 @@ namespace GateAPI.Domain.Entities.Configuracao
         public string Email { get; private set; } = string.Empty;
         public string SenhaHash { get; private set; } = string.Empty;
         public bool EmailConfirmado { get; private set; }
-        public Perfil Perfil { get; private set; } = new Perfil();
+        public Perfil? Perfil { get; private set; }
         public StatusEnum Status { get; private set; }
 
-        public Usuario(string nome, string email, string senhaHash, Perfil perfil)
+        public Usuario(string nome, string email, string senhaHash, Perfil? perfil)
         {
             Id = Guid.NewGuid();
             Nome = nome;
@@ -24,7 +24,7 @@ namespace GateAPI.Domain.Entities.Configuracao
 
         private Usuario() { }
 
-        public void UpdateEntity(string nome, string email, string senhaHash, Perfil perfil, StatusEnum status)
+        public void UpdateEntity(string nome, string email, string senhaHash, Perfil? perfil, StatusEnum status)
         {
             Nome = nome;
             Email = email;
@@ -35,7 +35,7 @@ namespace GateAPI.Domain.Entities.Configuracao
             Validation();
         }
 
-        public static Usuario Load(Guid id, string nome, string email, string senhaHash, Perfil perfil, StatusEnum status)
+        public static Usuario Load(Guid id, string nome, string email, string senhaHash, Perfil? perfil, StatusEnum status)
         {
             var entidade = new Usuario
             {
