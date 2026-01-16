@@ -1,7 +1,9 @@
-﻿namespace GateAPI.Application.Providers
+﻿using GateAPI.Domain.Entities.Configuracao;
+
+namespace GateAPI.Application.Providers
 {
     public interface ITokenProvider
     {
-        string GenerateToken();
+        string GenerateToken(Usuario user);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using GateAPI.Application.Providers;
+using GateAPI.Domain.Entities.Configuracao;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,14 +13,19 @@ namespace GateAPI.Infra.Providers
     {
         private readonly IConfiguration _config = config;
 
-        public string GenerateToken()
+        public string GenerateToken(Usuario user)
         {
             var claims = new List<Claim>
         {
-            //new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            //new(JwtRegisteredClaimNames.Email, user.Email),
-            //new(ClaimTypes.Role, user.Role) // Se tiver roles
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new(JwtRegisteredClaimNames.Email, user.Email),
+            new(ClaimTypes.Role, user.Perfil?.Nome??"Sem Perfil")
         };
+
+            //claims.AddRange(user.Perfil.Permissoes.Select(role => new Claim("permission", role)));
+
+            //foreach (var permissao in permissoes)
+            //    claims.Add(new Claim("permission", permissao));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:Secret"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
