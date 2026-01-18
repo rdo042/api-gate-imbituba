@@ -8,7 +8,7 @@ namespace GateAPI.Tests.Entities.Configuracao
     public class UsuarioTests()
     {
         private readonly StatusEnum _validStatusEnum = StatusEnum.ATIVO;
-        private readonly Perfil _perfil = new();
+        private readonly Perfil? _perfil = null;
         private readonly PasswordHasher _hasher = new();
 
         [Fact]

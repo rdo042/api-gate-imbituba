@@ -27,3 +27,4 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarPorId
             }
         }
     }
+}

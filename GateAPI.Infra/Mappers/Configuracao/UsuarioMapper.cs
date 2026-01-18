@@ -9,7 +9,7 @@ namespace GateAPI.Infra.Mappers.Configuracao
         {
             Perfil? perfil = null;
             if (model.Perfil != null)
-                perfil = Perfil.Load(model.Perfil.Id, model.Perfil.Nome, model.Status);
+                perfil = Perfil.Load(model.Perfil.Id, model.Perfil.Nome, model.Perfil.Descricao, model.Status);
 
             return Usuario.Load(
                 model.Id,
