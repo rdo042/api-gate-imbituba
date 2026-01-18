@@ -19,7 +19,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
         }
 
         [Fact]
-        public async Task HandleAsync_DeveRetornarSucesso_QuandoNavioForDeletado()
+        public async Task HandleAsync_DeveRetornarSucesso_QuandoTipoLacreForDeletado()
         {
             // Arrange
             var guid = Guid.NewGuid();

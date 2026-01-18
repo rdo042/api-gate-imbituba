@@ -18,7 +18,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
         }
 
         [Fact]
-        public async Task HandleAsync_DeveRetornarSucesso_QuandoNavioForEncontrado()
+        public async Task HandleAsync_DeveRetornarSucesso_QuandoTipoLacreForEncontrado()
         {
             // Arrange
             var existente = new TipoLacre("LAC001", "", StatusEnum.ATIVO);

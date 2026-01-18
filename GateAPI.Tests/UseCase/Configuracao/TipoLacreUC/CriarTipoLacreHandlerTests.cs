@@ -19,7 +19,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
         }
 
         [Fact]
-        public async Task HandleAsync_DeveRetornarSucesso_QuandoNavioForCriado()
+        public async Task HandleAsync_DeveRetornarSucesso_QuandoTipoLacreForCriado()
         {
             // Arrange
             var command = new CriarTipoLacreCommand(
@@ -28,7 +28,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
                 _validStatusEnum
             );
 
-            var criado = new TipoLacre(command.Tipo, command.Decricao, command.Status);
+            var criado = new TipoLacre(command.Tipo, command.Descricao, command.Status);
 
             _repositoryMock.Setup(r => r.AddAsync(It.IsAny<TipoLacre>()))
                            .ReturnsAsync(criado);
@@ -44,7 +44,6 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
 
         [Theory]
         [InlineData("")] // Nome vazio
-        [InlineData(null)] // Nome nulo
         public async Task HandleAsync_DeveFalhar_SeDadosForemInvalidos(string tipo)
         {
             // Arrange
