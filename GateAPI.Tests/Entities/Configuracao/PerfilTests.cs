@@ -16,7 +16,7 @@ namespace GateAPI.Tests.Entities.Configuracao
 
             // Act
             var entity = new Perfil(
-                nome, null
+                nome, null, []
             );
 
             // Assert
@@ -30,7 +30,7 @@ namespace GateAPI.Tests.Entities.Configuracao
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new Perfil(
-                nome,  null
+                nome, null, []
             ));
         }
 
@@ -41,13 +41,13 @@ namespace GateAPI.Tests.Entities.Configuracao
             var nome = "Perfil";
 
             var entity = new Perfil(
-                nome, null
+                nome, null, []
             );
 
             var descricao = "Perfil";
 
             // Act
-            entity.UpdateEntity(nome, descricao, _validStatusEnum);
+            entity.UpdateEntity(nome, descricao, _validStatusEnum, []);
 
             // Assert
             Assert.Equal(nome, entity.Nome);
@@ -70,7 +70,8 @@ namespace GateAPI.Tests.Entities.Configuracao
                 model.Id,
                 model.Nome,
                 null,
-                model.Status);
+                model.Status
+                []);
 
             // Assert
             Assert.Equal(model.Id, entidade.Id);

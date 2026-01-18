@@ -4,35 +4,39 @@ namespace GateAPI.Domain.Entities.Configuracao
 {
     public class Perfil : BaseEntity
     {
-        public string Nome { get; set; } = string.Empty;
-        public string? Descricao { get; set; }
-        public StatusEnum Status { get; set; }
+        public string Nome { get; private set; } = string.Empty;
+        public string? Descricao { get; private set; }
+        public StatusEnum Status { get; private set; }
+        public ICollection<Permissao> Permissoes { get; private set; } = [];
 
-        public Perfil(string nome, string? descricao) { 
+        public Perfil(string nome, string? descricao, ICollection<Permissao> permissoes) { 
             Nome = nome;
             Descricao = descricao;
+            Permissoes  = permissoes;
 
             Validation();
         }
 
         private Perfil() { }
 
-        public void UpdateEntity(string nome, string? descricao, StatusEnum statusEnum)
+        public void UpdateEntity(string nome, string? descricao, StatusEnum statusEnum, ICollection<Permissao> permissoes)
         {
             Nome = nome;
             Descricao = descricao;
             Status = statusEnum;
+            Permissoes = permissoes;
 
             Validation();
         }
 
-        public static Perfil Load(Guid id, string nome, string? descricao, StatusEnum status)
+        public static Perfil Load(Guid id, string nome, string? descricao, StatusEnum status, ICollection<Permissao> permissoes)
         {
             var entidade = new Perfil
             {
                 Nome = nome,
                 Descricao = descricao,
-                Status = status
+                Status = status,
+                Permissoes = permissoes
             };
 
             entidade.SetId(id);

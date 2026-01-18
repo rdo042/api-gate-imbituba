@@ -4,5 +4,6 @@
     {
         public Guid Id { get; set; }
         public required string Nome { get; set; }
+        public ICollection<PerfilModel> Perfis { get; set; } = [];
     }
 }
