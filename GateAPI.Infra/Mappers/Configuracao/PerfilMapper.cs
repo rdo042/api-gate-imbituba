@@ -15,9 +15,9 @@ namespace GateAPI.Infra.Mappers.Configuracao
         }
         public static PerfilModel ToModel(Perfil entity)
         {
-            ICollection<Permissao> permissoes = [];
-            if (model.Permissoes.Count != 0)
-                permissoes = (model.Permissoes.Select(item => Permissao.Load(item.Id, item.Nome)).ToList() ?? []);
+            ICollection<PermissaoModel> permissoes = [];
+            if (entity.Permissoes.Count != 0)
+                permissoes = [.. entity.Permissoes.Select(item => new PermissaoModel { Id = item.Id, Nome = item.Nome})];
 
             return new PerfilModel()
             {
@@ -25,7 +25,7 @@ namespace GateAPI.Infra.Mappers.Configuracao
                 Nome = entity.Nome,
                 Descricao = entity.Descricao,
                 Status = entity.Status,
-                Permissoes = entity.Permissoes
+                Permissoes = permissoes
             };
         }
     }
