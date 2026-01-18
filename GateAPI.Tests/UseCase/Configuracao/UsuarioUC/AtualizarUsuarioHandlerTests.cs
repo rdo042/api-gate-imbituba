@@ -1,5 +1,4 @@
-﻿using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Atualizar;
-using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar;
+﻿using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Domain.Services;

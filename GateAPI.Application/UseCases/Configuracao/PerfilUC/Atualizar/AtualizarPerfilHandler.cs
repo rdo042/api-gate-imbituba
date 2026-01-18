@@ -18,7 +18,7 @@ namespace GateAPI.Application.UseCases.Configuracao.PerfilUC.Atualizar
 
                 var permissoes = command.Permissoes.Select(item => Permissao.Load(item.Id, item.Nome)).ToList();
 
-                result.UpdateEntity(command.Nome, command.Descricao, result.Status, permissoes);
+                result.UpdateEntity(command.Nome, command.Descricao, command.StatusEnum, permissoes);
                 await _perfilRepository.UpdateAsync(result);
 
                 return Result<Perfil>.Success(result);
