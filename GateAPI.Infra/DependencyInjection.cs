@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace GateAPI.Infra
 {
@@ -24,6 +23,8 @@ namespace GateAPI.Infra
             });
 
             // Repositories
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IPerfilRepository, PerfilRepository>();
             services.AddScoped<ITipoLacreRepository, TipoLacreRepository>();
 
             //Providers
