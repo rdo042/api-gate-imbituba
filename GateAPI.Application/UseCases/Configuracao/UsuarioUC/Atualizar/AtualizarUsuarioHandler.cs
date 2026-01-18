@@ -8,9 +8,11 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar
 {
     public class AtualizarUsuarioHandler(
         IUsuarioRepository usuario,
+        IPerfilRepository perfilRepository,
         IPasswordHasher passwordHasher) : ICommandHandler<AtualizarUsuarioCommand, Result<Usuario>>
     {
         private readonly IUsuarioRepository _usuarioRepository = usuario;
+        private readonly IPerfilRepository _perfilRepository = perfilRepository;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
         public async Task<Result<Usuario>> HandleAsync(AtualizarUsuarioCommand command, CancellationToken cancellationToken = default)
@@ -22,9 +24,9 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar
 
                 var senhaHash = _passwordHasher.HashPassword(command.Senha);
 
-                //var perfil = _perfilRepository.GetById(command.PerfilId);
+                var perfil = await _perfilRepository.GetByIdAsync(command.PerfilId);
 
-                existente.UpdateEntity(command.Nome, command.Email, senhaHash, null, command.Status);
+                existente.UpdateEntity(command.Nome, command.Email, senhaHash, perfil, command.Status);
 
                 await _usuarioRepository.UpdateAsync(existente);
 

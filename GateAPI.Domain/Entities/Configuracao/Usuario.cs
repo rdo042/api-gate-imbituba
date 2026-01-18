@@ -64,7 +64,7 @@ namespace GateAPI.Domain.Entities.Configuracao
             if (this.Nome.Length > 50)
                 throw new ArgumentException("O tamanho do email do usuario não é suportado");
             if (string.IsNullOrWhiteSpace(this.SenhaHash))
-                throw new ArgumentException("A SenhaHash do usuario é obrigatória.");
+                throw new ArgumentException("A Senha do usuario é obrigatória.");
         }
     }
 }
