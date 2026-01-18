@@ -70,7 +70,7 @@ namespace GateAPI.Tests.Entities.Configuracao
                 model.Id,
                 model.Nome,
                 null,
-                model.Status
+                model.Status,
                 []);
 
             // Assert

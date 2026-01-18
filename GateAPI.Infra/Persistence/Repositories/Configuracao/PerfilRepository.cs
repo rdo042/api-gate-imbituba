@@ -49,6 +49,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
         public async Task UpdateAsync(Perfil entidade)
         {
+            context.ChangeTracker.Clear();
             var modelNoBanco = await _context.Perfil
             .Include(p => p.Permissoes)
             .FirstOrDefaultAsync(x => x.Id == entidade.Id);
