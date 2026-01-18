@@ -13,7 +13,7 @@ namespace GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Criar
         {
             try
             {
-                var obj = new TipoLacre(command.Tipo, command.Decricao, command.Status);
+                var obj = new TipoLacre(command.Tipo, command.Descricao, command.Status);
                 var result = await _tipoLacreRepository.AddAsync(obj);
 
                 return Result<TipoLacre>.Success(result);

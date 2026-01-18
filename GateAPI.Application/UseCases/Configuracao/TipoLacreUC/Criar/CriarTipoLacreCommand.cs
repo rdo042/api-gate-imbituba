@@ -4,6 +4,6 @@ namespace GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Criar
 {
     public record CriarTipoLacreCommand(
         string Tipo,
-        string? Decricao,
+        string? Descricao,
         StatusEnum Status);
 }
