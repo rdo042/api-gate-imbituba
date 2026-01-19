@@ -20,7 +20,8 @@ namespace GateAPI.Infra
             // DbContext
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseInMemoryDatabase("AppDb");
+                //options.UseInMemoryDatabase("AppDb");
+                options.UseSqlServer(connectionString);
                 options.EnableSensitiveDataLogging();
             });
 
@@ -38,7 +39,7 @@ namespace GateAPI.Infra
             return services;
         }
 
-        public static IServiceCollection AddInfrastructure(
+        public static IServiceCollection AddAuth(
             this IServiceCollection services, byte[] secretKey)
         {
             services.AddAuthentication(options =>
