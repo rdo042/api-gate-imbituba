@@ -1,11 +1,16 @@
 ﻿using GateAPI.Infra.Models;
 using GateAPI.Infra.Models.Configuracao;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Infra.Persistence.Context
 {
-    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+    public class AppDbContext(
+        DbContextOptions<AppDbContext> options, 
+        IHttpContextAccessor httpContextAccessor) : DbContext(options)
     {
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+
         public DbSet<UsuarioModel> Usuario { get; set; }
         public DbSet<PerfilModel> Perfil { get; set; }
         public DbSet<PermissaoModel> Permissao { get; set; }
@@ -26,13 +31,13 @@ namespace GateAPI.Infra.Persistence.Context
         {
             var entries = ChangeTracker.Entries<BaseModel>();
 
-            //var httpContext = _httpContextAccessor.HttpContext;
+            var httpContext = _httpContextAccessor.HttpContext;
             var userId = "System";
 
-            //if (httpContext != null && httpContext.Items.TryGetValue("UserId", out var userObj))
-            //{
-            //    userId = userObj?.ToString() ?? "System";
-            //}
+            if (httpContext != null && httpContext.Items.TryGetValue("UserId", out var userObj))
+            {
+                userId = userObj?.ToString() ?? "System";
+            }
 
             foreach (var entry in entries)
             {

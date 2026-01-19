@@ -4,6 +4,7 @@ using GateAPI.Infra.Mappers.Configuracao;
 using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Tests.Repositories.Configuracao
@@ -16,7 +17,8 @@ namespace GateAPI.Tests.Repositories.Configuracao
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
-            return new AppDbContext(options);
+            var accessor = new HttpContextAccessor();
+            return new AppDbContext(options, accessor);
         }
 
         private static readonly PerfilModel _testSeed = new()
