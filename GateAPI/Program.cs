@@ -1,18 +1,21 @@
 using GateAPI.Application;
 using GateAPI.Extensions;
 using GateAPI.Infra;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-//var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 builder.Services
+    .AddHttpContextAccessor()
     .ConfigureSwagger()
     .AddApplication()
-    .AddInfrastructure(builder.Configuration.GetConnectionString("Default"));
+    .AddInfrastructure(builder.Configuration.GetConnectionString("Default"))
+    .AddAuth(secretKey);
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

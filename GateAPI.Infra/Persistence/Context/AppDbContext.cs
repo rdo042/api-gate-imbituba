@@ -5,16 +5,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Infra.Persistence.Context
 {
-    public class AppDbContext(
-        DbContextOptions<AppDbContext> options, 
-        IHttpContextAccessor httpContextAccessor) : DbContext(options)
+    public class AppDbContext : DbContext
     {
-        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AppDbContext(
+            DbContextOptions<AppDbContext> options,
+            IHttpContextAccessor httpContextAccessor) : base(options)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
 
         public DbSet<UsuarioModel> Usuario { get; set; }
         public DbSet<PerfilModel> Perfil { get; set; }
         public DbSet<PermissaoModel> Permissao { get; set; }
-        public DbSet<TipoLacreModel> TipoLacre { get; set; }
+        //public DbSet<TipoLacreModel> TipoLacre { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
