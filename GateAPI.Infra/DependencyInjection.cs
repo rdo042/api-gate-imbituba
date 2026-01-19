@@ -1,8 +1,10 @@
 ﻿using GateAPI.Application.Providers;
 using GateAPI.Domain.Repositories.Configuracao;
+using GateAPI.Domain.Services;
 using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
 using GateAPI.Infra.Providers;
+using GateAPI.Infra.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +31,9 @@ namespace GateAPI.Infra
 
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
+
+            //Services
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             return services;
         }

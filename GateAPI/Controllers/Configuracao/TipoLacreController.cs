@@ -22,7 +22,7 @@ namespace GateAPI.Controllers.Configuracao
         private readonly DeletarTipoLacreHandler _deletarTipoLacreHandler = deletarTipoLacreHandler;
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Criar([FromRoute] Guid id)
+        public async Task<IActionResult> Buscar([FromRoute] Guid id)
         {
             var query = new BuscarPorIdTipoLacreQuery(id);
 
@@ -47,12 +47,14 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? NoContentResponse("Sucesso ao atualizar lacre") : BadRequestResponse(result.Error ?? "Erro ao atualizar lacre");
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Remover([FromBody] DeletarTipoLacreCommand command)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Deletar([FromRoute] Guid Id)
         {
-            var result = await _deletarTipoLacreHandler.HandleAsync(command);
+            var query = new DeletarTipoLacreCommand(Id);
 
-            return result.IsSuccess ? NoContentResponse("Scesso ao remover lacre") : BadRequestResponse(result.Error ?? "Erro ao remover lacre");
+            var result = await _deletarTipoLacreHandler.HandleAsync(query);
+
+            return result.IsSuccess ? NoContentResponse("Scesso ao deletar lacre") : BadRequestResponse(result.Error ?? "Erro ao deletar lacre");
         }
     }
 }

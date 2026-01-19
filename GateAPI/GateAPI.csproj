@@ -20,8 +20,4 @@
     <ProjectReference Include="..\GateAPI.Infra\GateAPI.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Requests\" />
-  </ItemGroup>
-
 </Project>
