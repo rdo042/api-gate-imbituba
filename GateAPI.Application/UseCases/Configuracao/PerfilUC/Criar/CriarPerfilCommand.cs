@@ -1,6 +1,8 @@
-﻿namespace GateAPI.Application.UseCases.Configuracao.PerfilUC.Criar
+﻿using GateAPI.Application.Common.DTOs;
+
+namespace GateAPI.Application.UseCases.Configuracao.PerfilUC.Criar
 {
-    public record PermissaoItem(Guid Id, string Nome);
+    
     public record CriarPerfilCommand(
         string Nome,
         string? Descricao,

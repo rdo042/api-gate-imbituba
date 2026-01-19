@@ -1,8 +1,8 @@
-﻿using GateAPI.Domain.Enums;
+﻿using GateAPI.Application.Common.DTOs;
+using GateAPI.Domain.Enums;
 
 namespace GateAPI.Application.UseCases.Configuracao.PerfilUC.Atualizar
 {
-    public record PermissaoItem(Guid Id, string Nome);
     public record AtualizarPerfilCommand(
         Guid Id,
         string Nome,
