@@ -20,6 +20,8 @@ namespace GateAPI.Infra.Mappers.Configuracao
                 model.Nome,
                 model.Email,
                 model.SenhaHash,
+                model.EmailConfirmado,
+                model.LinkFoto,
                 perfil,
                 model.Status
             );

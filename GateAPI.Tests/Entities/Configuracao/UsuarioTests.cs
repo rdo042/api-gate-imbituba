@@ -22,7 +22,7 @@ namespace GateAPI.Tests.Entities.Configuracao
 
             // Act
             var entity = new Usuario(
-                nome, email, senhaHash, _perfil
+                nome, email, senhaHash, "link", _perfil
             );
 
             // Assert
@@ -31,6 +31,7 @@ namespace GateAPI.Tests.Entities.Configuracao
             Assert.NotEqual(senha, entity.SenhaHash);
             Assert.Equal(senhaHash, entity.SenhaHash);
             Assert.Equal(_validStatusEnum, entity.Status);
+            Assert.Equal("link", entity.LinkFoto);
         }
 
         [Theory]
@@ -40,7 +41,7 @@ namespace GateAPI.Tests.Entities.Configuracao
             // Act & Assert
             var senhaHash = _hasher.HashPassword("#Senha123");
             Assert.Throws<ArgumentException>(() => new Usuario(
-                nome, "email", senhaHash, null
+                nome, "email", senhaHash, null, null
             ));
         }
 
@@ -52,15 +53,16 @@ namespace GateAPI.Tests.Entities.Configuracao
             var email = "johndoe@email.com";
             var senha = "#Senha123";
             var senhaHash = _hasher.HashPassword(senha);
+            var linkFoto = "link";
 
             var entity = new Usuario(
-                nome, email, senhaHash, _perfil
+                nome, email, senhaHash, linkFoto, _perfil
             );
 
             var newNome = "Jane Doe";
 
             // Act
-            entity.UpdateEntity(newNome, email, senhaHash, _perfil, _validStatusEnum);
+            entity.UpdateEntity(newNome, email, senhaHash, linkFoto, _perfil, _validStatusEnum);
 
             // Assert
             Assert.Equal(newNome, entity.Nome);
@@ -86,6 +88,8 @@ namespace GateAPI.Tests.Entities.Configuracao
                 model.Nome,
                 model.Email,
                 model.SenhaHash,
+                false,
+                null,
                 null,
                 model.Status);
 

@@ -19,11 +19,16 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<UsuarioModel> Usuario { get; set; }
         public DbSet<PerfilModel> Perfil { get; set; }
         public DbSet<PermissaoModel> Permissao { get; set; }
-        //public DbSet<TipoLacreModel> TipoLacre { get; set; }
+        // public DbSet<TipoLacreModel> TipoLacre { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<UsuarioModel>(entity =>
+            {
+                entity.HasIndex(x => x.Email).IsUnique();
+            });
 
             builder.Entity<TipoLacreModel>(entity =>
             {
