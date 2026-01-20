@@ -33,9 +33,19 @@ namespace GateAPI.Tests.Repositories.Configuracao
             Status = StatusEnum.ATIVO
         };
 
+        private static readonly UsuarioModel _testSeed2 = new()
+        {
+            Id = Guid.NewGuid(),
+            Nome = "Jane Doe",
+            Email = "janedoe@email.com",
+            SenhaHash = _hasher.HashPassword("#Senha123"),
+            Status = StatusEnum.ATIVO
+        };
+
         private static void SeedContext(AppDbContext context)
         {
             context.Usuario.Add(_testSeed);
+            context.Usuario.Add(_testSeed2);
             context.SaveChanges();
         }
 
@@ -90,6 +100,43 @@ namespace GateAPI.Tests.Repositories.Configuracao
         }
 
         [Fact]
+        public async Task GetAllAsync_DeveRetornar()
+        {
+            // Arrange
+            using var context = CriarContextoInMemory();
+            var repository = new UsuarioRepository(context);
+
+            SeedContext(context);
+
+            // Act
+            var resultado = await repository.GetAllAsync();
+
+            // Assert
+            Assert.Equal(2, resultado.Count());
+        }
+
+        [Fact]
+        public async Task GetAllPaginatedAsync_DeveRetornar()
+        {
+            // Arrange
+            using var context = CriarContextoInMemory();
+            var repository = new UsuarioRepository(context);
+
+            SeedContext(context);
+
+            int page = 1;
+            int pageSize = 1;
+            string sortDirection = "asc";
+
+            // Act
+            var resultado = await repository.GetAllPaginatedAsync(page, pageSize, null, sortDirection, null);
+
+            // Assert
+            Assert.Equal(2, resultado.Item2);
+            Assert.Single(resultado.Item1);
+        }
+
+        [Fact]
         public async Task AddAsync_DeveAdicionar()
         {
             // Arrange
@@ -100,6 +147,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
                 "Jane Doe",
                 "jane@doe.com",
                 _hasher.HashPassword("#Senha123"),
+                null,
                 null
                 );
 

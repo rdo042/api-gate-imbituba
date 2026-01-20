@@ -28,9 +28,13 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
             return model == null ? null : UsuarioMapper.ToDomain(model);
         }
 
-        public Task<IEnumerable<Usuario>> GetAllAsync()
+        public async Task<IEnumerable<Usuario>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var query = await _context.Usuario
+                .AsNoTracking()
+                .ToListAsync();
+
+            return query.Select(UsuarioMapper.ToDomain);
         }
 
         public async Task<Usuario> AddAsync(Usuario entidade)
@@ -55,6 +59,39 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
         public Task DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<(IEnumerable<Usuario>, int)> GetAllPaginatedAsync(int page, int pageSize, string? sortColumn, string sortDirection, string? nome)
+        {
+            var query = _context.Usuario.AsNoTracking();
+
+            if (nome is not null)
+            {
+                var nomeNormalizado = nome.ToLower();
+                query = query.Where(x =>
+                    EF.Functions.Like(x.Nome, $"%{nomeNormalizado}%")
+                );
+            }
+
+            if (!string.IsNullOrEmpty(sortColumn))
+            {
+                query = sortDirection == "asc"
+                    ? query.OrderBy(p => EF.Property<object>(p, sortColumn))
+                    : query.OrderByDescending(p => EF.Property<object>(p, sortColumn));
+            }
+            else
+            {
+                query = query.OrderBy(p => p.CreatedAt);
+            }
+
+            int totalCount = await query.CountAsync();
+
+            var entidades = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (entidades.Select(UsuarioMapper.ToDomain), totalCount);
         }
     }
 }
