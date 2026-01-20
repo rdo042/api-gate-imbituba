@@ -26,7 +26,7 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar
 
                 var perfil = await _perfilRepository.GetByIdAsync(command.PerfilId);
 
-                existente.UpdateEntity(command.Nome, command.Email, senhaHash, perfil, command.Status);
+                existente.UpdateEntity(command.Nome, command.Email, senhaHash, command.LinkFoto, perfil, command.Status);
 
                 await _usuarioRepository.UpdateAsync(existente);
 

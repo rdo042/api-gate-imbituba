@@ -28,10 +28,11 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
                 "Teste",
                 "teste@email.com", 
                 "hash_valido",
+                null,
                 Guid.Empty
             );
 
-            var criado = new Usuario(command.Nome, command.Email, command.Senha, null);
+            var criado = new Usuario(command.Nome, command.Email, command.Senha, null, null);
 
             _repoMock.Setup(r => r.AddAsync(It.IsAny<Usuario>()))
                            .ReturnsAsync(criado);

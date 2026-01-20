@@ -26,7 +26,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
         {
             // Arrange
             var command = new LoginUsuarioQuery("teste@email.com", "senha123");
-            var usuario = new Usuario("Teste", "teste@email.com", "hash_valido", null );
+            var usuario = new Usuario("Teste", "teste@email.com", "hash_valido", null, null);
             var tokenEsperado = "jwt_token_gerado";
 
             _repoMock.Setup(x => x.GetByEmailAsync(command.Email))
@@ -51,7 +51,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
         {
             // Arrange
             var command = new LoginUsuarioQuery("teste@email.com", "senha_errada");
-            var usuario = new Usuario("Teste", "teste@email.com", "hash_valido", null);
+            var usuario = new Usuario("Teste", "teste@email.com", "hash_valido", null, null);
 
             _repoMock.Setup(x => x.GetByEmailAsync(command.Email))
                      .ReturnsAsync(usuario);

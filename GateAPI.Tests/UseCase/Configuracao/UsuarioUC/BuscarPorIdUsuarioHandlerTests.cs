@@ -28,7 +28,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
             var senhaHash = _hasher.HashPassword(senha);
 
             var existente = new Usuario(
-                nome, email, senhaHash, null
+                nome, email, senhaHash, null ,null
             );
 
             var command = new BuscarPorIdUsuarioQuery(existente.Id);

@@ -23,7 +23,7 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Criar
 
                 var perfil = await _perfilRepository.GetByIdAsync(command.PerfilId);
 
-                var obj = new Usuario(command.Nome, command.Email, senhaHash, perfil);
+                var obj = new Usuario(command.Nome, command.Email, senhaHash, command.LinkFoto, perfil);
                 var result = await _usuarioRepository.AddAsync(obj);
 
                 return Result<Usuario>.Success(result);

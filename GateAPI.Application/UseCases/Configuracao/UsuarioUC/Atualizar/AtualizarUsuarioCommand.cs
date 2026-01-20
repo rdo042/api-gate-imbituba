@@ -2,5 +2,5 @@
 
 namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar
 {
-    public record AtualizarUsuarioCommand(Guid Id, string Nome, string Email, string Senha, Guid PerfilId, StatusEnum Status);
+    public record AtualizarUsuarioCommand(Guid Id, string Nome, string Email, string Senha, string? LinkFoto, Guid PerfilId, StatusEnum Status);
 }

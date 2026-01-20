@@ -24,13 +24,14 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
         public async Task HandleAsync_DeveRetornarSucesso_QuandoTipoLacreForAtualizado()
         {
             // Arrange
-            var existente = new Usuario("John", "john@email.com", "hash_valido", null);
+            var existente = new Usuario("John", "john@email.com", "hash_valido", null, null);
 
             var command = new AtualizarUsuarioCommand(
                 existente.Id,
                 "Jane",
                 "jane@email.com",
                 "hash_valido",
+                null,
                 Guid.Empty,
                 Domain.Enums.StatusEnum.ATIVO
             );
