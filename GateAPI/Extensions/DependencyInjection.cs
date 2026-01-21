@@ -1,6 +1,9 @@
 ﻿using GateAPI.Authorization.Permissions;
+using GateAPI.Requests;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace GateAPI.Extensions
 {
@@ -41,17 +44,24 @@ namespace GateAPI.Extensions
             return services;
         }
 
-        //public static IServiceCollection ConfigureMvcServices(this IServiceCollection services)
-        //{
-        //    services.AddControllers(options =>
-        //    {
-        //        options.Filters.Add<ValidateModelAttribute>();
-        //    });
+        public static IServiceCollection ConfigureMvcServices(this IServiceCollection services)
+        {
+            services
+                .AddControllers(options =>
+            {
+                options.Filters.Add<ValidateModelAttribute>();
+            })
+                .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(
+                    new JsonStringEnumConverter()
+                );
+            });
 
-        //    services.AddFluentValidationAutoValidation();
+            //services.AddFluentValidationAutoValidation();
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {

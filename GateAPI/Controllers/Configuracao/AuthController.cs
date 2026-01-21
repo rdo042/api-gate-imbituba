@@ -1,6 +1,6 @@
 ﻿using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Login;
-using GateAPI.Requests.Configuracao;
+using GateAPI.Requests.Configuracao.UsuarioRequest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao

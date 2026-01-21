@@ -13,7 +13,9 @@ var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 builder.Services
     .AddHttpContextAccessor()
+    .ConfigureMvcServices()
     .ConfigureSwagger()
+    .ConfigureAuthorizationPolicies()
     .AddApplication()
     .AddInfrastructure(builder.Configuration.GetConnectionString("Default"))
     .AddAuth(secretKey);
