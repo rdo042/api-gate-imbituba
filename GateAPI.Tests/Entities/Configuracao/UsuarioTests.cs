@@ -99,5 +99,20 @@ namespace GateAPI.Tests.Entities.Configuracao
             Assert.Equal(model.Email, entidade.Email);
             Assert.Equal(model.Status, entidade.Status);
         }
+
+        [Fact]
+        public void UpdateStatus_WithValidNewStatus_ShouldChangeStatus()
+        {
+            // Arrange
+            var entidade = new Usuario(
+                "John Doe", "johndoe@email.com", "senha_hash", null, null
+            );
+
+            // Act
+            entidade.UpdateStatus(StatusEnum.INATIVO);
+
+            // Assert
+            Assert.Equal(StatusEnum.INATIVO, entidade.Status);
+        }
     }
 }

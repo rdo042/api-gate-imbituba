@@ -40,6 +40,11 @@ namespace GateAPI.Domain.Entities.Configuracao
             Validation();
         }
 
+        public void UpdateStatus(StatusEnum status)
+        {
+            Status = status;
+        }
+
         public static Usuario Load(
             Guid id, string nome, string email, string senhaHash, bool emailConfirmado, string? linkFoto, Perfil? perfil, StatusEnum status
             )
