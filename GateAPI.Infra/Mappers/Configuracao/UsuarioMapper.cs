@@ -3,7 +3,7 @@ using GateAPI.Infra.Models.Configuracao;
 
 namespace GateAPI.Infra.Mappers.Configuracao
 {
-    public static class UsuarioMapper
+    public class UsuarioMapper //: IMapper<Usuario, UsuarioModel>
     {
         public static Usuario ToDomain(UsuarioModel model)
         {
