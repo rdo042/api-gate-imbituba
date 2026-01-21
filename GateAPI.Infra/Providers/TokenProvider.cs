@@ -19,7 +19,7 @@ namespace GateAPI.Infra.Providers
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Email, user.Email),
-            new(ClaimTypes.Role, user.Perfil?.Nome??"Sem Perfil")
+            new(JwtRegisteredClaimNames.Profile, user.Perfil?.Nome??"Sem Perfil")
         };
 
             //claims.AddRange(user.Perfil.Permissoes.Select(role => new Claim("permission", role)));
@@ -27,12 +27,12 @@ namespace GateAPI.Infra.Providers
             //foreach (var permissao in permissoes)
             //    claims.Add(new Claim("permission", permissao));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:Secret"]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _config["JwtSettings:Issuer"],
-                audience: _config["JwtSettings:Audience"],
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["JwtSettings:ExpirationInMinutes"])),
                 signingCredentials: creds

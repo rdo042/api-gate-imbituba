@@ -1,6 +1,7 @@
 using GateAPI.Application;
 using GateAPI.Extensions;
 using GateAPI.Infra;
+using GateAPI.Middlewares;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -42,7 +43,11 @@ if (app.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<AuthorizationResponseMiddleware>();
 
 app.MapControllers();
 

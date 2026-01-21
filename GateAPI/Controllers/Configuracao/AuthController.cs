@@ -16,9 +16,7 @@ namespace GateAPI.Controllers.Configuracao
         private readonly LoginUsuarioHandler _loginUsuarioHandler = loginUsuarioHandler;
         private readonly CriarUsuarioHandler _criarUsuarioHandler = criarUsuarioHandler;
 
-        [HttpGet("/login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost("/login")]
         public async Task<IActionResult> Login([FromBody] LoginUsuarioRequest data)
         {
             var query = new LoginUsuarioQuery(data.Email, data.Password);

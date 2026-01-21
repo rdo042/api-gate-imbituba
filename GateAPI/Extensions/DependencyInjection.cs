@@ -1,4 +1,5 @@
-﻿
+﻿using GateAPI.Authorization.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 
 namespace GateAPI.Extensions
@@ -22,6 +23,35 @@ namespace GateAPI.Extensions
 
             return services;
         }
+
+        public static IServiceCollection ConfigureAuthorizationPolicies(this IServiceCollection services)
+        {
+            var authBuilder = services.AddAuthorizationBuilder();
+
+            foreach (var permissao in PermissionConstants.GetAll)
+            {
+                authBuilder.AddPolicy(permissao, policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.Requirements.Add(new HasPermissionRequirement(permissao));
+                });
+            }
+
+            services.AddSingleton<IAuthorizationHandler, HasPermissionHandler>();
+            return services;
+        }
+
+        //public static IServiceCollection ConfigureMvcServices(this IServiceCollection services)
+        //{
+        //    services.AddControllers(options =>
+        //    {
+        //        options.Filters.Add<ValidateModelAttribute>();
+        //    });
+
+        //    services.AddFluentValidationAutoValidation();
+
+        //    return services;
+        //}
 
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
