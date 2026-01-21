@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 {
-    public class UsuarioRepository(AppDbContext context) : IUsuarioRepository
+    public class UsuarioRepository(
+        AppDbContext context
+        ) : IUsuarioRepository
     {
         private readonly AppDbContext _context = context ?? throw new ArgumentNullException(nameof(context));
 

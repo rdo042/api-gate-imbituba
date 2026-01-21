@@ -19,7 +19,7 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<UsuarioModel> Usuario { get; set; }
         public DbSet<PerfilModel> Perfil { get; set; }
         public DbSet<PermissaoModel> Permissao { get; set; }
-        // public DbSet<TipoLacreModel> TipoLacre { get; set; }
+        public DbSet<TipoLacreModel> TipoLacre { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -62,6 +62,10 @@ namespace GateAPI.Infra.Persistence.Context
                     case EntityState.Modified:
                         entry.Entity.UpdatedAt = now;
                         entry.Entity.UpdatedBy = userId;
+                        break;
+                    case EntityState.Deleted:
+                        entry.Entity.DeletedAt = now;
+                        entry.Entity.DeletedBy = userId;
                         break;
                 }
             }

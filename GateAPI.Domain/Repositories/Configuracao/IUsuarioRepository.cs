@@ -2,7 +2,7 @@
 
 namespace GateAPI.Domain.Repositories.Configuracao
 {
-    public interface IUsuarioRepository
+    public interface IUsuarioRepository //: IBaseRepository<Usuario>
     {
         Task<Usuario?> GetByIdAsync(Guid id);
         Task<IEnumerable<Usuario>> GetAllAsync();
