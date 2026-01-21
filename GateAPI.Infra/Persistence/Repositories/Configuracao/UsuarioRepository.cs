@@ -60,8 +60,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
         public async Task DeleteAsync(Guid id)
         {
-            var model = await _context.Usuario.FindAsync(id);
-            if (model is null) return;
+            var model = await _context.Usuario.FindAsync(id) ?? throw new KeyNotFoundException($"Usuário com Id {id} não encontrado.");
 
             _context.Usuario.Remove(model);
             await _context.SaveChangesAsync();
