@@ -64,6 +64,7 @@ namespace GateAPI.Infra.Persistence.Context
                         entry.Entity.UpdatedBy = userId;
                         break;
                     case EntityState.Deleted:
+                        entry.State = EntityState.Modified;
                         entry.Entity.DeletedAt = now;
                         entry.Entity.DeletedBy = userId;
                         break;

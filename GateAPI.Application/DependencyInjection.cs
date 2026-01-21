@@ -8,9 +8,11 @@ namespace GateAPI.Application
         {
             // UseCases
             services.AddScoped<UseCases.Configuracao.UsuarioUC.BuscarPorId.BuscarPorIdUsuarioHandler>();
+            services.AddScoped<UseCases.Configuracao.UsuarioUC.BuscarTodosPorParametro.BuscarTodosPorParametroUsuarioHandler>();
             services.AddScoped<UseCases.Configuracao.UsuarioUC.Criar.CriarUsuarioHandler>();
             services.AddScoped<UseCases.Configuracao.UsuarioUC.Atualizar.AtualizarUsuarioHandler>();
             services.AddScoped<UseCases.Configuracao.UsuarioUC.Login.LoginUsuarioHandler>();
+            services.AddScoped<UseCases.Configuracao.UsuarioUC.AlterarStatus.AlterarStatusUsuarioHandler>();
 
             services.AddScoped<UseCases.Configuracao.PerfilUC.BuscarPorId.BuscarPorIdPerfilHandler>();
             services.AddScoped<UseCases.Configuracao.PerfilUC.BuscarTodos.BuscarTodosPerfilHandler>();

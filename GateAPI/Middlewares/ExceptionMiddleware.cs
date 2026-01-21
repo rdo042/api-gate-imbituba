@@ -21,11 +21,11 @@ namespace GateAPI.Middlewares
 
         private static async Task WriteError(HttpContext context)
         {
-            //context.Response.Clear();
+            context.Response.Clear();
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = "application/json";
 
-            var result = Result<object>.Failure("Erro interno no servidor" + context.Response);
+            var result = Result<object>.Failure("Erro interno no servidor");
 
             await context.Response.WriteAsync(
                 JsonSerializer.Serialize(result));

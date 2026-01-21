@@ -192,21 +192,23 @@ namespace GateAPI.Tests.Repositories.Configuracao
             Assert.Equal(_testSeed.Id, updatedModel.Id);
         }
 
-        //[Fact]
-        //public async Task DeleteAsync_DeveRemoverUsuario_QuandoEncontrado()
-        //{
-        //    // Arrange
-        //    using var context = CriarContextoInMemory();
-        //    SeedContext(context);
-        //    var repository = new UsuarioRepository(context);
-        //    var idToDelete = _testSeed.Id;
+        [Fact]
+        public async Task DeleteAsync_DeveRemoverSuaveUsuario_QuandoEncontrado()
+        {
+            // Arrange
+            using var context = CriarContextoInMemory();
+            SeedContext(context);
+            var repository = new UsuarioRepository(context);
+            var idToDelete = _testSeed.Id;
 
-        //    // Act
-        //    await repository.DeleteAsync(idToDelete);
+            // Act
+            await repository.DeleteAsync(idToDelete);
 
-        //    // Assert
-        //    var deletedModel = await context.TipoLacre.FindAsync(idToDelete);
-        //    Assert.Null(deletedModel);
-        //}
+            // Assert
+            context.ChangeTracker.Clear();
+            var deletedModel = await context.Usuario.FindAsync(idToDelete);
+            Assert.NotNull(deletedModel);
+            Assert.NotNull(deletedModel.DeletedAt);
+        }
     }
 }
