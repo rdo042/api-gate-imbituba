@@ -2,47 +2,46 @@
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.BuscarPorId;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
+using GateAPI.Requests.Configuracao.TipoLacreRequest;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao
 {
-    [Route("api/[controller]")]
+    [Route("api/tipo-lacre")]
     [ApiController]
     public class TipoLacreController(
         ILogger<TipoLacreController> logger,
-        BuscarPorIdTipoLacreHandler buscarPorIdTipoLacreHandler,
-        CriarTipoLacreHandler criarTipoLacreHandler,
-        AtualizarTipoLacreHandler atualizarTipoLacreHandler,
-        DeletarTipoLacreHandler deletarTipoLacreHandler
+        IMediator mediator
         ) : BaseController(logger)
     {
-        private readonly BuscarPorIdTipoLacreHandler _buscarPorIdTipoLacreHandler = buscarPorIdTipoLacreHandler;
-        private readonly CriarTipoLacreHandler _criarTipoLacreHandler = criarTipoLacreHandler;
-        private readonly AtualizarTipoLacreHandler _atualizarTipoLacreHandler = atualizarTipoLacreHandler;
-        private readonly DeletarTipoLacreHandler _deletarTipoLacreHandler = deletarTipoLacreHandler;
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Buscar([FromRoute] Guid id)
         {
             var query = new BuscarPorIdTipoLacreQuery(id);
 
-            var result = await _buscarPorIdTipoLacreHandler.HandleAsync(query);
+            var result = await mediator.Send(query);
 
             return result.IsSuccess ? CreatedResponse(nameof(Criar), result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar lacre");
         }
 
         [HttpPost] 
-        public async Task<IActionResult> Criar([FromBody] CriarTipoLacreCommand command)
+        public async Task<IActionResult> Criar([FromBody] CriarTipoLacreRequest data)
         {
-            var result = await _criarTipoLacreHandler.HandleAsync(command);
+            var command = new CriarTipoLacreCommand(data.Nome, data.Descricao, data.Status);
 
-            return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao criar lacre");
+            var result = await mediator.Send(command);
+
+            return OkResponse(result.Data);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarTipoLacreCommand command)
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarTipoLacreRequest data)
         {
-            var result = await _atualizarTipoLacreHandler.HandleAsync(command);
+            var command = new AtualizarTipoLacreCommand(data.Id, data.Nome, data.Descricao, data.Status);
+
+            var result = await mediator.Send(command);
 
             return result.IsSuccess ? NoContentResponse("Sucesso ao atualizar lacre") : BadRequestResponse(result.Error ?? "Erro ao atualizar lacre");
         }
@@ -52,7 +51,7 @@ namespace GateAPI.Controllers.Configuracao
         {
             var query = new DeletarTipoLacreCommand(Id);
 
-            var result = await _deletarTipoLacreHandler.HandleAsync(query);
+            var result = await mediator.Send(query);
 
             return result.IsSuccess ? NoContentResponse("Scesso ao deletar lacre") : BadRequestResponse(result.Error ?? "Erro ao deletar lacre");
         }

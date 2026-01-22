@@ -1,4 +1,6 @@
-﻿using GateAPI.Domain.Enums;
+﻿using GateAPI.Application.Common.Models;
+using GateAPI.Domain.Enums;
+using MediatR;
 
 namespace GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Atualizar
 {
@@ -6,5 +8,5 @@ namespace GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Atualizar
         Guid Id,
         string Tipo,
         string? Decricao,
-        StatusEnum Status);
+        StatusEnum Status) : IRequest<Result<object?>>;
 }
