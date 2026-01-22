@@ -13,18 +13,12 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarPorId
 
         public async Task<Result<Usuario>> HandleAsync(BuscarPorIdUsuarioQuery command, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var result = await _usuarioRepository.GetByIdAsync(command.Id)
-                    ?? throw new Exception("Usuário não encontrado pelo id +" + command.Id);
+            var result = await _usuarioRepository.GetByIdAsync(command.Id);
 
-                return Result<Usuario>.Success(result);
+            if(result == null)
+                return Result<Usuario>.Failure("Usuário não encontrado pelo id " + command.Id);
 
-            }
-            catch (Exception ex)
-            {
-                return Result<Usuario>.Failure("Erro ao realizar login - " + ex.Message);
-            }
+            return Result<Usuario>.Success(result);
         }
     }
 }
