@@ -14,6 +14,7 @@ var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 builder.Services
     .AddHttpContextAccessor()
+    .ConfigureCors(builder.Configuration)
     .ConfigureMvcServices()
     .ConfigureSwagger()
     .ConfigureAuthorizationPolicies()
