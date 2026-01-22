@@ -29,7 +29,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
                            .ReturnsAsync(existente);
 
             // Act: Executamos o Handler
-            var result = await _handler.HandleAsync(command);
+            var result = await _handler.Handle(command);
 
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Data);
@@ -44,7 +44,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
             var command = new BuscarPorIdTipoLacreQuery(Guid.Empty);
 
             // Act
-            var result = await _handler.HandleAsync(command);
+            var result = await _handler.Handle(command);
 
             // Assert
             Assert.False(result.IsSuccess);

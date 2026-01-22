@@ -1,7 +1,4 @@
-﻿using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Criar;
-using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
-using GateAPI.Domain.Entities.Configuracao;
-using GateAPI.Domain.Enums;
+﻿using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
 using GateAPI.Domain.Repositories.Configuracao;
 using Moq;
 
@@ -29,7 +26,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
                            .Returns(Task.CompletedTask);
 
             // Act: Executamos o Handler
-            var result = await _handler.HandleAsync(command);
+            var result = await _handler.Handle(command);
 
             Assert.True(result.IsSuccess);
             _repositoryMock.Verify(r => r.DeleteAsync(guid), Times.Once);
