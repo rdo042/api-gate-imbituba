@@ -35,14 +35,13 @@ namespace GateAPI.Infra.Persistence.Repositories
             return entidade;
         }
 
-        public Task<IEnumerable<TDomain>> GetAllAsync()
+        public virtual async Task<IEnumerable<TDomain>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
+            var query = ApplyIncludes(_dbSet.AsQueryable());
 
-        public Task<(IEnumerable<TDomain>, int)> GetAllPaginatedAsync()
-        {
-            throw new NotImplementedException();
+            var lista = await query.AsNoTracking().ToListAsync();
+
+            return lista.Count != 0 ? lista.Select(_mapper.ToDomain) : [];
         }
 
         public virtual async Task UpdateAsync(TDomain entidade)
