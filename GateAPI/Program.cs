@@ -2,6 +2,7 @@ using GateAPI.Application;
 using GateAPI.Extensions;
 using GateAPI.Infra;
 using GateAPI.Middlewares;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -19,6 +20,10 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration.GetConnectionString("Default"))
     .AddAuth(secretKey);
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("GateAPI.Application")));
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

@@ -1,7 +1,11 @@
-﻿using GateAPI.Infra.Models;
+﻿using GateAPI.Domain.Entities;
+using GateAPI.Infra.Models;
 using GateAPI.Infra.Models.Configuracao;
+using GateAPI.Infra.Persistence.Profile;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using System.Reflection.Emit;
 
 namespace GateAPI.Infra.Persistence.Context
 {
@@ -20,21 +24,47 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<PerfilModel> Perfil { get; set; }
         public DbSet<PermissaoModel> Permissao { get; set; }
         public DbSet<TipoLacreModel> TipoLacre { get; set; }
+        public DbSet<TipoAvariaModel> TipoAvaria { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<UsuarioModel>(entity =>
+            #region Global Query Filters para Soft Delete
+            
+            foreach (var entityType in builder.Model.GetEntityTypes())
             {
-                entity.HasIndex(x => x.Email).IsUnique();
-            });
+                if (!typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+                    continue;
 
-            builder.Entity<TipoLacreModel>(entity =>
-            {
-                entity.Property(x => x.Status)
-                .HasConversion<string>();
-            });
+                var parameter = Expression.Parameter(entityType.ClrType, "e");
+
+                var deletedAtProperty = Expression.Property(
+                    parameter,
+                    nameof(BaseEntity.DeletedAt));
+
+                var nullConstant = Expression.Constant(null, typeof(DateTime?));
+
+                var filter = Expression.Equal(deletedAtProperty, nullConstant);
+
+                var lambda = Expression.Lambda(filter, parameter);
+
+                builder.Entity(entityType.ClrType)
+                       .HasQueryFilter(lambda);
+            }
+
+            /** Para desabilitar global query filters aplique IgnoreQueryFilters na query desejada. (context.Entities.IgnoreQueryFilters())
+            * Exemplo: _context.Perfil.IgnoreQueryFilters()
+            */
+
+
+            #endregion  Global Query Filters para Soft Delete
+
+            // Manter configurações de mapeamento de campos de tabelas em arquivos individuais na pasta Profile
+            // Segue exemplo de aplicação:
+            builder.ApplyConfiguration(new UsuarioModelConfiguration());
+            builder.ApplyConfiguration(new TipoLacreModelConfiguration());
+            builder.ApplyConfiguration(new TipoAvariaModelConfiguration());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -4,16 +4,19 @@ using GateAPI.Infra.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GateAPI.Infra.Persistence.Migrations
+namespace GateAPI.Infra.Migrations.TipoAvaria
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260122014242_AddTipoAvaria")]
+    partial class AddTipoAvaria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +125,7 @@ namespace GateAPI.Infra.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tipo_avaria", (string)null);
+                    b.ToTable("TipoAvaria");
                 });
 
             modelBuilder.Entity("GateAPI.Infra.Models.Configuracao.TipoLacreModel", b =>
@@ -146,6 +149,7 @@ namespace GateAPI.Infra.Persistence.Migrations
                         .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 

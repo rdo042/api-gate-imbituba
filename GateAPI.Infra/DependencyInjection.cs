@@ -1,6 +1,10 @@
 ﻿using GateAPI.Application.Providers;
+using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Domain.Services;
+using GateAPI.Infra.Mappers;
+using GateAPI.Infra.Mappers.Configuracao;
+using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
 using GateAPI.Infra.Providers;
@@ -29,12 +33,16 @@ namespace GateAPI.Infra
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilRepository, PerfilRepository>();
             services.AddScoped<ITipoLacreRepository, TipoLacreRepository>();
+            services.AddScoped<ITipoAvariaRepository, TipoAvariaRepository>();
 
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
 
             //Services
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+            services.AddScoped<IMapper<TipoAvaria, TipoAvariaModel>, TipoAvariaMapper>();
+
 
             return services;
         }
