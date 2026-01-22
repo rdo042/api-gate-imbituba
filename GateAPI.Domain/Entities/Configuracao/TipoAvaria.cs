@@ -5,10 +5,10 @@ namespace GateAPI.Domain.Entities.Configuracao
     public class TipoAvaria : BaseEntity
     {
         public string Tipo { get; private set; } = string.Empty;
-        public string Descricao { get; private set; }
+        public string? Descricao { get; private set; }
         public StatusEnum Status { get; private set; }
 
-        public TipoAvaria(string tipo, string descricao, StatusEnum status = StatusEnum.ATIVO) 
+        public TipoAvaria(string tipo, string? descricao, StatusEnum status = StatusEnum.ATIVO) 
         {
             Id = Guid.NewGuid();
             Tipo = tipo;
@@ -18,7 +18,7 @@ namespace GateAPI.Domain.Entities.Configuracao
             Validation();
         }
 
-        public void UpdateEntity(string tipo, string descricao, StatusEnum status = StatusEnum.ATIVO)
+        public void UpdateEntity(string tipo, string? descricao, StatusEnum status = StatusEnum.ATIVO)
         {
             Tipo = tipo;
             Descricao = descricao;
@@ -27,7 +27,7 @@ namespace GateAPI.Domain.Entities.Configuracao
             Validation();
         }
 
-        public static TipoAvaria Load(Guid id, string tipo, string descricao, StatusEnum status)
+        public static TipoAvaria Load(Guid id, string tipo, string? descricao, StatusEnum status)
         {
             var entidade = new TipoAvaria(tipo, descricao, status);
             entidade.SetId(id);

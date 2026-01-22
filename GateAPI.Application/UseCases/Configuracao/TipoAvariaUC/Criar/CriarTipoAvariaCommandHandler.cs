@@ -1,7 +1,6 @@
 ﻿using GateAPI.Application.Common.Models;
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
 {
@@ -16,7 +15,9 @@ namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
 
         public async Task<Result<Guid>> Handle(CriarTipoAvariaCommand request, CancellationToken cancellationToken)
         {
-            var result = await _tipoAvariaRepository.AddAsync(request.TipoAvaria, cancellationToken);
+            var tipoAvaria = new Domain.Entities.Configuracao.TipoAvaria(request.Tipo, request.Descricao, request.Status);
+
+            var result = await _tipoAvariaRepository.AddAsync(tipoAvaria, cancellationToken);
             return Result<Guid>.Success(result.Id);
         }
     }
