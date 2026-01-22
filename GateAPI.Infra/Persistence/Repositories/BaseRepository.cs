@@ -39,7 +39,7 @@ namespace GateAPI.Infra.Persistence.Repositories
         {
             var query = ApplyIncludes(_dbSet.AsQueryable());
 
-            var lista = await query.AsNoTracking().ToListAsync();
+            var lista = await query.AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
 
             return lista.Count != 0 ? lista.Select(_mapper.ToDomain) : [];
         }
