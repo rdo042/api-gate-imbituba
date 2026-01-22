@@ -34,6 +34,16 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar Perfil");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> BuscarTodos()
+        {
+            var query = new BuscarTodosPerfilQuery();
+
+            var result = await _buscarTodosPerfilHandler.HandleAsync(query);
+
+            return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar lista");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Criar([FromBody] CriarPerfilCommand command)
         {
