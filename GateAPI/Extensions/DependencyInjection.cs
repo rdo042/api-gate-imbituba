@@ -49,7 +49,7 @@ namespace GateAPI.Extensions
             services
                 .AddControllers(options =>
             {
-                options.Filters.Add<ValidateModelAttribute>();
+                //options.Filters.Add<ValidateModelAttribute>();
             })
                 .AddJsonOptions(options =>
             {
