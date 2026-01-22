@@ -35,7 +35,7 @@ namespace GateAPI.Infra.Persistence.Repositories
             return entidade;
         }
 
-        public virtual Task<IEnumerable<TDomain>> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<TDomain>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var query = ApplyIncludes(_dbSet.AsQueryable());
 
