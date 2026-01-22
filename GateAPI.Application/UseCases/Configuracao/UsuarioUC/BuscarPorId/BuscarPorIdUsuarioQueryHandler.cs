@@ -5,7 +5,7 @@ using GateAPI.Domain.Repositories.Configuracao;
 
 namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarPorId
 {
-    public class BuscarPorIdUsuarioHandler(
+    public class BuscarPorIdUsuarioQueryHandler(
         IUsuarioRepository UsuarioRepositorio
         ) : ICommandHandler<BuscarPorIdUsuarioQuery, Result<Usuario>>
     {
