@@ -58,12 +58,17 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            var model = await _context.Usuario.FindAsync(id) ?? throw new KeyNotFoundException($"Usuário com Id {id} não encontrado.");
+            var model = await _context.Usuario.FindAsync(id);
+
+            if (model == null)
+                return false;
 
             _context.Usuario.Remove(model);
             await _context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<(IEnumerable<Usuario>, int)> GetAllPaginatedAsync(int page, int pageSize, string? sortColumn, string sortDirection, string? nome)

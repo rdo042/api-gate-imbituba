@@ -12,17 +12,9 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Deletar
 
         public async Task<Result<object?>> HandleAsync(DeletarUsuarioCommand command, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                await _usuarioRepository.DeleteAsync(command.Id);
+            var result = await _usuarioRepository.DeleteAsync(command.Id);
 
-                return Result<object?>.Success(null);
-
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return Result<object?>.Failure("Erro ao remover usuário - " + ex.Message);
-            }
+            return result ? Result<object?>.Success(null) : Result<object?>.Failure("Usuário não encontrado pelo id - " + command.Id);
         }
     }
 }

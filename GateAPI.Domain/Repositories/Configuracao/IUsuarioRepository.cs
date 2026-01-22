@@ -9,7 +9,7 @@ namespace GateAPI.Domain.Repositories.Configuracao
         Task<(IEnumerable<Usuario>, int)> GetAllPaginatedAsync(int page, int pageSize, string? sortColumn, string sortDirection, string? nome);
         Task<Usuario> AddAsync(Usuario entidade);
         Task UpdateAsync(Usuario entidade);
-        Task DeleteAsync(Guid id);
+        Task<bool> DeleteAsync(Guid id);
 
         Task<Usuario?> GetByEmailAsync(string email);
     }

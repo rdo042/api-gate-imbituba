@@ -1,6 +1,5 @@
 ﻿using GateAPI.Application.Common.Interfaces.IrisApi.Application.Common.Interfaces;
 using GateAPI.Application.Common.Models;
-using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Domain.Services;
 
@@ -9,34 +8,28 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.Atualizar
     public class AtualizarUsuarioHandler(
         IUsuarioRepository usuario,
         IPerfilRepository perfilRepository,
-        IPasswordHasher passwordHasher) : ICommandHandler<AtualizarUsuarioCommand, Result<Usuario>>
+        IPasswordHasher passwordHasher) : ICommandHandler<AtualizarUsuarioCommand, Result<object?>>
     {
         private readonly IUsuarioRepository _usuarioRepository = usuario;
         private readonly IPerfilRepository _perfilRepository = perfilRepository;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
-        public async Task<Result<Usuario>> HandleAsync(AtualizarUsuarioCommand command, CancellationToken cancellationToken = default)
+        public async Task<Result<object?>> HandleAsync(AtualizarUsuarioCommand command, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var existente = await _usuarioRepository.GetByIdAsync(command.Id)
-                    ?? throw new NullReferenceException("Usuario nao encontrado pelo id" + command.Id);
+            var existente = await _usuarioRepository.GetByIdAsync(command.Id);
 
-                var senhaHash = _passwordHasher.HashPassword(command.Senha);
+            if (existente == null)
+                return Result<object?>.Failure("Usuário não encontrado pelo id - " + command.Id);
 
-                var perfil = await _perfilRepository.GetByIdAsync(command.PerfilId);
+            var senhaHash = _passwordHasher.HashPassword(command.Senha);
 
-                existente.UpdateEntity(command.Nome, command.Email, senhaHash, command.LinkFoto, perfil, command.Status);
+            var perfil = await _perfilRepository.GetByIdAsync(command.PerfilId);
 
-                await _usuarioRepository.UpdateAsync(existente);
+            existente.UpdateEntity(command.Nome, command.Email, senhaHash, command.LinkFoto, perfil, command.Status);
 
-                return Result<Usuario>.Success(existente);
+            await _usuarioRepository.UpdateAsync(existente);
 
-            }
-            catch (Exception ex)
-            {
-                return Result<Usuario>.Failure("Erro ao atualizar usuario - " + ex.Message);
-            }
+            return Result<object?>.Success(null);
         }
     }
 }
