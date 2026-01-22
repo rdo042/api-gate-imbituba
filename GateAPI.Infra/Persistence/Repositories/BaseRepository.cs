@@ -51,13 +51,14 @@ namespace GateAPI.Infra.Persistence.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var model = await _dbSet.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
-            if (model == null) return;
+            if (model == null) return false;
 
             _dbSet.Remove(model);
             await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }
