@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GateAPI.Requests.Configuracao
+namespace GateAPI.Requests.Configuracao.UsuarioRequest
 {
     public class LoginUsuarioRequest
     {

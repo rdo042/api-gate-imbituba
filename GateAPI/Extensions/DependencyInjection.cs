@@ -1,5 +1,9 @@
-﻿
+﻿using GateAPI.Authorization.Permissions;
+using GateAPI.Requests;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace GateAPI.Extensions
 {
@@ -19,6 +23,42 @@ namespace GateAPI.Extensions
                            .AllowCredentials();
                 });
             });
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureAuthorizationPolicies(this IServiceCollection services)
+        {
+            var authBuilder = services.AddAuthorizationBuilder();
+
+            foreach (var permissao in PermissionConstants.GetAll)
+            {
+                authBuilder.AddPolicy(permissao, policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.Requirements.Add(new HasPermissionRequirement(permissao));
+                });
+            }
+
+            services.AddSingleton<IAuthorizationHandler, HasPermissionHandler>();
+            return services;
+        }
+
+        public static IServiceCollection ConfigureMvcServices(this IServiceCollection services)
+        {
+            services
+                .AddControllers(options =>
+            {
+                options.Filters.Add<ValidateModelAttribute>();
+            })
+                .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(
+                    new JsonStringEnumConverter()
+                );
+            });
+
+            //services.AddFluentValidationAutoValidation();
 
             return services;
         }

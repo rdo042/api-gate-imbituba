@@ -7,11 +7,11 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarTodosPorPara
 {
     public class BuscarTodosPorParametroUsuarioHandler(
         IUsuarioRepository UsuarioRepositorio
-        ) : ICommandHandler<BuscarTodosPorParametroUsuarioQuery, Result<(IEnumerable<Usuario>, int)>>
+        ) : ICommandHandler<BuscarTodosPorParametroUsuarioQuery, Result<ListaPaginada>>
     {
         private readonly IUsuarioRepository _usuarioRepository = UsuarioRepositorio;
 
-        public async Task<Result<(IEnumerable<Usuario>, int)>> HandleAsync(BuscarTodosPorParametroUsuarioQuery command, CancellationToken cancellationToken = default)
+        public async Task<Result<ListaPaginada>> HandleAsync(BuscarTodosPorParametroUsuarioQuery command, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -23,12 +23,12 @@ namespace GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarTodosPorPara
                     command.Nome
                     );
 
-                return Result<(IEnumerable<Usuario>, int)>.Success(result);
+                return Result<ListaPaginada>.Success(new ListaPaginada(result.Item1, result.Item2));
 
             }
             catch (Exception ex)
             {
-                return Result<(IEnumerable<Usuario>, int)>.Failure("Erro ao realizar login - " + ex.Message);
+                return Result<ListaPaginada>.Failure("Erro ao realizar login - " + ex.Message);
             }
         }
     }

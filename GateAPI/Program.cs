@@ -1,6 +1,7 @@
 using GateAPI.Application;
 using GateAPI.Extensions;
 using GateAPI.Infra;
+using GateAPI.Middlewares;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -13,7 +14,9 @@ var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 builder.Services
     .AddHttpContextAccessor()
+    .ConfigureMvcServices()
     .ConfigureSwagger()
+    .ConfigureAuthorizationPolicies()
     .AddApplication()
     .AddInfrastructure(builder.Configuration.GetConnectionString("Default"))
     .AddAuth(secretKey);
@@ -47,7 +50,11 @@ if (app.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<AuthorizationResponseMiddleware>();
 
 app.MapControllers();
 
