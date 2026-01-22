@@ -1,6 +1,7 @@
 ﻿using GateAPI.Domain.Entities;
 using GateAPI.Infra.Models;
 using GateAPI.Infra.Models.Configuracao;
+using GateAPI.Infra.Persistence.Profile;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -59,18 +60,11 @@ namespace GateAPI.Infra.Persistence.Context
 
             #endregion  Global Query Filters para Soft Delete
 
-            //TODO: Adicionar via profile.
-            
-            builder.Entity<UsuarioModel>(entity =>
-            {
-                entity.HasIndex(x => x.Email).IsUnique();
-            });
-
-            builder.Entity<TipoLacreModel>(entity =>
-            {
-                entity.Property(x => x.Status)
-                .HasConversion<string>();
-            });
+            // Manter configurações de mapeamento de campos de tabelas em arquivos individuais na pasta Profile
+            // Segue exemplo de aplicação:
+            builder.ApplyConfiguration(new UsuarioModelConfiguration());
+            builder.ApplyConfiguration(new TipoLacreModelConfiguration());
+            builder.ApplyConfiguration(new TipoAvariaModelConfiguration());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
