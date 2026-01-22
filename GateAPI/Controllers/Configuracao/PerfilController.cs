@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao
 {
-    [Route("api/[controller]")]
+    [Route("api/perfil")]
     [ApiController]
     public class PerfilController(
         ILogger<PerfilController> logger,
