@@ -34,6 +34,7 @@ namespace GateAPI.Infra
             services.AddScoped<IPerfilRepository, PerfilRepository>();
             services.AddScoped<ITipoLacreRepository, TipoLacreRepository>();
             services.AddScoped<ITipoAvariaRepository, TipoAvariaRepository>();
+            services.AddScoped<ILocalAvariaRepository, LocalAvariaRepository>();
 
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
@@ -42,7 +43,7 @@ namespace GateAPI.Infra
             services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             services.AddScoped<IMapper<TipoAvaria, TipoAvariaModel>, TipoAvariaMapper>();
-
+            services.AddScoped<IMapper<LocalAvaria, LocalAvariaModel>, LocalAvariaMapper>();
 
             return services;
         }
