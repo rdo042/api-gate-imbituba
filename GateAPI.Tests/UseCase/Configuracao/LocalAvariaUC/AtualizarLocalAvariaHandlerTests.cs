@@ -69,7 +69,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.LocalAvariaUC
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Contains("nao encontrado", result.Error.ToLower());
+            Assert.Contains("nao encontrado", result?.Error?.ToLower());
             _repositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
             _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<LocalAvaria>()), Times.Never);
         }

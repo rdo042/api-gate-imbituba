@@ -56,7 +56,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.LocalAvariaUC
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Contains("não encontrado", result.Error.ToLower());
+            Assert.Contains("não encontrado", result?.Error?.ToLower());
             _repositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
         }
     }

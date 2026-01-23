@@ -15,7 +15,7 @@ namespace GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Atualizar
             var entidade = await _localAvariaRepository.GetByIdAsync(command.Id);
 
             if (entidade == null)
-                return Result<LocalAvaria?>.Failure("TipoLacre nao encontrado pelo id" + command.Id);
+                return Result<LocalAvaria?>.Failure("Local Avaria nao encontrado pelo id" + command.Id);
 
             var localAvariaExist = await _localAvariaRepository.GetByLocalAsync(command.Local);
 

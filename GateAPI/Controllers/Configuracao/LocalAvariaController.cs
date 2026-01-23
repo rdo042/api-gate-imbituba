@@ -28,7 +28,7 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Locais Avaria não encontrados");
         }
 
-        [HttpGet("/app")]
+        [HttpGet("app")]
         public async Task<IActionResult> BuscarTodosApp()
         {
             var query = new BuscarTodosAppLocalAvariaQuery();
@@ -69,9 +69,9 @@ namespace GateAPI.Controllers.Configuracao
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Deletar([FromRoute] Guid Id)
+        public async Task<IActionResult> Deletar([FromRoute] Guid id)
         {
-            var query = new DeletarLocalAvariaCommand(Id);
+            var query = new DeletarLocalAvariaCommand(id);
 
             var result = await mediator.Send(query);
 

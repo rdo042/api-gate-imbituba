@@ -19,7 +19,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
         public async Task<LocalAvaria?> GetByLocalAsync(string local)
         {
             var model = await _context.LocalAvaria
-                .Where(l => l.Local == local && l.DeletedAt == null && l.DeletedBy == null)
+                .Where(l => l.Local == local && l.DeletedAt == null && l.DeletedBy == null).AsNoTracking()
                 .SingleOrDefaultAsync();
 
             return model == null ? null : _mapper.ToDomain(model);
