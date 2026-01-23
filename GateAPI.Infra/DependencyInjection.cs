@@ -37,6 +37,7 @@ namespace GateAPI.Infra
             services.AddScoped<ITipoLacreRepository, TipoLacreRepository>();
             services.AddScoped<ITipoAvariaRepository, TipoAvariaRepository>();
             services.AddScoped<ILocalAvariaRepository, LocalAvariaRepository>();
+            services.AddScoped<ITasksRepository, TasksRepository>();
 
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
