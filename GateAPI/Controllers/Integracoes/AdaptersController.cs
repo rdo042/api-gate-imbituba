@@ -13,13 +13,14 @@ namespace GateAPI.Controllers.Integracoes
         ) : BaseController(logger)
     {
         [HttpPost("/lpr/ler-placa")]
-        public async Task<IActionResult> Criar([FromBody] LprRequest data)
+        public async Task<IActionResult> LerPlaca([FromBody] LprRequest data)
         {
-            var command = new ReconhecerPlacaCommand(data.ImagemPlaca);
+            //var command = new ReconhecerPlacaCommand(data.ImagemPlaca);
 
-            var result = await mediator.Send(command);
+            //var result = await mediator.Send(command);
 
-            return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao reconhecer placa");
+            //return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao reconhecer placa");
+            return OkResponse("Not implemented");
         }
     }
 }
