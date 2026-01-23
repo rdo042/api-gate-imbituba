@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GateAPI.Infra.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AddLocalAvariaConfiguration : Migration
+    public partial class LocalAvaria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

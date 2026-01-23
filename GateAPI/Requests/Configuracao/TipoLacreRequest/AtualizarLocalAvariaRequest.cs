@@ -2,5 +2,5 @@
 
 namespace GateAPI.Requests.Configuracao.LocalAvariaRequest
 {
-    public record AtualizarLocalAvariaRequest(Guid Id, string Local, string Descricao, StatusEnum Status);
+    public record AtualizarLocalAvariaRequest(string Local, string Descricao, StatusEnum Status);
 }

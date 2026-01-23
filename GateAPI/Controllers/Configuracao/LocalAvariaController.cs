@@ -58,10 +58,10 @@ namespace GateAPI.Controllers.Configuracao
             return OkResponse(result.Data);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarLocalAvariaRequest data)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar([FromRoute] Guid id, [FromBody] AtualizarLocalAvariaRequest data)
         {
-            var command = new AtualizarLocalAvariaCommand(data.Id, data.Local, data.Descricao, data.Status);
+            var command = new AtualizarLocalAvariaCommand(id, data.Local, data.Descricao, data.Status);
 
             var result = await mediator.Send(command);
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GateAPI.Infra.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260123114235_AddLocalAvariaConfiguration")]
-    partial class AddLocalAvariaConfiguration
+    [Migration("20260123133836_LocalAvaria")]
+    partial class LocalAvaria
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
