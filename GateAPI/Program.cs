@@ -27,24 +27,6 @@ builder.Services
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("GateAPI.Application")));
 
-
-builder.Services.AddControllers(
-    options =>
-    {
-        // Adicionar convenção para kebab case nas controller (endpoint)
-        options.Conventions.Add(
-            new RouteTokenTransformerConvention(
-                new KebabCaseTransformer()
-            )
-        );
-    })
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(
-            new JsonStringEnumConverter()
-        );
-    });
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

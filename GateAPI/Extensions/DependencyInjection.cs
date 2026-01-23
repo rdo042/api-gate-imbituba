@@ -1,9 +1,8 @@
 ﻿using GateAPI.Authorization.Permissions;
-using GateAPI.Requests;
+using GateAPI.Configuration;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Models;
-using FluentValidation;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
@@ -48,10 +47,14 @@ namespace GateAPI.Extensions
 
         public static IServiceCollection ConfigureMvcServices(this IServiceCollection services)
         {
-            services
-                .AddControllers(options =>
+            services.AddControllers(options =>
             {
                 //options.Filters.Add<ValidateModelAttribute>();
+                options.Conventions.Add(
+                    new RouteTokenTransformerConvention(
+                        new KebabCaseTransformer()
+                    )
+                );
             })
                 .AddJsonOptions(options =>
             {
@@ -61,6 +64,7 @@ namespace GateAPI.Extensions
             });
 
             ////services.AddFluentValidationAutoValidation();
+            ///
 
             return services;
         }
