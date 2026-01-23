@@ -19,7 +19,7 @@ namespace GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Atualizar
 
             var localAvariaExist = await _localAvariaRepository.GetByLocalAsync(command.Local);
 
-            if (localAvariaExist != null)
+            if (localAvariaExist != null && localAvariaExist.Id != command.Id)
                 return Result<LocalAvaria?>.Failure("Já existe um Local Avaria com esse Local" + command.Local);
 
             entidade.UpdateEntity(command.Local, command.Decricao, command.Status);
