@@ -1,11 +1,9 @@
-﻿using GateAPI.Domain.Entities;
-using GateAPI.Infra.Models;
+﻿using GateAPI.Infra.Models;
 using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Profile;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Reflection.Emit;
 
 namespace GateAPI.Infra.Persistence.Context
 {
@@ -26,6 +24,7 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<TipoLacreModel> TipoLacre { get; set; }
         public DbSet<TipoAvariaModel> TipoAvaria { get; set; }
         public DbSet<LocalAvariaModel> LocalAvaria { get; set; }
+        public DbSet<TasksModel> Tasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
