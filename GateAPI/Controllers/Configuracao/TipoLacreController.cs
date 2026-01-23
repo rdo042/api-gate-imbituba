@@ -5,6 +5,7 @@ using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
 using GateAPI.Requests.Configuracao.TipoLacreRequest;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace GateAPI.Controllers.Configuracao
 {
@@ -23,7 +24,7 @@ namespace GateAPI.Controllers.Configuracao
 
             var result = await mediator.Send(query);
 
-            return result.IsSuccess ? CreatedResponse(nameof(Criar), result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar lacre");
+            return result.IsSuccess? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar lacre");
         }
 
         [HttpPost] 
@@ -33,13 +34,13 @@ namespace GateAPI.Controllers.Configuracao
 
             var result = await mediator.Send(command);
 
-            return OkResponse(result.Data);
+            return CreatedResponse(nameof(Criar), result.Data);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarTipoLacreRequest data)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar([FromRoute] Guid id, [FromBody] AtualizarTipoLacreRequest data)
         {
-            var command = new AtualizarTipoLacreCommand(data.Id, data.Nome, data.Descricao, data.Status);
+            var command = new AtualizarTipoLacreCommand(id, data.Nome, data.Descricao, data.Status);
 
             var result = await mediator.Send(command);
 

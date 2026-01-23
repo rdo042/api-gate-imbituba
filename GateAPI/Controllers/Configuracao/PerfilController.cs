@@ -3,6 +3,7 @@ using GateAPI.Application.UseCases.Configuracao.PerfilUC.BuscarPorId;
 using GateAPI.Application.UseCases.Configuracao.PerfilUC.BuscarTodos;
 using GateAPI.Application.UseCases.Configuracao.PerfilUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.PerfilUC.Deletar;
+using GateAPI.Requests.Configuracao.PerfilRequest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao
@@ -52,9 +53,17 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? CreatedResponse(nameof(Criar), result.Data) : BadRequestResponse(result.Error ?? "Erro ao criar Perfil");
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarPerfilCommand command)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar([FromRoute] Guid id, [FromBody] AtualizarPerfilRequest data)
         {
+            var command = new AtualizarPerfilCommand(
+                id,
+                data.Nome,
+                data.Descricao,
+                data.StatusEnum,
+                data.Permissoes
+            );
+
             var result = await _atualizarPerfilHandler.HandleAsync(command);
 
             return result.IsSuccess ? NoContentResponse("Sucesso ao atualizar Perfil") : BadRequestResponse(result.Error ?? "Erro ao atualizar Perfil");
