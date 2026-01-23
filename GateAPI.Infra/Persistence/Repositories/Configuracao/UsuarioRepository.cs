@@ -33,6 +33,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
         public async Task<IEnumerable<Usuario>> GetAllAsync()
         {
             var query = await _context.Usuario
+                .Include(u=> u.Perfil)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -51,6 +52,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
         public async Task UpdateAsync(Usuario entidade)
         {
+            _context.ChangeTracker.Clear();
             var model = UsuarioMapper.ToModel(entidade);
 
             _context.Usuario.Update(model);
@@ -93,6 +95,8 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
             {
                 query = query.OrderBy(p => p.CreatedAt);
             }
+
+            query = query.Include(u => u.Perfil);
 
             int totalCount = await query.CountAsync();
 
