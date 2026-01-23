@@ -1,5 +1,4 @@
-﻿using System;
-using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Atualizar;
+﻿using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Atualizar;
 using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.BuscarPorId;
 using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.BuscarTodos;
 using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.BuscarTodosApp;
@@ -45,7 +44,7 @@ namespace GateAPI.Controllers.Configuracao
 
             var result = await mediator.Send(query);
 
-            return result.IsSuccess ? CreatedResponse(nameof(Criar), result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar local avaria");
+            return result.IsSuccess? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar local avaria");
         }
 
         [HttpPost]
@@ -55,7 +54,7 @@ namespace GateAPI.Controllers.Configuracao
 
             var result = await mediator.Send(command);
 
-            return OkResponse(result.Data);
+            return CreatedResponse(nameof(Criar), result.Data);
         }
 
         [HttpPut("{id}")]

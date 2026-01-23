@@ -4,6 +4,7 @@ using GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarPorId;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarTodosPorParametro;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Deletar;
+using GateAPI.Requests.Configuracao.UsuarioRequest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao
@@ -56,9 +57,19 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao criar usuario");
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarUsuarioCommand command)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar([FromRoute] Guid id, [FromBody] AtualizarUsuarioRequest data)
         {
+            var command = new AtualizarUsuarioCommand(
+                id,
+                data.Nome,
+                data.Email,
+                data.Senha,
+                data.LinkFoto,
+                data.PerfilId,
+                data.Status
+            ); 
+
             var result = await _atualizarUsuarioHandler.HandleAsync(command);
 
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao atualizar usuario");
@@ -74,12 +85,12 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Usuário não encontrado");
         }
 
-        [HttpPatch("/status")]
-        public async Task<IActionResult> Atualizar([FromBody] AlterarStatusUsuarioCommand command)
-        {
-            var result = await _alterarStatusUsuarioHandler.HandleAsync(command);
+        //[HttpPatch("{id}/status")]
+        //public async Task<IActionResult> Atualizar([FromBody] AlterarStatusUsuarioCommand command)
+        //{
+        //    var result = await _alterarStatusUsuarioHandler.HandleAsync(command);
 
-            return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao alterar status usuario");
-        }
+        //    return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao alterar status usuario");
+        //}
     }
 }

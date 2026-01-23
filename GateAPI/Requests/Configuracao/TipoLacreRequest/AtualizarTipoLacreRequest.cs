@@ -2,5 +2,5 @@
 
 namespace GateAPI.Requests.Configuracao.TipoLacreRequest
 {
-    public record AtualizarTipoLacreRequest(Guid Id, string Nome, string? Descricao, StatusEnum Status);
+    public record AtualizarTipoLacreRequest(string Nome, string? Descricao, StatusEnum Status);
 }

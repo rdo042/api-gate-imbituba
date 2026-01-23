@@ -33,6 +33,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
         {
             var model = await _context.Perfil
                 .AsNoTracking()
+                .Where(u => u.DeletedAt == null)
                 .Include(u => u.Permissoes).ToListAsync();
 
             return model.Select(PerfilMapper.ToDomain);
