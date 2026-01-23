@@ -88,10 +88,20 @@ namespace GateAPI.Tests.Repositories.Configuracao
             using var context = CriarContextoInMemory();
             var repository = new UsuarioRepository(context);
 
-            SeedContext(context);
+            UsuarioModel model = new()
+            {
+                Id = Guid.NewGuid(),
+                Nome = "John Doe",
+                Email = "johndoe@email.com",
+                SenhaHash = _hasher.HashPassword("#Senha123"),
+                Status = StatusEnum.ATIVO
+            };
+
+            context.Usuario.Add(model);
+            context.SaveChanges();
 
             // Act
-            var resultado = await repository.GetByEmailAsync(_testSeed.Email);
+            var resultado = await repository.GetByEmailAsync("johndoe@email.com");
 
             // Assert
             Assert.NotNull(resultado);

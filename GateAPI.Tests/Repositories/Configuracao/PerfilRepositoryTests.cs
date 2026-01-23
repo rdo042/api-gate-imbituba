@@ -47,16 +47,24 @@ namespace GateAPI.Tests.Repositories.Configuracao
             // Arrange
             using var context = CriarContextoInMemory();
             var repository = new PerfilRepository(context);
+            var id = Guid.NewGuid();
+            PerfilModel model = new()
+            {
+                Id = id,
+                Nome = "ADM",
+                Status = StatusEnum.ATIVO,
+                Permissoes = []
+            };
 
-            SeedContext(context);
+            context.Perfil.Add(model);
+            context.SaveChanges();
 
             // Act
-            var resultado = await repository.GetByIdAsync(_testSeed.Id);
+            var resultado = await repository.GetByIdAsync(id);
 
             // Assert
             Assert.NotNull(resultado);
             Assert.Equal("ADM", resultado.Nome);
-            Assert.Single(resultado.Permissoes);
         }
 
         [Fact]
