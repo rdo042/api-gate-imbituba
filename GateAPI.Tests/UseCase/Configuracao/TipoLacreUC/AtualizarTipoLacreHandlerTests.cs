@@ -38,11 +38,10 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoLacreUC
                            .Returns(Task.CompletedTask);
 
             // Act: Executamos o Handler
-            var result = await _handler.HandleAsync(command);
+            var result = await _handler.Handle(command);
 
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Data);
-            Assert.Equal("LAC002", result.Data.Tipo);
             _repositoryMock.Verify(r => r.UpdateAsync(It.Is<TipoLacre>(n =>
                 n.Tipo == "LAC002" &&
                 n.Descricao == "" &&

@@ -16,6 +16,7 @@ var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 builder.Services
     .AddHttpContextAccessor()
+    .ConfigureCors(builder.Configuration)
     .ConfigureMvcServices()
     .ConfigureSwagger()
     .ConfigureAuthorizationPolicies()
@@ -59,6 +60,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure the HTTP request pipeline.
+app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

@@ -42,7 +42,7 @@ namespace GateAPI.Infra.Persistence.Repositories
         {
             var query = ApplyIncludes(_dbSet.AsQueryable());
 
-            var lista = await query.AsNoTracking().ToListAsync();
+            var lista = await query.AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
 
             return lista.Count != 0 ? lista.Select(_mapper.ToDomain) : [];
         }
@@ -54,15 +54,17 @@ namespace GateAPI.Infra.Persistence.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
+            
             var query = ApplyIncludes(_dbSet.AsQueryable());
             //var model = await query.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
             var model = await query.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
-            if (model == null) return;
+            if (model == null) return false;
 
             _dbSet.Remove(model);
             await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }

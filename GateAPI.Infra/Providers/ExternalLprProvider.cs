@@ -1,4 +1,5 @@
 ﻿using GateAPI.Application.Providers;
+using GateAPI.Domain.Entities.Integracao;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 
@@ -11,24 +12,24 @@ namespace GateAPI.Infra.Providers
         private readonly HttpClient _http = http;
         private readonly ILogger<ExternalLprProvider> _logger = logger;
 
-        public async Task<string?> RecognizeAsync(
+        public async Task<Lpr?> RecognizeAsync(
             string base64,
             CancellationToken ct)
         {
             try
             {
                 var response = await _http.PostAsJsonAsync(
-                    "/lpr/recognize",
+                    "api/Ocr/ProcessVehiclePlate",
                     new { image = base64 },
                     ct);
 
                 if (!response.IsSuccessStatusCode)
                     return null;
 
-                var dto = await response.Content
-                    .ReadFromJsonAsync<string>(ct);
+                var result = await response.Content
+                    .ReadFromJsonAsync<Lpr>(ct);
 
-                return dto;
+                return result;
             }
             catch (Exception ex)
             {

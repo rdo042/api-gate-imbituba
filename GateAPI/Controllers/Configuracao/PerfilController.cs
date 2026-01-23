@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao
 {
-    [Route("api/[controller]")]
+    [Route("api/perfil")]
     [ApiController]
     public class PerfilController(
         ILogger<PerfilController> logger,
@@ -32,6 +32,16 @@ namespace GateAPI.Controllers.Configuracao
             var result = await _buscarPorIdPerfilHandler.HandleAsync(query);
 
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar Perfil");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BuscarTodos()
+        {
+            var query = new BuscarTodosPerfilQuery();
+
+            var result = await _buscarTodosPerfilHandler.HandleAsync(query);
+
+            return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar lista");
         }
 
         [HttpPost]
