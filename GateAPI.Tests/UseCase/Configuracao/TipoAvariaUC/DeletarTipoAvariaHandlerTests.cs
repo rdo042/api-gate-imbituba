@@ -24,7 +24,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoAvariaUC
             var command = new DeletarTipoAvariaCommand(guid);
 
             _repositoryMock.Setup(r => r.DeleteAsync(guid, CancellationToken.None))
-                           .Returns(Task.FromResult<bool>);
+                           .ReturnsAsync(true);
 
             // Act: Executamos o Handler
             var result = await _handler.Handle(command, CancellationToken.None);

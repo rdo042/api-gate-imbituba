@@ -140,8 +140,13 @@ namespace GateAPI.Tests.Repositories.Configuracao
             await repository.DeleteAsync(idToDelete);
 
             // Assert
-            var deletedModel = await context.TipoLacre.FindAsync(idToDelete);
-            Assert.Null(deletedModel);
+            context.ChangeTracker.Clear();
+            var notFoundDeleted = await context.TipoLacre.FindAsync(idToDelete);
+            Assert.Null(notFoundDeleted);
+
+            var deletedModel = await context.TipoLacre.IgnoreQueryFilters().FirstAsync(x => x.Id == idToDelete);
+            Assert.NotNull(deletedModel);
+            Assert.False(deletedModel.DeletedAt == null);
         }
     }
 }

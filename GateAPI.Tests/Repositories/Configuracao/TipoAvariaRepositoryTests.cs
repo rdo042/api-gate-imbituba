@@ -58,7 +58,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
 
             // Assert
             Assert.NotNull(resultado);
-            Assert.Equal("LAC001", resultado.Tipo);
+            Assert.Equal("AVA001", resultado.Tipo);
         }
 
         [Fact]

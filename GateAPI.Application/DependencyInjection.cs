@@ -21,11 +21,6 @@ namespace GateAPI.Application
             services.AddScoped<UseCases.Configuracao.PerfilUC.Atualizar.AtualizarPerfilHandler>();
             services.AddScoped<UseCases.Configuracao.PerfilUC.Deletar.DeletarPerfilHandler>();
 
-            services.AddScoped<UseCases.Configuracao.TipoLacreUC.BuscarPorId.BuscarPorIdTipoLacreHandler>();
-            services.AddScoped<UseCases.Configuracao.TipoLacreUC.Criar.CriarTipoLacreHandler>();
-            services.AddScoped<UseCases.Configuracao.TipoLacreUC.Atualizar.AtualizarTipoLacreHandler>();
-            services.AddScoped<UseCases.Configuracao.TipoLacreUC.Deletar.DeletarTipoLacreCommand>();
-
             // Services
 
             return services;

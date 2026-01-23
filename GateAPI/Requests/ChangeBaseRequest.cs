@@ -5,7 +5,7 @@ namespace GateAPI.Requests
 {
     public class ChangeBaseRequest<T>
     {
-        [FromRoute] public Guid Id { get; set; }
+        [FromRoute] public Guid id { get; set; }
         [FromBody] public T Data { get; set; }
     }
 }

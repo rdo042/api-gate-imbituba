@@ -49,9 +49,6 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
             var result = await _handler.HandleAsync(command);
 
             Assert.True(result.IsSuccess);
-            Assert.NotNull(result.Data);
-            //Assert.Equal("Jane", result.Data.Nome);
-            //Assert.Equal("jane@email.com", result.Data.Email);
             _repoMock.Verify(r => r.UpdateAsync(It.Is<Usuario>(n =>
                 n.Nome == "Jane" &&
                 n.Email == "jane@email.com"

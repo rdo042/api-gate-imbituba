@@ -20,11 +20,11 @@ namespace GateAPI.Domain.Entities.Configuracao
 
         private TipoLacre() { }
 
-        public void UpdateEntity(string? tipo = null, string? descricao = null, StatusEnum? status = null)
+        public void UpdateEntity(string tipo, string? descricao, StatusEnum status)
         {
-            Tipo = tipo ?? Tipo;
-            Descricao = descricao ?? Descricao;
-            Status = status ?? Status;
+            Tipo = tipo;
+            Descricao = descricao;
+            Status = status;
 
             Validation();
         }

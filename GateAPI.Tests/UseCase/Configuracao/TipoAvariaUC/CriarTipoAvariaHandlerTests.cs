@@ -43,17 +43,15 @@ namespace GateAPI.Tests.UseCase.Configuracao.TipoAvariaUC
         }
 
         [Theory]
-        [InlineData("")] // Nome vazio
+        [InlineData("")]
         public async Task HandleAsync_DeveFalhar_SeDadosForemInvalidos(string tipo)
         {
             // Arrange
             var command = new CriarTipoAvariaCommand(tipo, null, _validStatusEnum);
 
-            // Act
-            var result = await _handler.Handle(command, CancellationToken.None);
-
-            // Assert
-            Assert.False(result.IsSuccess);
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() =>
+                _handler.Handle(command, CancellationToken.None));
         }
     }
 }

@@ -4,5 +4,5 @@ using MediatR;
 
 namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.AtualizarParcial
 {
-    public record AtualizarParcialTipoAvariaCommand(Guid Id,string? Tipo,string? Descricao,StatusEnum? Status) : IRequest<Result<Guid>>;
+    public record AtualizarParcialTipoAvariaCommand(Guid Id, string? Tipo=null ,string? Descricao = null,StatusEnum? Status= null) : IRequest<Result<Guid>>;
 }
