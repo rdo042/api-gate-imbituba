@@ -3,7 +3,9 @@ using GateAPI.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using FluentValidation;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace GateAPI.Extensions
 {
@@ -58,7 +60,7 @@ namespace GateAPI.Extensions
                 );
             });
 
-            //services.AddFluentValidationAutoValidation();
+            ////services.AddFluentValidationAutoValidation();
 
             return services;
         }
@@ -67,6 +69,15 @@ namespace GateAPI.Extensions
         {
             services.AddSwaggerGen(options =>
             {
+                // automatizar kebab-case para todas as controllers
+                options.TagActionsBy(api =>
+                {
+                    var controller = api.GroupName ?? api.ActionDescriptor.RouteValues["controller"];
+                    return new[] {
+                        Regex.Replace(controller, "(?<!^)([A-Z])", "-$1").ToLower()
+                    };
+                });
+
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Gate API",

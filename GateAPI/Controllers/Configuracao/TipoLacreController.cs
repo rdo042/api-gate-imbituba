@@ -47,10 +47,10 @@ namespace GateAPI.Controllers.Configuracao
             return result.IsSuccess ? NoContentResponse("Sucesso ao atualizar lacre") : BadRequestResponse(result.Error ?? "Erro ao atualizar lacre");
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Deletar([FromRoute] Guid Id)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Deletar([FromRoute] Guid id)
         {
-            var query = new DeletarTipoLacreCommand(Id);
+            var query = new DeletarTipoLacreCommand(id);
 
             var result = await mediator.Send(query);
 

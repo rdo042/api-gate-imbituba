@@ -206,9 +206,13 @@ namespace GateAPI.Tests.Repositories.Configuracao
 
             // Assert
             context.ChangeTracker.Clear();
-            var deletedModel = await context.Usuario.FindAsync(idToDelete);
+            var notFoundDeleted = await context.Usuario.FindAsync(idToDelete);
+            Assert.Null(notFoundDeleted);
+
+            var deletedModel = await context.Usuario.IgnoreQueryFilters().FirstAsync(x=> x.Id == idToDelete);
             Assert.NotNull(deletedModel);
-            Assert.NotNull(deletedModel.DeletedAt);
+            Assert.False(deletedModel.DeletedAt == null);
+
         }
     }
 }

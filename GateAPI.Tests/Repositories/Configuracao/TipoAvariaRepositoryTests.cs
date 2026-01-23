@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GateAPI.Tests.Repositories.Configuracao
 {
-    public class TipoLacreRepositoryTests
+    public class TipoAvariaRepositoryTests
     {
+        private static readonly TipoAvariaMapper mapper = new();
         private static AppDbContext CriarContextoInMemory()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
@@ -21,25 +22,25 @@ namespace GateAPI.Tests.Repositories.Configuracao
             return new AppDbContext(options, accessor);
         }
 
-        private static readonly TipoLacreModel _testSeed = new()
+        private static readonly TipoAvariaModel _testSeed = new()
         {
             Id = Guid.NewGuid(),
-            Tipo = "LAC001",
+            Tipo = "AVA001",
             Descricao = "",
             Status = StatusEnum.ATIVO
         };
-        private static readonly TipoLacreModel _testSeed2 = new()
+        private static readonly TipoAvariaModel _testSeed2 = new()
         {
             Id = Guid.NewGuid(),
-            Tipo = "LAC002",
+            Tipo = "AVA002",
             Descricao = "",
             Status = StatusEnum.ATIVO
         };
 
         private static void SeedContext(AppDbContext context)
         {
-            context.TipoLacre.Add(_testSeed);
-            context.TipoLacre.Add(_testSeed2);
+            context.TipoAvaria.Add(_testSeed);
+            context.TipoAvaria.Add(_testSeed2);
             context.SaveChanges();
         }
 
@@ -48,7 +49,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
         {
             // Arrange
             using var context = CriarContextoInMemory();
-            var repository = new TipoLacreRepository(context);
+            var repository = new TipoAvariaRepository(context, mapper);
 
             SeedContext(context);
 
@@ -57,7 +58,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
 
             // Assert
             Assert.NotNull(resultado);
-            Assert.Equal("LAC001", resultado.Tipo);
+            Assert.Equal("AVA001", resultado.Tipo);
         }
 
         [Fact]
@@ -65,7 +66,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
         {
             // Arrange
             using var context = CriarContextoInMemory();
-            var repository = new TipoLacreRepository(context);
+            var repository = new TipoAvariaRepository(context, mapper);
 
             // Act
             var resultado = await repository.GetByIdAsync(Guid.NewGuid());
@@ -79,10 +80,10 @@ namespace GateAPI.Tests.Repositories.Configuracao
         {
             // Arrange
             using var context = CriarContextoInMemory();
-            var repository = new TipoLacreRepository(context);
+            var repository = new TipoAvariaRepository(context, mapper);
 
-            var entidade = new TipoLacre(
-                "LAC001",
+            var entidade = new TipoAvaria(
+                "AVA001",
                 "",
                 StatusEnum.ATIVO
                 );
@@ -92,19 +93,19 @@ namespace GateAPI.Tests.Repositories.Configuracao
 
             // Assert
             Assert.NotNull(resultado);
-            Assert.Equal("LAC001", resultado.Tipo);
+            Assert.Equal("AVA001", resultado.Tipo);
         }
 
         [Fact]
-        public async Task UpdateAsync_DeveAtualizarTipoLacre_QuandoEncontrado()
+        public async Task UpdateAsync_DeveAtualizarTipoAvaria_QuandoEncontrado()
         {
             // Arrange
             using var context = CriarContextoInMemory();
             SeedContext(context);
             context.ChangeTracker.Clear();
-            var repository = new TipoLacreRepository(context);
+            var repository = new TipoAvariaRepository(context, mapper);
 
-            var toUpdate = await context.TipoLacre
+            var toUpdate = await context.TipoAvaria
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync(x => x.Id == _testSeed2.Id);
 
@@ -115,12 +116,12 @@ namespace GateAPI.Tests.Repositories.Configuracao
             toUpdate.Descricao = newDesc;
 
             // Act
-            var entidade = TipoLacreMapper.ToDomain(toUpdate);
+            var entidade = mapper.ToDomain(toUpdate);
             await repository.UpdateAsync(entidade);
 
             // Assert
             context.ChangeTracker.Clear();
-            var updatedModel = await context.TipoLacre.FindAsync(_testSeed2.Id);
+            var updatedModel = await context.TipoAvaria.FindAsync(_testSeed2.Id);
 
             Assert.NotNull(updatedModel);
             Assert.Equal(newDesc, updatedModel.Descricao);
@@ -128,12 +129,12 @@ namespace GateAPI.Tests.Repositories.Configuracao
         }
 
         [Fact]
-        public async Task DeleteAsync_DeveRemoverTipoLacre_QuandoEncontrado()
+        public async Task DeleteAsync_DeveRemoverTipoAvaria_QuandoEncontrado()
         {
             // Arrange
             using var context = CriarContextoInMemory();
             SeedContext(context);
-            var repository = new TipoLacreRepository(context);
+            var repository = new TipoAvariaRepository(context, mapper);
             var idToDelete = _testSeed.Id;
 
             // Act
@@ -141,12 +142,13 @@ namespace GateAPI.Tests.Repositories.Configuracao
 
             // Assert
             context.ChangeTracker.Clear();
-            var notFoundDeleted = await context.TipoLacre.FindAsync(idToDelete);
+            var notFoundDeleted = await context.TipoAvaria.FindAsync(idToDelete);
             Assert.Null(notFoundDeleted);
 
-            var deletedModel = await context.TipoLacre.IgnoreQueryFilters().FirstAsync(x => x.Id == idToDelete);
+            var deletedModel = await context.TipoAvaria.IgnoreQueryFilters().FirstAsync(x => x.Id == idToDelete);
             Assert.NotNull(deletedModel);
             Assert.False(deletedModel.DeletedAt == null);
+
         }
     }
 }

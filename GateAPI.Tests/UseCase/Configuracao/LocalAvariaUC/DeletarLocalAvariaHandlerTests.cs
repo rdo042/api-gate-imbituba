@@ -22,7 +22,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.LocalAvariaUC
             var id = Guid.NewGuid();
             var command = new DeletarLocalAvariaCommand(id);
 
-            _repositoryMock.Setup(r => r.DeleteAsync(It.IsAny<Guid>()))
+            _repositoryMock.Setup(r => r.DeleteAsync(It.IsAny<Guid>(), CancellationToken.None))
                            .ReturnsAsync(true);
 
             // Act
@@ -32,7 +32,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.LocalAvariaUC
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Data);
             Assert.True(result.Data.Value);
-            _repositoryMock.Verify(r => r.DeleteAsync(id), Times.Once);
+            _repositoryMock.Verify(r => r.DeleteAsync(id, CancellationToken.None), Times.Once);
         }
     }
 }
