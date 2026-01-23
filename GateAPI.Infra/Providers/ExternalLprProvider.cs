@@ -18,16 +18,18 @@ namespace GateAPI.Infra.Providers
         {
             try
             {
-                var response = await _http.PostAsJsonAsync(
-                    "api/Ocr/ProcessVehiclePlate",
-                    new { image = base64 },
-                    ct);
+                //var response = await _http.PostAsJsonAsync(
+                //    "api/Ocr/ProcessVehiclePlate",
+                //    new { image = base64 },
+                //    ct);
 
-                if (!response.IsSuccessStatusCode)
-                    return null;
+                //if (!response.IsSuccessStatusCode)
+                //    return null;
 
-                var result = await response.Content
-                    .ReadFromJsonAsync<Lpr>(ct);
+                //var result = await response.Content
+                //    .ReadFromJsonAsync<Lpr>(ct);
+
+                var result = new Lpr("OZL7H33", "2025-12-01T11:45:06.2000421-03:00", "2025-12-01T11:45:07.7182738-03:00");
 
                 return result;
             }
