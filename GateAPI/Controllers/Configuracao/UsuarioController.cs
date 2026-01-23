@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Controllers.Configuracao
 {
-    [Route("api/[controller]")]
+    [Route("api/usuario")]
     [ApiController]
     public class UsuarioController(
         ILogger<UsuarioController> logger,

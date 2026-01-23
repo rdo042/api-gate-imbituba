@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GateAPI.Domain.Entities.Integracao;
 
 namespace GateAPI.Application.Providers
 {
     public interface ILprProvider
     {
-        Task<string?> RecognizeAsync(
+        Task<Lpr?> RecognizeAsync(
             string request,
             CancellationToken ct);
     }
