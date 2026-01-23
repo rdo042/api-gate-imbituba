@@ -1,13 +1,9 @@
 ﻿using GateAPI.Application.Common.Models;
+using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
 using MediatR;
 
 namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
 {
-    public class CriarTipoAvariaCommand: IRequest<Result<Guid>>
-    {
-        public string Tipo { get; set; } 
-        public string? Descricao { get; set; }
-        public StatusEnum Status { get; set; }
-    }
+    public record CriarTipoAvariaCommand(string Tipo, string? Descricao, StatusEnum Status = StatusEnum.ATIVO) : IRequest<Result<TipoAvaria>>;
 }

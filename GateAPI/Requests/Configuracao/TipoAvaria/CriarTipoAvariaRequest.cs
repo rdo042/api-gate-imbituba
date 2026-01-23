@@ -1,2 +1,2 @@
 ﻿using GateAPI.Domain.Enums;
-public record CriarTipoAvariaRequest(string Tipo, string? Descricao, StatusEnum Status = StatusEnum.ATIVO);
+public record CriarTipoAvariaRequest(string Tipo, string? Descricao, StatusEnum Status);

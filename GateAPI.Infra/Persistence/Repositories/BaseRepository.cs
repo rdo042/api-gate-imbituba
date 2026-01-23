@@ -1,5 +1,7 @@
-﻿using GateAPI.Domain.Repositories;
+﻿using GateAPI.Domain.Entities;
+using GateAPI.Domain.Repositories;
 using GateAPI.Infra.Mappers;
+using GateAPI.Infra.Models;
 using GateAPI.Infra.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +11,7 @@ namespace GateAPI.Infra.Persistence.Repositories
     AppDbContext context,
     IMapper<TDomain, TModel> mapper) : IBaseRepository<TDomain>
     where TDomain : class
-    where TModel : class
+    where TModel : BaseModel
     {
         protected readonly AppDbContext _context = context;
         protected readonly DbSet<TModel> _dbSet = context.Set<TModel>();
@@ -21,7 +23,8 @@ namespace GateAPI.Infra.Persistence.Repositories
         {
             var query = ApplyIncludes(_dbSet.AsQueryable());
 
-            var model = await query.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
+            //var model = await query.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
+            var model = await query.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
 
             return model == null ? null : _mapper.ToDomain(model);
         }
@@ -35,7 +38,7 @@ namespace GateAPI.Infra.Persistence.Repositories
             return entidade;
         }
 
-        public virtual Task<IEnumerable<TDomain>> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<TDomain>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var query = ApplyIncludes(_dbSet.AsQueryable());
 
@@ -53,7 +56,9 @@ namespace GateAPI.Infra.Persistence.Repositories
 
         public virtual async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var model = await _dbSet.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
+            var query = ApplyIncludes(_dbSet.AsQueryable());
+            //var model = await query.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
+            var model = await query.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
             if (model == null) return;
 
             _dbSet.Remove(model);

@@ -23,7 +23,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
             var command = new DeletarUsuarioCommand(guid);
 
             _repositoryMock.Setup(r => r.DeleteAsync(guid))
-                           .Returns(Task.CompletedTask);
+                           .Returns(Task.FromResult<bool>);
 
             // Act: Executamos o Handler
             var result = await _handler.HandleAsync(command);

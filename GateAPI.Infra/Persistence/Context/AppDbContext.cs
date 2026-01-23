@@ -31,27 +31,8 @@ namespace GateAPI.Infra.Persistence.Context
             base.OnModelCreating(builder);
 
             #region Global Query Filters para Soft Delete
-            
-            foreach (var entityType in builder.Model.GetEntityTypes())
-            {
-                if (!typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
-                    continue;
 
-                var parameter = Expression.Parameter(entityType.ClrType, "e");
-
-                var deletedAtProperty = Expression.Property(
-                    parameter,
-                    nameof(BaseEntity.DeletedAt));
-
-                var nullConstant = Expression.Constant(null, typeof(DateTime?));
-
-                var filter = Expression.Equal(deletedAtProperty, nullConstant);
-
-                var lambda = Expression.Lambda(filter, parameter);
-
-                builder.Entity(entityType.ClrType)
-                       .HasQueryFilter(lambda);
-            }
+            ApplySoftDeleteQueryFilter(builder);
 
             /** Para desabilitar global query filters aplique IgnoreQueryFilters na query desejada. (context.Entities.IgnoreQueryFilters())
             * Exemplo: _context.Perfil.IgnoreQueryFilters()
@@ -103,5 +84,41 @@ namespace GateAPI.Infra.Persistence.Context
 
             return await base.SaveChangesAsync(cancellationToken);
         }
+
+        /// <summary>
+        /// Global Query Filters para Soft Delete
+        /// </summary>
+        /// <param name="builder"></param>
+        private static void ApplySoftDeleteQueryFilter(ModelBuilder builder)
+        {
+            foreach (var entityType in builder.Model.GetEntityTypes()
+                     .Where(t => typeof(BaseModel).IsAssignableFrom(t.ClrType)))
+            {
+                var parameter = Expression.Parameter(entityType.ClrType, "e");
+
+                var deletedAtProperty = Expression.Call(
+                    typeof(EF),
+                    nameof(EF.Property),
+                    new[] { typeof(DateTime?) },
+                    parameter,
+                    Expression.Constant(nameof(BaseModel.DeletedAt))
+                );
+
+                var condition = Expression.Equal(
+                    deletedAtProperty,
+                    Expression.Constant(null, typeof(DateTime?))
+                );
+
+                var lambda = Expression.Lambda(
+                    typeof(Func<,>).MakeGenericType(entityType.ClrType, typeof(bool)),
+                    condition,
+                    parameter
+                );
+
+                builder.Entity(entityType.ClrType)
+                       .HasQueryFilter(lambda);
+            }
+        }
+
     }
 }

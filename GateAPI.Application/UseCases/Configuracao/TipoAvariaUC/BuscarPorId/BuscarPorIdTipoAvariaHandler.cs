@@ -1,9 +1,8 @@
 ﻿using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvaria
+namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC
 {
     public class BuscarPorIdTipoAvariaHandler : IRequestHandler<BuscarPorIdTipoAvariaQuery, Result<Domain.Entities.Configuracao.TipoAvaria?>>
     {

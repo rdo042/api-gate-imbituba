@@ -1,7 +1,9 @@
 using GateAPI.Application;
+using GateAPI.Configuration;
 using GateAPI.Extensions;
 using GateAPI.Infra;
 using GateAPI.Middlewares;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -25,7 +27,16 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("GateAPI.Application")));
 
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(
+    options =>
+    {
+        // Adicionar convenção para kebab case nas controller (endpoint)
+        options.Conventions.Add(
+            new RouteTokenTransformerConvention(
+                new KebabCaseTransformer()
+            )
+        );
+    })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(

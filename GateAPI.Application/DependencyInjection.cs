@@ -24,7 +24,7 @@ namespace GateAPI.Application
             services.AddScoped<UseCases.Configuracao.TipoLacreUC.BuscarPorId.BuscarPorIdTipoLacreHandler>();
             services.AddScoped<UseCases.Configuracao.TipoLacreUC.Criar.CriarTipoLacreHandler>();
             services.AddScoped<UseCases.Configuracao.TipoLacreUC.Atualizar.AtualizarTipoLacreHandler>();
-            services.AddScoped < UseCases.Configuracao.TipoLacreUC.Deletar.DeletarTipoLacreHandler>();
+            services.AddScoped<UseCases.Configuracao.TipoLacreUC.Deletar.DeletarTipoLacreCommand>();
 
             // Services
 

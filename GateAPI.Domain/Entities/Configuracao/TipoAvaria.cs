@@ -4,9 +4,9 @@ namespace GateAPI.Domain.Entities.Configuracao
 {
     public class TipoAvaria : BaseEntity
     {
-        public string Tipo { get; private set; } = string.Empty;
+        public string? Tipo { get; private set; } = string.Empty;
         public string? Descricao { get; private set; }
-        public StatusEnum Status { get; private set; }
+        public StatusEnum? Status { get; private set; }
 
         public TipoAvaria(string tipo, string? descricao, StatusEnum status = StatusEnum.ATIVO) 
         {
@@ -18,11 +18,11 @@ namespace GateAPI.Domain.Entities.Configuracao
             Validation();
         }
 
-        public void UpdateEntity(string tipo, string? descricao, StatusEnum status = StatusEnum.ATIVO)
+        public void UpdateEntity(string? tipo = null, string? descricao = null, StatusEnum? status = null)
         {
-            Tipo = tipo;
-            Descricao = descricao;
-            Status = status;
+            Tipo = tipo??Tipo;
+            Descricao = descricao ?? Descricao;
+            Status = status ?? Status;
 
             Validation();
         }
