@@ -2,6 +2,7 @@
 using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
 using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
+using GateAPI.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,15 +45,13 @@ namespace GateAPI.Controllers.Configuracao
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Atualizar(AlterarTipoAvariaRequest request)
+        public async Task<IActionResult> Atualizar(ChangeBaseRequest<AtualizarTipoAvariaCommand> request)
         {
-            var command = new AtualizarTipoAvariaCommand(request.Id, request.TipoAvaria.Tipo, request.TipoAvaria.Descricao, request.TipoAvaria.Status);
+            var command = new AtualizarTipoAvariaCommand(request.Id, request.Data.Tipo, request.Data.Descricao, request.Data.Status);
             var result = await mediator.Send(command);
       
             return result.IsSuccess ? NoContentResponse("Sucesso ao atualizar avaria") : BadRequestResponse(result.Error ?? "Erro ao atualizar avaria");
         }
-
-       
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Deletar([FromRoute] Guid id)
@@ -63,5 +62,15 @@ namespace GateAPI.Controllers.Configuracao
 
             return result.IsSuccess ? NoContentResponse("Sucesso ao deletar avaria") : BadRequestResponse(result.Error ?? "Erro ao deletar avaria");
         }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> AtualizarParcial(ChangeBaseRequest<AtualizarTipoAvariaCommand> request)
+        {
+            var command = new AtualizarTipoAvariaCommand(request.Id, request.Data.Tipo, request.Data.Descricao, request.Data.Status);
+            var result = await mediator.Send(command);
+
+            return result.IsSuccess ? NoContentResponse("Sucesso ao atualizar avaria") : BadRequestResponse(result.Error ?? "Erro ao atualizar avaria");
+        }
+
     }
 }

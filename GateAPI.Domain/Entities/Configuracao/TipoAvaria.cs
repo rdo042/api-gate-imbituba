@@ -18,13 +18,27 @@ namespace GateAPI.Domain.Entities.Configuracao
             Validation();
         }
 
-        public void UpdateEntity(string? tipo = null, string? descricao = null, StatusEnum? status = null)
+        public void UpdateEntity(string tipo, string? descricao = null, StatusEnum status = StatusEnum.ATIVO)
         {
-            Tipo = tipo??Tipo;
-            Descricao = descricao ?? Descricao;
-            Status = status ?? Status;
+            Tipo = tipo;
+            Descricao = descricao ;
+            Status = status;
 
             Validation();
+        }
+        public void SetTipo(string tipo)
+        {
+            Tipo = tipo;
+        }
+
+        public void SetDescricao(string? descricao)
+        {
+            Descricao = descricao;
+        }
+
+        public void SetStatus(StatusEnum status)
+        {
+            Status = status;
         }
 
         public static TipoAvaria Load(Guid id, string tipo, string? descricao, StatusEnum status)
