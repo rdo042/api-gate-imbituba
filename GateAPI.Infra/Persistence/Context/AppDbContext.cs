@@ -25,6 +25,7 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<PermissaoModel> Permissao { get; set; }
         public DbSet<TipoLacreModel> TipoLacre { get; set; }
         public DbSet<TipoAvariaModel> TipoAvaria { get; set; }
+        public DbSet<LocalAvariaModel> LocalAvaria { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

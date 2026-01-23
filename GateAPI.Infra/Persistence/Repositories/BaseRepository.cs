@@ -49,6 +49,7 @@ namespace GateAPI.Infra.Persistence.Repositories
 
         public virtual async Task UpdateAsync(TDomain entidade, CancellationToken cancellationToken = default)
         {
+            _context.ChangeTracker.Clear();
             var model = _mapper.ToModel(entidade);
             _dbSet.Update(model);
             await _context.SaveChangesAsync(cancellationToken);
