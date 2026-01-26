@@ -6,7 +6,7 @@ namespace GateAPI.Tests.Entities.Configuracao
     public class IdiomaTests
     {
         private readonly StatusEnum _validStatusEnum = StatusEnum.ATIVO;
-        private readonly int _validCanal = 1; // App
+        private readonly int _validCanal = 1;
 
         [Fact]
         public void Constructor_WithValidParameters_ShouldCreateIdioma()
@@ -41,7 +41,7 @@ namespace GateAPI.Tests.Entities.Configuracao
         [Fact]
         public void Constructor_WithInvalidISO639_ShouldThrowArgumentException()
         {
-            // Act & Assert - Código inválido (não segue ISO BCP 47)
+            // Act & Assert
             Assert.Throws<ArgumentException>(() => new Idioma(
                 "INVALID123", "Português", "Descrição", _validStatusEnum, (Domain.Enums.CanalEnum)_validCanal, false
             ));
@@ -97,7 +97,7 @@ namespace GateAPI.Tests.Entities.Configuracao
         [Fact]
         public void Constructor_WithPadraoAndInactiveStatus_ShouldThrowArgumentException()
         {
-            // Act & Assert - Idioma padrão não pode estar INATIVO
+            // Act & Assert
             Assert.Throws<ArgumentException>(() => new Idioma(
                 "pt-BR", "Português", "Descrição", StatusEnum.INATIVO, (Domain.Enums.CanalEnum)_validCanal, true
             ));
@@ -145,7 +145,7 @@ namespace GateAPI.Tests.Entities.Configuracao
             // Arrange
             var entity = new Idioma("pt-BR", "Português", "Descrição", _validStatusEnum, (Domain.Enums.CanalEnum)_validCanal, true);
 
-            // Act & Assert - Idioma padrão não pode ser inativado
+            // Act & Assert
             Assert.Throws<ArgumentException>(() => entity.AlterarStatus(StatusEnum.INATIVO));
         }
 
@@ -202,7 +202,7 @@ namespace GateAPI.Tests.Entities.Configuracao
             // Arrange & Act
             var entity = new Idioma("pt-BR", "Português", "Descrição", _validStatusEnum, (Domain.Enums.CanalEnum)_validCanal, false);
 
-            // Assert - Verificar que ID foi gerado
+            // Assert
             Assert.NotEqual(Guid.Empty, entity.Id);
             Assert.NotNull(entity.Codigo);
             Assert.NotNull(entity.Nome);
@@ -227,7 +227,7 @@ namespace GateAPI.Tests.Entities.Configuracao
 
             // Assert
             Assert.Equal(id, entidade.Id);
-            Assert.NotNull(entidade); // Entidade foi criada com sucesso
+            Assert.NotNull(entidade);
             Assert.Equal("pt-BR", entidade.Codigo);
             Assert.Equal("Português", entidade.Nome);
             Assert.Equal("Descrição", entidade.Descricao);

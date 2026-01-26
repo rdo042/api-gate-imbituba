@@ -86,5 +86,78 @@ namespace GateAPI.Tests.UseCase.Configuracao.IdiomaUC
             Assert.Equal(StatusEnum.INATIVO, result.Data.Status);
             Assert.False(result.Data.EhPadrao);
         }
+
+        [Fact]
+        public async Task Handle_DeveRetornarErro_QuandoTentarCriarSegundoIdiomaComoPadrao()
+        {
+            // Arrange
+            var command = new CriarIdiomaCommand(
+                "en-US",
+                "English USA",
+                "English from USA",
+                StatusEnum.ATIVO,
+                CanalEnum.App,
+                true // Tentando criar como padrão
+            );
+
+            var idiomaPadraoExistente = new Idioma(
+                "pt-BR",
+                "Português Brasil",
+                "Idioma português do Brasil",
+                StatusEnum.ATIVO,
+                CanalEnum.Ambos,
+                true
+            );
+
+            _repositoryMock.Setup(r => r.GetPadraoAsync(It.IsAny<CancellationToken>()))
+                           .ReturnsAsync(idiomaPadraoExistente);
+
+            // Act
+            var result = await _handler.Handle(command, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Já existe um idioma padrão. Remova o padrão do idioma atual antes de definir um novo.", result.Error);
+            _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Idioma>(), It.IsAny<CancellationToken>()), Times.Never);
+        }
+
+        [Fact]
+        public async Task Handle_DeveRetornarSucesso_QuandoCriarIdiomaComoPadraoSemOutroPadrao()
+        {
+            // Arrange
+            var command = new CriarIdiomaCommand(
+                "pt-BR",
+                "Português Brasil",
+                "Idioma português do Brasil",
+                StatusEnum.ATIVO,
+                CanalEnum.Ambos,
+                true // Criar como padrão
+            );
+
+            var idiomaCriado = new Idioma(
+                command.Codigo,
+                command.Nome,
+                command.Descricao,
+                command.Status,
+                command.Canal,
+                command.EhPadrao
+            );
+
+            // Nenhum idioma padrão existe
+            _repositoryMock.Setup(r => r.GetPadraoAsync(It.IsAny<CancellationToken>()))
+                           .ReturnsAsync((Idioma?)null);
+
+            _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Idioma>(), It.IsAny<CancellationToken>()))
+                           .ReturnsAsync(idiomaCriado);
+
+            // Act
+            var result = await _handler.Handle(command, CancellationToken.None);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.True(result.Data!.EhPadrao);
+            _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Idioma>(), It.IsAny<CancellationToken>()), Times.Once);
+        }
     }
 }
+

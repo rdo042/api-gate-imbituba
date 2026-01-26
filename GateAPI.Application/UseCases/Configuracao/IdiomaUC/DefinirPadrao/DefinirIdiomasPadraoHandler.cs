@@ -10,17 +10,14 @@ namespace GateAPI.Application.UseCases.Configuracao.IdiomaUC.DefinirPadrao
 
         public async Task<Result<string>> Handle(DefinirIdiomasPadraoCommand command, CancellationToken cancellationToken = default)
         {
-            // Buscar o idioma padrão atual
             var idiomaPadraoAtual = await _idiomaRepository.GetPadraoAsync(cancellationToken);
 
-            // Se existe um idioma padrão, remover a marcação
             if (idiomaPadraoAtual != null)
             {
                 idiomaPadraoAtual.RemoverComoPadrao();
                 await _idiomaRepository.UpdateAsync(idiomaPadraoAtual, cancellationToken);
             }
 
-            // Buscar o novo idioma que será padrão
             var novoIdiomasPadrao = await _idiomaRepository.GetByIdAsync(command.Id, cancellationToken);
 
             if (novoIdiomasPadrao == null)
