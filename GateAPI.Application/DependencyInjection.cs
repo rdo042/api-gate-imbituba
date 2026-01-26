@@ -21,6 +21,14 @@ namespace GateAPI.Application
             services.AddScoped<UseCases.Configuracao.PerfilUC.Atualizar.AtualizarPerfilHandler>();
             services.AddScoped<UseCases.Configuracao.PerfilUC.Deletar.DeletarPerfilHandler>();
 
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.BuscarPorId.BuscarPorIdIdiomaHandler>();
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.BuscarTodos.BuscarTodosIdiomaHandler>();
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.BuscarIdiomaApp.BuscarIdiomaAppHandler>();
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.Criar.CriarIdiomaHandler>();
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.Atualizar.AtualizarIdiomaHandler>();
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.Deletar.DeletarIdiomaHandler>();
+            services.AddScoped<UseCases.Configuracao.IdiomaUC.DefinirPadrao.DefinirIdiomasPadraoHandler>();
+
             // Services
 
             return services;

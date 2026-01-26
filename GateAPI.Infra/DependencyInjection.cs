@@ -37,6 +37,7 @@ namespace GateAPI.Infra
             services.AddScoped<ITipoLacreRepository, TipoLacreRepository>();
             services.AddScoped<ITipoAvariaRepository, TipoAvariaRepository>();
             services.AddScoped<ILocalAvariaRepository, LocalAvariaRepository>();
+            services.AddScoped<IIdiomaRepository, IdiomaRepository>();
 
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
@@ -47,6 +48,7 @@ namespace GateAPI.Infra
 
             services.AddScoped<IMapper<TipoAvaria, TipoAvariaModel>, TipoAvariaMapper>();
             services.AddScoped<IMapper<LocalAvaria, LocalAvariaModel>, LocalAvariaMapper>();
+            services.AddScoped<IMapper<Idioma, IdiomaModel>, IdiomaMapper>();
 
             return services;
         }
