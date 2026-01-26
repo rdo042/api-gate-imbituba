@@ -2,5 +2,5 @@
 
 namespace GateAPI.Requests.Configuracao.TipoLacreRequest
 {
-    public record CriarTipoLacreRequest(Guid Id, string Nome, string? Descricao, StatusEnum Status);
+    public record CriarTipoLacreRequest(string Nome, string? Descricao, StatusEnum Status);
 }

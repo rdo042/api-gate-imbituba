@@ -1,11 +1,9 @@
-﻿using GateAPI.Domain.Entities;
-using GateAPI.Infra.Models;
+﻿using GateAPI.Infra.Models;
 using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Profile;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Reflection.Emit;
 
 namespace GateAPI.Infra.Persistence.Context
 {
