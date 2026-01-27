@@ -8,10 +8,10 @@
         // Adicionar convenção para kebab case nas controller (endpoint)
         public string TransformOutbound(object value)
         {
-            if (value == null) return null;
+            if (value == null) return "";
 
             return Regex
-                .Replace(value.ToString(), "(?<!^)([A-Z])", "-$1")
+                .Replace(value.ToString()!, "(?<!^)([A-Z])", "-$1")
                 .ToLower();
         }
     }

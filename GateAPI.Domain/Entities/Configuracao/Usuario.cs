@@ -78,8 +78,6 @@ namespace GateAPI.Domain.Entities.Configuracao
                 throw new ArgumentException("A Senha do usuario é obrigatória.");
             if (this.SenhaHash.Length > 255)
                 throw new ArgumentException("O tamanho da senha do usuario não é suportado - 255");
-            if (this.LinkFoto?.Length > 255)
-                throw new ArgumentException("O tamanho do link de foto do usuario não é suportado - 255");
         }
     }
 }
