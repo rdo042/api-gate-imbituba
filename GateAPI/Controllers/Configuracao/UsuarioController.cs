@@ -64,7 +64,6 @@ namespace GateAPI.Controllers.Configuracao
                 id,
                 data.Nome,
                 data.Email,
-                data.Senha,
                 data.LinkFoto,
                 data.PerfilId,
                 data.Status
