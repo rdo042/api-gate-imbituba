@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAnnotationsExtensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GateAPI.Application.Common.Models
 {
