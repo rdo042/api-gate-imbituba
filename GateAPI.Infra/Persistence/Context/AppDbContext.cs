@@ -24,6 +24,8 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<TipoLacreModel> TipoLacre { get; set; }
         public DbSet<TipoAvariaModel> TipoAvaria { get; set; }
         public DbSet<LocalAvariaModel> LocalAvaria { get; set; }
+        public DbSet<TaskFlowModel> TaskFlow { get; set; }
+        public DbSet<TaskFlowTasksModel> TaskFlowTasks { get; set; }
         public DbSet<TasksModel> Tasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -46,6 +48,7 @@ namespace GateAPI.Infra.Persistence.Context
             builder.ApplyConfiguration(new UsuarioModelConfiguration());
             builder.ApplyConfiguration(new TipoLacreModelConfiguration());
             builder.ApplyConfiguration(new TipoAvariaModelConfiguration());
+            builder.ApplyConfiguration(new TaskFlowTasksModelConfiguration());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

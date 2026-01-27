@@ -6,7 +6,9 @@ using GateAPI.Infra.Persistence.Context;
 
 namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 {
-    public class TipoAvariaRepository(AppDbContext context, IMapper<TipoAvaria, TipoAvariaModel> mapper) : BaseRepository<TipoAvaria, TipoAvariaModel>(context, mapper), ITipoAvariaRepository
+    public class TaskFlowRepository(AppDbContext context, IMapper<TaskFlow, TaskFlowModel> mapper) 
+        : BaseRepository<TaskFlow, TaskFlowModel>(context, mapper), 
+        ITaskFlowRepository
     {
     }
 }
