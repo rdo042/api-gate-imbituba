@@ -1,5 +1,6 @@
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
+using GateAPI.Domain.Exceptions;
 using GateAPI.Tests.Entities.Configuracao.Stubs;
 
 namespace GateAPI.Tests.Entities.Configuracao
@@ -12,29 +13,22 @@ namespace GateAPI.Tests.Entities.Configuracao
         public void Constructor_WithValidParameters_ShouldCreateMotorista()
         {
             // Arrange
-            var nome = "João da Silva";
-            var dataNascimento = new DateOnly(1985, 5, 20);
-            var rg = "123456789";
-            var cpf = "12345678901";
-            var cnh = "12345678900";
-            var validadeCnh = new DateOnly(2026, 12, 31);
-            var telefone = "31999999999";
-            var foto = "https://example.com/foto.jpg";
+            var stub = MotoristaStub.Valid();
 
             // Act
             var entity = Motorista.Create(
-                nome, dataNascimento, rg, cpf, cnh, validadeCnh, telefone, foto, _validStatusEnum
+                stub.Nome, stub.DataNascimento, stub.RG.Value, stub.CPF.Value, stub.CNH.Value, stub.ValidadeCNH, stub.Telefone, stub.Foto, _validStatusEnum
             );
 
             // Assert
-            Assert.Equal(nome, entity.Nome);
-            Assert.Equal(dataNascimento, entity.DataNascimento);
-            Assert.Equal(rg, entity.RG.Value);
-            Assert.Equal(cpf, entity.CPF.Value);
-            Assert.Equal(cnh, entity.CNH.Value);
-            Assert.Equal(validadeCnh, entity.ValidadeCNH);
-            Assert.Equal(telefone, entity.Telefone);
-            Assert.Equal(foto, entity.Foto);
+            Assert.Equal(stub.Nome, entity.Nome);
+            Assert.Equal(stub.DataNascimento, entity.DataNascimento);
+            Assert.Equal(stub.RG.Value, entity.RG.Value);
+            Assert.Equal(stub.CPF.Value, entity.CPF.Value);
+            Assert.Equal(stub.CNH.Value, entity.CNH.Value);
+            Assert.Equal(stub.ValidadeCNH, entity.ValidadeCNH);
+            Assert.Equal(stub.Telefone, entity.Telefone);
+            Assert.Equal(stub.Foto, entity.Foto);
             Assert.Equal(_validStatusEnum, entity.Status);
         }
 
@@ -42,22 +36,19 @@ namespace GateAPI.Tests.Entities.Configuracao
         public void Constructor_WithNullOptionalParameters_ShouldCreateMotorista()
         {
             // Arrange
-            var nome = "Jane Silva";
-            var rg = "987654321";
-            var cpf = "98765432109";
-            var cnh = "98765432101";
+var stub = MotoristaStub.Valid();
 
             // Act
             var entity = Motorista.Create(
-                nome, null, rg, cpf, cnh, null, null, null, _validStatusEnum
+                stub.Nome, null, stub.RG.Value, stub.CPF.Value,stub.CNH.Value, null, null, null, _validStatusEnum
             );
 
             // Assert
-            Assert.Equal(nome, entity.Nome);
+            Assert.Equal(stub.Nome, entity.Nome);
             Assert.Null(entity.DataNascimento);
-            Assert.Equal(rg, entity.RG.Value);
-            Assert.Equal(cpf, entity.CPF.Value);
-            Assert.Equal(cnh, entity.CNH.Value);
+            Assert.Equal(stub.RG.Value, entity.RG.Value);
+            Assert.Equal(stub.CPF.Value, entity.CPF.Value);
+            Assert.Equal(stub.CNH.Value, entity.CNH.Value);
             Assert.Null(entity.ValidadeCNH);
             Assert.Null(entity.Telefone);
             Assert.Null(entity.Foto);
@@ -67,19 +58,19 @@ namespace GateAPI.Tests.Entities.Configuracao
         [Theory]
         [InlineData("")] // Nome vazio
         [InlineData("   ")] // Nome com apenas espaços
-        public void Constructor_WithInvalidNome_ShouldThrowArgumentException(string nome)
+        public void Constructor_WithInvalidNome_ShouldThrowDomainRulesException(string nome)
         {
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => Motorista.Create(
+            Assert.Throws<DomainRulesException>(() => Motorista.Create(
                 nome, new DateOnly(1985, 5, 20), "123456789", "12345678901", "12345678900", null, null, null, _validStatusEnum
             ));
         }
 
         [Fact]
-        public void Constructor_WithInvalidCPF_ShouldThrowArgumentException()
+        public void Constructor_WithInvalidCPF_ShouldThrowDomainRulesException()
         {
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => Motorista.Create(
+            Assert.Throws<DomainRulesException>(() => Motorista.Create(
                 "João da Silva", new DateOnly(1985, 5, 20), "123456789", "", "12345678900", null, null, null, _validStatusEnum
             ));
         }
@@ -141,9 +132,9 @@ namespace GateAPI.Tests.Entities.Configuracao
             var motorista = MotoristaStub.Valid();
             var novoNome = "Maria Silva";
             var novaDataNascimento = new DateOnly(1990, 3, 15);
-            var novoRG = "987654321";
-            var novoCPF = "98765432109";
-            var novoCNH = "98765432101";
+            var novoRG = "225645154";
+            var novoCPF = "23943634019";
+            var novoCNH = "58664847016";
             var novoTelefone = "31988888888";
             var novaFoto = "https://example.com/nova-foto.jpg";
             var novoStatus = StatusEnum.INATIVO;

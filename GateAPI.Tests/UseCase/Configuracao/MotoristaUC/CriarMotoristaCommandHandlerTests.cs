@@ -3,6 +3,7 @@ using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
+using GateAPI.Domain.Exceptions;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Tests.Entities.Configuracao.Stubs;
 using Moq;
@@ -74,8 +75,9 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
             );
 
             // Act & Assert
-            var ex = await Assert.ThrowsAsync<ArgumentException>(() => _handler.Handle(command, CancellationToken.None));
+            var ex = await Assert.ThrowsAsync<DomainRulesException>(() => _handler.Handle(command, CancellationToken.None));
             Assert.NotNull(ex);
+            Assert.Equal("Nome inválido", ex.Message);
             _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Motorista>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
@@ -96,7 +98,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
             );
 
             // Act & Assert
-            var ex = await Assert.ThrowsAsync<ArgumentException>(() => _handler.Handle(command, CancellationToken.None));
+            var ex = await Assert.ThrowsAsync<DomainRulesException>(() => _handler.Handle(command, CancellationToken.None));
             Assert.NotNull(ex);
             _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Motorista>(), It.IsAny<CancellationToken>()), Times.Never);
         }

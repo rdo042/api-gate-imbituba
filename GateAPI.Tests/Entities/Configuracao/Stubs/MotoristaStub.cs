@@ -26,9 +26,9 @@ namespace GateAPI.Tests.Entities.Configuracao.Stubs
             return Motorista.Create(
             nome: "Jane Silva",
             dataNascimento: new DateOnly(1990, 3, 15),
-            rg: "987654321",
-            cpf: "98765432109",
-            cnh: "98765432101",
+            rg: "351258772",
+            cpf: "80333302010",
+            cnh: "54509817637",
             validadeCNH: new DateOnly(2027, 6, 30),
             telefone: "31988888888",
             foto: "https://example.com/foto2.jpg",
