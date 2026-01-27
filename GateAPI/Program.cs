@@ -1,12 +1,9 @@
 using GateAPI.Application;
-using GateAPI.Configuration;
 using GateAPI.Extensions;
 using GateAPI.Infra;
 using GateAPI.Middlewares;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Reflection;
 using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +44,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Add global exception handler middleware
+//app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<AuthorizationResponseMiddleware>();

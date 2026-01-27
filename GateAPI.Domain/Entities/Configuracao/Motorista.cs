@@ -33,11 +33,11 @@ namespace GateAPI.Domain.Entities.Configuracao
 
         public static Motorista Create(string nome, DateOnly? dataNascimento, string rg, string cpf, string cnh, DateOnly? validadeCNH, string? telefone, string? foto, StatusEnum status)
         {
-            if (string.IsNullOrWhiteSpace(nome))
-                throw new DomainRulesException("Nome inválido");
+            //if (string.IsNullOrWhiteSpace(nome))
+            //    throw new DomainRulesException("Nome inválido");
 
-            if (cpf.Length != 11)
-                throw new DomainRulesException("CPF inválido");
+            //if (cpf.Length != 11)
+            //    throw new DomainRulesException("CPF inválido");
 
             var motorista = new Motorista(nome, dataNascimento, rg, cpf, cnh, validadeCNH, telefone, foto, status);
             motorista.CreateId();

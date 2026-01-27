@@ -1,10 +1,8 @@
-﻿
-using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
+﻿using GateAPI.Application.Common.Models;
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Deletar
+namespace GateAPI.Application.UseCases.Configuracao.MotoristaUC.Deletar
 {
     public class DeletarMotoristaCommandHandler: IRequestHandler<DeletarMotoristaCommand, Result<Guid>>
     {

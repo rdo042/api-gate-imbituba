@@ -55,9 +55,9 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
         }
 
         [Theory]
-        [InlineData("")] // Nome vazio
-        [InlineData("   ")] // Nome apenas com espaços
-        [InlineData("AB")] // Nome muito curto
+        [InlineData("")] 
+        [InlineData("   ")]
+        [InlineData("AB")]
         public async Task Handle_DeveFalhar_QuandoNomeEInvalido(string nome)
         {
             // Arrange

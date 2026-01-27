@@ -1,7 +1,10 @@
-﻿using GateAPI.Application.Providers;
+﻿using FluentValidation;
+using GateAPI.Application.Behaviors;
+using GateAPI.Application.Providers;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Domain.Services;
+using GateAPI.Domain.Validators.MotoristaValidators;
 using GateAPI.Infra.Mappers;
 using GateAPI.Infra.Mappers.Configuracao;
 using GateAPI.Infra.Models.Configuracao;
@@ -9,6 +12,7 @@ using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
 using GateAPI.Infra.Providers;
 using GateAPI.Infra.Services;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,6 +52,14 @@ namespace GateAPI.Infra
 
             services.AddScoped<IMapper<TipoAvaria, TipoAvariaModel>, TipoAvariaMapper>();
             services.AddScoped<IMapper<LocalAvaria, LocalAvariaModel>, LocalAvariaMapper>();
+            services.AddScoped<IMapper<Motorista, MotoristaModel>, MotoristaMapper>();
+
+
+            // FluentValidation
+            services.AddValidators();
+
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }
@@ -77,6 +89,13 @@ namespace GateAPI.Infra
 
             services.AddAuthorization();
 
+            return services;
+        }
+
+        public static IServiceCollection AddValidators(
+          this IServiceCollection services)
+        {
+            services.AddValidatorsFromAssembly(typeof(CriarMotoristaCommandValidator).Assembly);
             return services;
         }
     }

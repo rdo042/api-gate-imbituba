@@ -1,5 +1,5 @@
+using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarPorDocumento;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarTodos;
-using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Tests.Entities.Configuracao.Stubs;
 using Moq;

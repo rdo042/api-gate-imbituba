@@ -2,7 +2,7 @@
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
+namespace GateAPI.Application.UseCases.Configuracao.MotoristaUC.Atualizar
 {
     public class AtualizarMotoristaCommandHandler : IRequestHandler<AtualizarMotoristaCommand, Result<Guid>>
     {

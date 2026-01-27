@@ -1,4 +1,5 @@
 ﻿using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.BuscarPorId;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
 using GateAPI.Domain.Repositories.Configuracao;

@@ -1,7 +1,6 @@
-﻿using DataAnnotationsExtensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace GateAPI.Application.Common.Models
+namespace GateAPI.Requests
 {
     public class PaginacaoRequest
     {

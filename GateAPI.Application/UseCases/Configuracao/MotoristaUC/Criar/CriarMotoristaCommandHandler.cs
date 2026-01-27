@@ -4,7 +4,7 @@ using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
+namespace GateAPI.Application.UseCases.Configuracao.MotoristaUC.Criar
 {
     public class CriarMotoristaCommandHandler : IRequestHandler<CriarMotoristaCommand, Result<Motorista>>
     {
@@ -17,6 +17,14 @@ namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
 
         public async Task<Result<Motorista>> Handle(CriarMotoristaCommand request, CancellationToken cancellationToken)
         {
+            var byCpf = await _repository.GetByDocumentoAsync(request.CPF, cancellationToken);
+            if(byCpf != null)
+                return Result<Motorista>.Failure("Já existe um motorista cadastrado com este CPF.");
+
+            var byCNH = await _repository.GetByDocumentoAsync(request.CPF, cancellationToken);
+            if(byCNH != null)
+                return Result<Motorista>.Failure("Já existe um motorista cadastrado com esta CNH.");
+
             var motorista = Motorista.Create(
                             request.Nome,
                             request.DataNascimento,

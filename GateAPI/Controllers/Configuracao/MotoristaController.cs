@@ -1,9 +1,10 @@
-﻿using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.Base;
+﻿using GateAPI.Application.UseCases.Configuracao.Base;
+using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Atualizar;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.AtualizarParcial;
+using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarPorDocumento;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarTodos;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Criar;
-using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar;
+using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Deletar;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Requests;

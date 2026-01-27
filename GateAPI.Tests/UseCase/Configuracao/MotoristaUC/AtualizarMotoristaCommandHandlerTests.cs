@@ -1,5 +1,5 @@
 using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar;
+using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Atualizar;
 using GateAPI.Domain.Enums;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Tests.Entities.Configuracao.Stubs;

@@ -1,5 +1,5 @@
 using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Deletar;
+using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Deletar;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
 using GateAPI.Domain.Repositories.Configuracao;
 using Moq;

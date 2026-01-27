@@ -1,3 +1,4 @@
+using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
 using GateAPI.Infra.Mappers.Configuracao;
 using GateAPI.Infra.Models.Configuracao;
@@ -343,15 +344,17 @@ namespace GateAPI.Tests.Repositories.Configuracao
         [Fact]
         public async Task GetAllPaginatedAsync_DeveRespeitar_PaginaEAl()
         {
+            var stub = MotoristaStub.Valid();   
+            var stub1 = MotoristaStub.Valid01();   
             // Arrange
             var motorista1 = new MotoristaModel
             {
                 Id = Guid.NewGuid(),
                 Nome = "Motorista 1",
                 DataNascimento = new DateOnly(1985, 5, 20),
-                RG = "111111111",
-                CPF = "11111111111",
-                CNH = "11111111100",
+                RG = stub.RG.Value,
+                CPF = stub.CPF.Value,
+                CNH = stub.CNH.Value,
                 ValidadeCNH = new DateOnly(2026, 12, 31),
                 Telefone = "31911111111",
                 Foto = "",
@@ -363,9 +366,9 @@ namespace GateAPI.Tests.Repositories.Configuracao
                 Id = Guid.NewGuid(),
                 Nome = "Motorista 2",
                 DataNascimento = new DateOnly(1986, 6, 21),
-                RG = "222222222",
-                CPF = "22222222222",
-                CNH = "22222222200",
+                RG = stub1.RG.Value,
+                CPF = stub1.CPF.Value,
+                CNH = stub1.CNH.Value,
                 ValidadeCNH = new DateOnly(2027, 1, 15),
                 Telefone = "31922222222",
                 Foto = "",
@@ -377,9 +380,9 @@ namespace GateAPI.Tests.Repositories.Configuracao
                 Id = Guid.NewGuid(),
                 Nome = "Motorista 3",
                 DataNascimento = new DateOnly(1987, 7, 22),
-                RG = "333333333",
-                CPF = "33333333333",
-                CNH = "33333333300",
+                RG = "197189027",
+                CPF = "86381009063",
+                CNH = "76376752426",
                 ValidadeCNH = new DateOnly(2028, 2, 28),
                 Telefone = "31933333333",
                 Foto = "",

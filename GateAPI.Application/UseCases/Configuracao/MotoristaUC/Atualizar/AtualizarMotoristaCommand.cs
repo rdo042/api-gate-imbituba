@@ -4,7 +4,7 @@ using GateAPI.Domain.Enums;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
+namespace GateAPI.Application.UseCases.Configuracao.MotoristaUC.Atualizar
 {
     public record AtualizarMotoristaCommand(Guid Id,
     [Required(ErrorMessage = "O nome é obrigatório")]

@@ -1,10 +1,9 @@
 ﻿using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarTodos;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC
+namespace GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarPorDocumento
 {
     public class BuscarPorDocumentosMotoristaHandler : IRequestHandler<BuscarPorDocumentoMotoristaQuery, Result<Motorista?>>
     {

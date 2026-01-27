@@ -1,4 +1,4 @@
-﻿using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar;
+﻿using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Atualizar;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
 using GateAPI.Domain.Repositories.Configuracao;
