@@ -64,7 +64,7 @@ namespace GateAPI.Controllers.Configuracao
                 id,
                 data.Nome,
                 data.Email,
-                data.LinkFoto,
+                data.Foto,
                 data.PerfilId,
                 data.Status
             ); 
