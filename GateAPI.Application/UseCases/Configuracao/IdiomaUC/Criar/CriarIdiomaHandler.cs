@@ -11,7 +11,6 @@ namespace GateAPI.Application.UseCases.Configuracao.IdiomaUC.Criar
 
         public async Task<Result<Idioma>> Handle(CriarIdiomaCommand command, CancellationToken cancellationToken = default)
         {
-            // Validação: Se tentando criar um idioma padrão, verificar se já existe um
             if (command.EhPadrao)
             {
                 var idiomaPadraoExistente = await _idiomaRepository.GetPadraoAsync(cancellationToken);

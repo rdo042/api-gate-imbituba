@@ -14,14 +14,17 @@ namespace GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Deletar
         {
             try
             {
-                await _localAvariaRepository.DeleteAsync(command.Id);
+                var deletado = await _localAvariaRepository.DeleteAsync(command.Id);
+
+                if (!deletado)
+                    return Result<bool?>.Failure("Local Avaria não encontrado");
 
                 return Result<bool?>.Success(true);
 
             }
             catch (Exception ex)
             {
-                return Result<bool?>.Failure("Erro ao deletar tipo lacre - " + ex.Message);
+                return Result<bool?>.Failure("Erro ao deletar local avaria - " + ex.Message);
             }
         }
     }

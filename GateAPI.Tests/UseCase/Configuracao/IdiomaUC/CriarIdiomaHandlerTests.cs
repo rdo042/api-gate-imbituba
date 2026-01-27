@@ -97,7 +97,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.IdiomaUC
                 "English from USA",
                 StatusEnum.ATIVO,
                 CanalEnum.App,
-                true // Tentando criar como padrão
+                true
             );
 
             var idiomaPadraoExistente = new Idioma(
@@ -143,7 +143,6 @@ namespace GateAPI.Tests.UseCase.Configuracao.IdiomaUC
                 command.EhPadrao
             );
 
-            // Nenhum idioma padrão existe
             _repositoryMock.Setup(r => r.GetPadraoAsync(It.IsAny<CancellationToken>()))
                            .ReturnsAsync((Idioma?)null);
 
