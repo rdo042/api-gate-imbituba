@@ -6,6 +6,6 @@ namespace GateAPI.Infra.Models.Configuracao
     public class TaskFlowModel : BaseModel
     {
         [MaxLength(100)] public string Nome { get; set; }
-        public ICollection<TaskFlowTasks> TaskFlowTasks { get; set; } = [];
+        public ICollection<TaskFlowTasksModel> TaskFlowTasks { get; set; } = [];
     }
 }
