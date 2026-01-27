@@ -12,12 +12,14 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
         private readonly AppDbContext _context = context ?? throw new ArgumentNullException(nameof(context));
         private readonly IMapper<TaskFlowTasks, TaskFlowTasksModel> _mapper = mapper;
 
-        public async Task AddAsync(TaskFlowTasks entidade)
+        public async Task<TaskFlowTasks> AddAsync(TaskFlowTasks entidade)
         {
             var model = _mapper.ToModel(entidade);
 
             _context.TaskFlowTasks.Add(model);
             await _context.SaveChangesAsync();
+
+            return entidade;
         }
 
         public async Task<IEnumerable<TaskFlowTasks>> GetByFlowIdAsync(Guid flowId)
@@ -67,9 +69,10 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
             int ordemRemovida = relacaoParaRemover.Ordem;
 
-            var rowsAffected = await _context.TaskFlowTasks.Where(p => p.Id == relacaoParaRemover.Id).ExecuteDeleteAsync();
+            _context.TaskFlowTasks.Remove(relacaoParaRemover);
+            //var rowsAffected = await _context.TaskFlowTasks.Where(p => p.Id == relacaoParaRemover.Id).ExecuteDeleteAsync();
 
-            if (rowsAffected == 0) throw new ArgumentException("Não encontrado relação para remover");
+            //if (rowsAffected == 0) throw new ArgumentException("Não encontrado relação para remover");
 
             var tarefasParaReordenar = await _context.TaskFlowTasks
                 .Where(x => x.TaskFlowId == flowId && x.Ordem > ordemRemovida)

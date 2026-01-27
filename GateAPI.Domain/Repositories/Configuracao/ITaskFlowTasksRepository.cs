@@ -4,7 +4,7 @@ namespace GateAPI.Domain.Repositories.Configuracao
 {
     public interface ITaskFlowTasksRepository
     {
-        Task AddAsync(TaskFlowTasks relation);
+        Task<TaskFlowTasks> AddAsync(TaskFlowTasks relation);
         Task<IEnumerable<TaskFlowTasks>> GetByFlowIdAsync(Guid flowId);
         Task<TaskFlowTasks?> GetSpecificAsync(Guid flowId, Guid taskId);
         Task<TaskFlowTasks?> GetByOrderAsync(Guid flowId, int ordem);
