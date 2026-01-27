@@ -7,15 +7,26 @@ namespace GateAPI.Infra.Mappers.Configuracao
     {
         public TaskFlowTasks ToDomain(TaskFlowTasksModel model)
         {
-            throw new NotImplementedException();
-            //var listaTasks = model.TaskFlowTasks
-            //    .Select(item => Tasks.Load(item.Tasks.Id, item.Tasks.Nome, item.Tasks.Url, item.Tasks.Status));
+            var task =  Tasks.Load(
+                model.Tasks.Id,
+                model.Tasks.Nome,
+                model.Tasks.Url,
+                model.Tasks.Status
+            );
 
-            //return TaskFlow.Load(
-            //    model.Id,
-            //    model.Nome,
-            //    listaTasks
-            //);
+            var taskFlow = TaskFlow.Load(
+                model.TaskFlow.Id,
+                model.TaskFlow.Nome,
+                []
+            );
+
+            return TaskFlowTasks.Load(
+                model.Id,
+                taskFlow,
+                task,
+                model.Ordem,
+                model.Status
+            );
         }
 
         public TaskFlowTasksModel ToModel(TaskFlowTasks entity)

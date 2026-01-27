@@ -10,6 +10,8 @@ namespace GateAPI.Domain.Entities.Configuracao
         public int Ordem {  get; private set; }
         public StatusEnum Status { get; private set; }
 
+        private TaskFlowTasks() { }
+
         public TaskFlowTasks(TaskFlow taskFlow, Tasks task, int ordem, StatusEnum status)
         {
             Id = Guid.NewGuid();
@@ -19,6 +21,26 @@ namespace GateAPI.Domain.Entities.Configuracao
             Status = status;
 
             Validation();
+        }
+
+        public void AlterarOrdem(int ordem)
+        {
+            Ordem = ordem;
+            Validation();
+        }
+
+        public static TaskFlowTasks Load(Guid id, TaskFlow taskFlow, Tasks task, int ordem, StatusEnum status)
+        {
+            var entidade = new TaskFlowTasks
+            {
+                Id = id,
+                TaskFlow = taskFlow,
+                Tasks = task,
+                Ordem = ordem,
+                Status = status,
+            };
+
+            return entidade;
         }
 
         private void Validation()
