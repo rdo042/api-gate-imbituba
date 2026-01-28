@@ -70,7 +70,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
             );
 
             // Act & Assert
-            var ex = await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(command, CancellationToken.None));
+            var ex = await Assert.ThrowsAsync<ArgumentException>(() => _handler.Handle(command, CancellationToken.None));
             Assert.NotNull(ex);
             Assert.Contains("CPF", ex.Message);
             _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Motorista>(), It.IsAny<CancellationToken>()), Times.Never);

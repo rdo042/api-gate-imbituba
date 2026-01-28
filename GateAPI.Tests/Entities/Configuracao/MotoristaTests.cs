@@ -61,7 +61,7 @@ var stub = MotoristaStub.Valid();
         public void Constructor_WithInvalidNome_ShouldThrowDomainRulesException(string nome)
         {
             // Act & Assert
-            Assert.Throws<DomainRulesException>(() => Motorista.Create(
+            Assert.Throws<ArgumentException>(() => Motorista.Create(
                 nome, new DateOnly(1985, 5, 20), "123456789", "12345678901", "12345678900", null, null, null, _validStatusEnum
             ));
         }
@@ -70,7 +70,7 @@ var stub = MotoristaStub.Valid();
         public void Constructor_WithInvalidCPF_ShouldThrowDomainRulesException()
         {
             // Act & Assert
-            Assert.Throws<DomainRulesException>(() => Motorista.Create(
+            Assert.Throws<ArgumentException>(() => Motorista.Create(
                 "João da Silva", new DateOnly(1985, 5, 20), "123456789", "", "12345678900", null, null, null, _validStatusEnum
             ));
         }
