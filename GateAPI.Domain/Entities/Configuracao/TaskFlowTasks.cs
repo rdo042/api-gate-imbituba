@@ -28,6 +28,7 @@ namespace GateAPI.Domain.Entities.Configuracao
             Ordem = ordem;
             Validation();
         }
+        public void AlterarStatus(StatusEnum status) { Status = status; }
 
         public static TaskFlowTasks Load(Guid id, TaskFlow taskFlow, Tasks task, int ordem, StatusEnum status)
         {

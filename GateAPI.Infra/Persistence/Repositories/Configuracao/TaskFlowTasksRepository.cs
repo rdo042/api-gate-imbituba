@@ -80,12 +80,12 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
             return rowsAffected>0;
         }
 
-        public async Task RemoveAndShiftAsync(Guid flowId, Guid taskId)
+        public async Task<bool> RemoveAndShiftAsync(Guid flowId, Guid taskId)
         {
             var relacaoParaRemover = await _context.TaskFlowTasks
                 .FirstOrDefaultAsync(x => x.TaskFlowId == flowId && x.TasksId == taskId);
 
-            if (relacaoParaRemover == null) return;
+            if (relacaoParaRemover == null) return false;
 
             int ordemRemovida = relacaoParaRemover.Ordem;
 
@@ -100,6 +100,18 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
             foreach (var relacao in tarefasParaReordenar)
                 relacao.Ordem--;
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task UpdateRange(IEnumerable<TaskFlowTasks> lista)
+        {
+            _context.ChangeTracker.Clear();
+            var model = lista.Select(_mapper.ToModel);
+
+            _context.TaskFlowTasks.UpdateRange(model);
 
             await _context.SaveChangesAsync();
         }
