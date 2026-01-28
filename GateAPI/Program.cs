@@ -1,6 +1,7 @@
 using GateAPI.Application;
 using GateAPI.Extensions;
 using GateAPI.Infra;
+using GateAPI.Infra.Providers.Configuracao;
 using GateAPI.Middlewares;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,8 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration.GetConnectionString("Default"))
     .AddAuth(secretKey);
+
+builder.Services.Configure<ExternalApiOptions>(builder.Configuration.GetSection(ExternalApiOptions.SectionName));
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("GateAPI.Application")));

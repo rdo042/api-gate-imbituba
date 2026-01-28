@@ -22,5 +22,16 @@ namespace GateAPI.Controllers.Integracoes
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao reconhecer placa");
             //return OkResponse("Not implemented");
         }
+        //tasks/obter-tasks?placa={placa}
+        [HttpGet("tasks/obter-tasks")]
+        public async Task<IActionResult> ObterTasksPorPlaca([FromQuery] string placa)
+        {
+            var command = new TaskPorPlacaCommand(placa);
+
+            var result = await mediator.Send(command);
+
+            return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao consultar task");
+        }
+
     }
 }

@@ -11,6 +11,7 @@ using GateAPI.Infra.Models.Configuracao;
 using GateAPI.Infra.Persistence.Context;
 using GateAPI.Infra.Persistence.Repositories.Configuracao;
 using GateAPI.Infra.Providers;
+using GateAPI.Infra.Providers.Configuracao;
 using GateAPI.Infra.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,6 +43,7 @@ namespace GateAPI.Infra
             services.AddScoped<ITipoAvariaRepository, TipoAvariaRepository>();
             services.AddScoped<ILocalAvariaRepository, LocalAvariaRepository>();
             services.AddScoped<IMotoristaRepository, MotoristaRepository>();
+
 
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
