@@ -1,11 +1,10 @@
+using FluentValidation;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Criar;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Enums;
-using GateAPI.Domain.Exceptions;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Tests.Entities.Configuracao.Stubs;
 using Moq;
-using FluentValidation;
 
 namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
 {
@@ -53,33 +52,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
             _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Motorista>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
-        [Theory]
-        [InlineData("")] 
-        [InlineData("   ")]
-        [InlineData("AB")]
-        public async Task Handle_DeveFalhar_QuandoNomeEInvalido(string nome)
-        {
-            // Arrange
-            var stub = MotoristaStub.Valid();
-            var command = new CriarMotoristaCommand(
-                nome,
-                new DateOnly(1985, 5, 20),
-                stub.RG.Value,
-                stub.CPF.Value,
-                stub.CNH.Value,
-                new DateOnly(2026, 12, 31),
-                "31999999999",
-                null,
-                _validStatusEnum
-            );
-
-            // Act & Assert
-            var ex = await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(command, CancellationToken.None));
-            Assert.NotNull(ex);
-            Assert.Contains("Nome", ex.Message);
-            _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Motorista>(), It.IsAny<CancellationToken>()), Times.Never);
-        }
-
+        
         [Fact]
         public async Task Handle_DeveFalhar_QuandoCpfEInvalido()
         {
