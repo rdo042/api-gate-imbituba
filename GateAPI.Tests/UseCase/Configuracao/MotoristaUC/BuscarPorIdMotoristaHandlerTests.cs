@@ -1,4 +1,6 @@
-using GateAPI.Application.UseCases.Configuracao.Base;
+
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.BuscarTodos;
 using GateAPI.Domain.Entities.Configuracao;
 using GateAPI.Domain.Repositories.Configuracao;
 using GateAPI.Tests.Entities.Configuracao.Stubs;
@@ -9,12 +11,12 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
     public class BuscarPorIdMotoristaHandlerTests
     {
         private readonly Mock<IMotoristaRepository> _repositoryMock;
-        private readonly BuscarPorIdHandler<Motorista> _handler;
+        private readonly BuscarPorIdMotoristaHandler _handler;
 
         public BuscarPorIdMotoristaHandlerTests()
         {
             _repositoryMock = new Mock<IMotoristaRepository>();
-            _handler = new BuscarPorIdHandler<Motorista>(_repositoryMock.Object);
+            _handler = new BuscarPorIdMotoristaHandler(_repositoryMock.Object);
         }
 
         [Fact]
@@ -22,7 +24,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
         {
             // Arrange
             var motorista = MotoristaStub.Valid();
-            var query = new BuscarPorIdQuery<Motorista>(motorista.Id);
+            var query = new BuscarPorIdMotoristaQuery(motorista.Id);
 
             _repositoryMock.Setup(r => r.GetByIdAsync(motorista.Id, It.IsAny<CancellationToken>()))
                            .ReturnsAsync(motorista);
@@ -42,7 +44,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.MotoristaUC
         {
             // Arrange
             var motoristaId = Guid.NewGuid();
-            var query = new BuscarPorIdQuery<Motorista>(motoristaId);
+            var query = new BuscarPorIdMotoristaQuery(motoristaId);
 
             _repositoryMock.Setup(r => r.GetByIdAsync(motoristaId, It.IsAny<CancellationToken>()))
                            .ReturnsAsync((Motorista?)null);
