@@ -4,6 +4,7 @@ using GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarPorId;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.BuscarTodosPorParametro;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.UsuarioUC.Deletar;
+using GateAPI.Requests;
 using GateAPI.Requests.Configuracao.UsuarioRequest;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,9 +41,9 @@ namespace GateAPI.Controllers.Configuracao
         }
 
         [HttpGet]
-        public async Task<IActionResult> BuscarTodos()
+        public async Task<IActionResult> BuscarTodos(PaginacaoRequest data)
         {
-            var query = new BuscarTodosPorParametroUsuarioQuery(1, 30, null, "asc", null);
+            var query = new BuscarTodosPorParametroUsuarioQuery(data.PageNumber, data.PageSize, null, "asc", null);
 
             var result = await _buscarTodosPorParametroUsuarioHandler.HandleAsync(query);
 
@@ -64,8 +65,7 @@ namespace GateAPI.Controllers.Configuracao
                 id,
                 data.Nome,
                 data.Email,
-                data.Senha,
-                data.LinkFoto,
+                data.Foto,
                 data.PerfilId,
                 data.Status
             ); 

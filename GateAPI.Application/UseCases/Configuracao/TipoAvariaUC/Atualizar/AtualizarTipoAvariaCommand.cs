@@ -2,7 +2,7 @@
 using GateAPI.Domain.Enums;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar
+namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Atualizar
 {
     public record AtualizarTipoAvariaCommand(Guid Id,string Tipo,string? Descricao,StatusEnum Status) : IRequest<Result<Guid>>;
 }

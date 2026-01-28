@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using GateAPI.Application.Behaviors;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GateAPI.Application
 {
@@ -6,6 +9,16 @@ namespace GateAPI.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            // MediatR with Pipeline Behaviors
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
+
+            // FluentValidation
+            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
             // UseCases
             services.AddScoped<UseCases.Configuracao.UsuarioUC.BuscarPorId.BuscarPorIdUsuarioHandler>();
             services.AddScoped<UseCases.Configuracao.UsuarioUC.BuscarTodosPorParametro.BuscarTodosPorParametroUsuarioHandler>();

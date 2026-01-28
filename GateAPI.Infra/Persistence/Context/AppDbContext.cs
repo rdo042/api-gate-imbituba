@@ -27,6 +27,7 @@ namespace GateAPI.Infra.Persistence.Context
         public DbSet<TaskFlowModel> TaskFlow { get; set; }
         public DbSet<TaskFlowTasksModel> TaskFlowTasks { get; set; }
         public DbSet<TasksModel> Tasks { get; set; }
+        public DbSet<MotoristaModel> Motorista { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,6 +50,7 @@ namespace GateAPI.Infra.Persistence.Context
             builder.ApplyConfiguration(new TipoLacreModelConfiguration());
             builder.ApplyConfiguration(new TipoAvariaModelConfiguration());
             builder.ApplyConfiguration(new TaskFlowTasksModelConfiguration());
+            builder.ApplyConfiguration(new MotoristaModelConfiguration());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

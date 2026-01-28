@@ -2,8 +2,10 @@
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.BuscarPorId;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
+using GateAPI.Authorization.Permissions;
 using GateAPI.Requests.Configuracao.TipoLacreRequest;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -11,6 +13,7 @@ namespace GateAPI.Controllers.Configuracao
 {
     [Route("api/tipo-lacre")]
     [ApiController]
+    [Authorize(Policy = PermissionConstants.TipoLacre)]
     public class TipoLacreController(
         ILogger<TipoLacreController> logger,
         IMediator mediator

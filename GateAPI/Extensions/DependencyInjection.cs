@@ -78,7 +78,7 @@ namespace GateAPI.Extensions
                 {
                     var controller = api.GroupName ?? api.ActionDescriptor.RouteValues["controller"];
                     return new[] {
-                        Regex.Replace(controller, "(?<!^)([A-Z])", "-$1").ToLower()
+                        Regex.Replace(controller!, "(?<!^)([A-Z])", "-$1").ToLower()
                     };
                 });
 

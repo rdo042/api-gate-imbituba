@@ -4,7 +4,7 @@ using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.BuscarTodos;
 using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.BuscarTodosApp;
 using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.LocalAvariaUC.Deletar;
-using GateAPI.Requests.Configuracao.LocalAvariaRequest;
+using GateAPI.Requests.Configuracao.TipoLacreRequest;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

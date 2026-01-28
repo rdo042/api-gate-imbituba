@@ -10,14 +10,12 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
     {
         private readonly Mock<IUsuarioRepository> _repoMock;
         private readonly Mock<IPerfilRepository> _perfilMock;
-        private readonly Mock<IPasswordHasher> _hasherMock;
         private readonly AtualizarUsuarioHandler _handler;
         public AtualizarUsuarioHandlerTests()
         {
             _repoMock = new Mock<IUsuarioRepository>();
             _perfilMock = new Mock<IPerfilRepository>();
-            _hasherMock = new Mock<IPasswordHasher>();
-            _handler = new AtualizarUsuarioHandler(_repoMock.Object, _perfilMock.Object, _hasherMock.Object);
+            _handler = new AtualizarUsuarioHandler(_repoMock.Object, _perfilMock.Object);
         }
 
         [Fact]
@@ -30,7 +28,6 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
                 existente.Id,
                 "Jane",
                 "jane@email.com",
-                "hash_valido",
                 null,
                 Guid.Empty,
                 Domain.Enums.StatusEnum.ATIVO
@@ -41,9 +38,6 @@ namespace GateAPI.Tests.UseCase.Configuracao.UsuarioUC
 
             _repoMock.Setup(r => r.UpdateAsync(It.IsAny<Usuario>()))
                            .Returns(Task.CompletedTask);
-
-            _hasherMock.Setup(h => h.HashPassword(It.IsAny<string>()))
-                .Returns("hash_valido");
 
             // Act: Executamos o Handler
             var result = await _handler.HandleAsync(command);

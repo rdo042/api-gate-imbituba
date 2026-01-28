@@ -1,0 +1,454 @@
+@GateAPI_HostAddress = http://localhost:5160
+@motorista_id = f47ac10b-58cc-4372-a567-0e02b2c3d479
+@tipo_avaria_id = a47ac10b-58cc-4372-a567-0e02b2c3d480
+@local_avaria_id = b47ac10b-58cc-4372-a567-0e02b2c3d481
+@tipo_lacre_id = c47ac10b-58cc-4372-a567-0e02b2c3d482
+@usuario_id = d47ac10b-58cc-4372-a567-0e02b2c3d483
+@perfil_id = e47ac10b-58cc-4372-a567-0e02b2c3d484
+
+### ===== MOTORISTA ENDPOINTS =====
+
+### 1. GET - Buscar todos os motoristas com paginação
+GET {{GateAPI_HostAddress}}/api/motorista?pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### 2. GET - Buscar motorista por ID
+GET {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}
+Accept: application/json
+
+###
+
+### 3. GET - Buscar motorista por documento (CPF ou CNH)
+GET {{GateAPI_HostAddress}}/api/motorista/11805302094
+Accept: application/json
+
+###
+
+### 4. POST - Criar novo motorista
+POST {{GateAPI_HostAddress}}/api/motorista
+Content-Type: application/json
+
+{
+  "nome": "João da Silva",
+  "dataNascimento": "1985-05-20",
+  "rg": "426812177",
+  "cpf": "11805302094",
+  "cnh": "87105792980",
+  "validadeCnh": "2026-12-31",
+  "telefone": "31999999999",
+  "foto": "https://example.com/foto.jpg",
+  "status": "ATIVO"
+}
+
+###
+
+### 5. POST - Criar motorista sem foto
+POST {{GateAPI_HostAddress}}/api/motorista
+Content-Type: application/json
+
+{
+  "nome": "Jane Silva",
+  "dataNascimento": "1990-03-15",
+  "rg": "351258772",
+  "cpf": "80333302010",
+  "cnh": "54509817637",
+  "validadeCnh": "2027-06-30",
+  "telefone": "31988888888",
+  "foto": null,
+  "status": "ATIVO"
+}
+
+###
+
+### 6. PUT - Atualizar motorista existente
+PUT {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}
+Content-Type: application/json
+
+{
+  "id": "{{motorista_id}}",
+  "data": {
+    "id": "{{motorista_id}}",
+    "nome": "João da Silva Atualizado",
+    "dataNascimento": "1985-05-20",
+    "rg": "426812177",
+    "cpf": "11805302094",
+    "cnh": "87105792980",
+    "validadeCnh": "2026-12-31",
+    "telefone": "31999999999",
+    "foto": "https://example.com/foto-atualizada.jpg",
+    "status": "ATIVO"
+  }
+}
+
+###
+
+### 7. PATCH - Atualizar status do motorista
+PATCH {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}/status
+Content-Type: application/json
+
+{
+  "id": "{{motorista_id}}",
+  "data": {
+    "status": "INATIVO"
+  }
+}
+
+###
+
+### 8. DELETE - Deletar motorista
+DELETE {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}
+Accept: application/json
+
+###
+
+### ===== TIPO AVARIA ENDPOINTS =====
+
+### 9. GET - Buscar todos os tipos de avaria com paginação
+GET {{GateAPI_HostAddress}}/api/tipo-avaria?pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### 10. GET - Buscar tipo de avaria por ID
+GET {{GateAPI_HostAddress}}/api/tipo-avaria/{{tipo_avaria_id}}
+Accept: application/json
+
+###
+
+### 11. POST - Criar novo tipo de avaria
+POST {{GateAPI_HostAddress}}/api/tipo-avaria
+Content-Type: application/json
+
+{
+  "tipo": "Motor Queimado",
+  "descricao": "Avaria relacionada ao motor do veículo",
+  "status": "ATIVO"
+}
+
+###
+
+### 12. POST - Criar tipo de avaria com descrição longa
+POST {{GateAPI_HostAddress}}/api/tipo-avaria
+Content-Type: application/json
+
+{
+  "tipo": "Pneu Furado",
+  "descricao": "Avaria no pneu causando perda de pressão e comprometimento da locomoção",
+  "status": "ATIVO"
+}
+
+###
+
+### 13. PUT - Atualizar tipo de avaria
+PUT {{GateAPI_HostAddress}}/api/tipo-avaria/{{tipo_avaria_id}}
+Content-Type: application/json
+
+{
+  "id": "{{tipo_avaria_id}}",
+  "data": {
+    "tipo": "Motor Queimado Atualizado",
+    "descricao": "Descrição atualizada da avaria do motor",
+    "status": "ATIVO"
+  }
+}
+
+###
+
+### 14. PATCH - Atualizar parcialmente tipo de avaria
+PATCH {{GateAPI_HostAddress}}/api/tipo-avaria/{{tipo_avaria_id}}
+Content-Type: application/json
+
+{
+  "id": "{{tipo_avaria_id}}",
+  "data": {
+    "tipo": "Motor Queimado",
+    "descricao": null,
+    "status": "INATIVO"
+  }
+}
+
+###
+
+### 15. DELETE - Deletar tipo de avaria
+DELETE {{GateAPI_HostAddress}}/api/tipo-avaria/{{tipo_avaria_id}}
+Accept: application/json
+
+###
+
+### ===== LOCAL AVARIA ENDPOINTS =====
+
+### 16. GET - Buscar todos os locais de avaria
+GET {{GateAPI_HostAddress}}/api/local-avaria
+Accept: application/json
+
+###
+
+### 17. GET - Buscar todos os locais de avaria (versão app)
+GET {{GateAPI_HostAddress}}/api/local-avaria/app
+Accept: application/json
+
+###
+
+### 18. GET - Buscar local de avaria por ID
+GET {{GateAPI_HostAddress}}/api/local-avaria/{{local_avaria_id}}
+Accept: application/json
+
+###
+
+### 19. POST - Criar novo local de avaria
+POST {{GateAPI_HostAddress}}/api/local-avaria
+Content-Type: application/json
+
+{
+  "local": "Motor",
+  "descricao": "Local onde fica o motor do veículo",
+  "status": "ATIVO"
+}
+
+###
+
+### 20. POST - Criar local de avaria com mais detalhes
+POST {{GateAPI_HostAddress}}/api/local-avaria
+Content-Type: application/json
+
+{
+  "local": "Câmbio",
+  "descricao": "Sistema de transmissão e mudança de marchas do veículo",
+  "status": "ATIVO"
+}
+
+###
+
+### 21. PUT - Atualizar local de avaria
+PUT {{GateAPI_HostAddress}}/api/local-avaria/{{local_avaria_id}}
+Content-Type: application/json
+
+{
+  "id": "{{local_avaria_id}}",
+  "data": {
+    "local": "Motor Atualizado",
+    "descricao": "Local atualizado do motor",
+    "status": "ATIVO"
+  }
+}
+
+###
+
+### 22. DELETE - Deletar local de avaria
+DELETE {{GateAPI_HostAddress}}/api/local-avaria/{{local_avaria_id}}
+Accept: application/json
+
+###
+
+### ===== TIPO LACRE ENDPOINTS =====
+
+### 23. GET - Buscar tipo de lacre por ID
+GET {{GateAPI_HostAddress}}/api/tipo-lacre/{{tipo_lacre_id}}
+Accept: application/json
+
+###
+
+### 24. POST - Criar novo tipo de lacre
+POST {{GateAPI_HostAddress}}/api/tipo-lacre
+Content-Type: application/json
+
+{
+  "nome": "Lacre de Segurança",
+  "descricao": "Lacre utilizado para garantir segurança da carga",
+  "status": "ATIVO"
+}
+
+###
+
+### 25. POST - Criar tipo de lacre simples
+POST {{GateAPI_HostAddress}}/api/tipo-lacre
+Content-Type: application/json
+
+{
+  "nome": "Lacre Plástico",
+  "descricao": "Lacre de plástico para vedação",
+  "status": "ATIVO"
+}
+
+###
+
+### 26. PUT - Atualizar tipo de lacre
+PUT {{GateAPI_HostAddress}}/api/tipo-lacre/{{tipo_lacre_id}}
+Content-Type: application/json
+
+{
+  "id": "{{tipo_lacre_id}}",
+  "data": {
+    "nome": "Lacre de Segurança Premium",
+    "descricao": "Lacre premium com sistema de rastreamento",
+    "status": "ATIVO"
+  }
+}
+
+###
+
+### 27. DELETE - Deletar tipo de lacre
+DELETE {{GateAPI_HostAddress}}/api/tipo-lacre/{{tipo_lacre_id}}
+Accept: application/json
+
+###
+
+### ===== USUARIO ENDPOINTS =====
+
+### 28. GET - Buscar usuário por ID
+GET {{GateAPI_HostAddress}}/api/usuario/{{usuario_id}}
+Accept: application/json
+
+###
+
+### 29. GET - Buscar todos os usuários com paginação
+GET {{GateAPI_HostAddress}}/api/usuario?pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### 30. POST - Criar novo usuário
+POST {{GateAPI_HostAddress}}/api/usuario
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva@example.com",
+  "senha": "SenhaForte123!",
+  "linkFoto": "https://example.com/user1.jpg",
+  "perfilId": "{{perfil_id}}"
+}
+
+###
+
+### 31. POST - Criar usuário sem foto
+POST {{GateAPI_HostAddress}}/api/usuario
+Content-Type: application/json
+
+{
+  "nome": "Maria Santos",
+  "email": "maria.santos@example.com",
+  "senha": "OutraSenha456!",
+  "linkFoto": null,
+  "perfilId": null
+}
+
+###
+
+### 32. PUT - Atualizar usuário existente
+PUT {{GateAPI_HostAddress}}/api/usuario/{{usuario_id}}
+Content-Type: application/json
+
+{
+  "nome": "João Silva Atualizado",
+  "email": "joao.silva.novo@example.com",
+  "foto": "https://example.com/user1-novo.jpg",
+  "perfilId": "{{perfil_id}}",
+  "status": "ATIVO"
+}
+
+###
+
+### 33. DELETE - Deletar usuário
+DELETE {{GateAPI_HostAddress}}/api/usuario/{{usuario_id}}
+Accept: application/json
+
+###
+
+### ===== PERFIL ENDPOINTS =====
+
+### 34. GET - Buscar perfil por ID
+GET {{GateAPI_HostAddress}}/api/perfil/{{perfil_id}}
+Accept: application/json
+
+###
+
+### 35. GET - Buscar todos os perfis
+GET {{GateAPI_HostAddress}}/api/perfil
+Accept: application/json
+
+###
+
+### 36. POST - Criar novo perfil
+POST {{GateAPI_HostAddress}}/api/perfil
+Content-Type: application/json
+
+{
+  "nome": "Administrador",
+  "descricao": "Perfil com acesso total ao sistema",
+  "statusEnum": "ATIVO",
+  "permissoes": [
+    "CREATE_MOTORISTA",
+    "EDIT_MOTORISTA",
+    "DELETE_MOTORISTA",
+    "VIEW_MOTORISTA"
+  ]
+}
+
+###
+
+### 37. POST - Criar perfil de usuário comum
+POST {{GateAPI_HostAddress}}/api/perfil
+Content-Type: application/json
+
+{
+  "nome": "Operador",
+  "descricao": "Perfil com permissões limitadas",
+  "statusEnum": "ATIVO",
+  "permissoes": [
+    "VIEW_MOTORISTA",
+    "VIEW_AVARIA"
+  ]
+}
+
+###
+
+### 38. PUT - Atualizar perfil existente
+PUT {{GateAPI_HostAddress}}/api/perfil/{{perfil_id}}
+Content-Type: application/json
+
+{
+  "id": "{{perfil_id}}",
+  "data": {
+    "nome": "Administrador Sistema",
+    "descricao": "Perfil com acesso total atualizado",
+    "statusEnum": "ATIVO",
+    "permissoes": [
+      "CREATE_MOTORISTA",
+      "EDIT_MOTORISTA",
+      "DELETE_MOTORISTA",
+      "VIEW_MOTORISTA",
+      "ADMIN_ACCESS"
+    ]
+  }
+}
+
+###
+
+### 39. DELETE - Deletar perfil
+DELETE {{GateAPI_HostAddress}}/api/perfil/{{perfil_id}}
+Accept: application/json
+
+###
+
+### ===== INTEGRACOES - ADAPTERS ENDPOINTS =====
+
+### 40. POST - Reconhecer placa via LPR (License Plate Recognition)
+POST {{GateAPI_HostAddress}}/api/adapters/lpr/ler-placa
+Content-Type: application/json
+
+{
+  "imagemPlaca": "base64_encoded_image_string_here"
+}
+
+###
+
+### ===== HEALTH CHECK =====
+
+### 41. GET - Weather Forecast (Health Check)
+GET {{GateAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

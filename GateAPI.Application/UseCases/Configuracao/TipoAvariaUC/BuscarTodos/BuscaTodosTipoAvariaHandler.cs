@@ -1,9 +1,8 @@
 ﻿using GateAPI.Application.Common.Models;
-using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC
+namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.BuscarTodos
 {
     public class BuscarTodosTipoAvariaHandler : IRequestHandler<BuscarTodosTipoAvariaQuery, Result<PaginatedResultDto<Domain.Entities.Configuracao.TipoAvaria?>>>
     {

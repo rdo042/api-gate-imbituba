@@ -4,6 +4,7 @@ using GateAPI.Infra.Mappers;
 using GateAPI.Infra.Models;
 using GateAPI.Infra.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace GateAPI.Infra.Persistence.Repositories
 {
@@ -23,7 +24,6 @@ namespace GateAPI.Infra.Persistence.Repositories
         {
             var query = ApplyIncludes(_dbSet.AsQueryable());
 
-            //var model = await query.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
             var model = await query.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
 
             return model == null ? null : _mapper.ToDomain(model);
@@ -59,13 +59,39 @@ namespace GateAPI.Infra.Persistence.Repositories
         {
             
             var query = ApplyIncludes(_dbSet.AsQueryable());
-            //var model = await query.FirstOrDefaultAsync(m => EF.Property<Guid>(m, "Id") == id, cancellationToken);
             var model = await query.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
             if (model == null) return false;
 
             _dbSet.Remove(model);
             await _context.SaveChangesAsync(cancellationToken);
             return true;
+        }
+
+        public virtual async Task<(IEnumerable<TDomain> Items, int TotalCount)> GetAllPaginatedAsync(
+            int pageNumber,
+            int pageSize,
+            Expression<Func<TModel, bool>>? filter = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            var query = ApplyIncludes(_dbSet.AsQueryable());
+
+            if (filter is not null)
+                query = query.Where(filter);
+
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            var models = await query
+                .AsNoTracking()
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+
+            var items = models.Select(_mapper.ToDomain);
+
+            return (items, totalCount);
         }
     }
 }
