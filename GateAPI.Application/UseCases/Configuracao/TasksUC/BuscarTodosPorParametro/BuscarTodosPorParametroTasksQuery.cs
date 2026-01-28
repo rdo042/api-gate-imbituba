@@ -4,5 +4,5 @@ using MediatR;
 
 namespace GateAPI.Application.UseCases.Configuracao.TasksUC.BuscarTodosPorParametro
 {
-    public record BuscarTodosPorParametroTasksQuery(string Nome) : IRequest<Result<IEnumerable<Tasks>>>;
+    public record BuscarTodosPorParametroTasksQuery(string? Nome) : IRequest<Result<IEnumerable<Tasks>>>;
 }

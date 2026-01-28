@@ -9,7 +9,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
     {
         private readonly AppDbContext _context = context;
 
-        public async Task<IEnumerable<Tasks>> GetAllPorParametroAsync(string nome)
+        public async Task<IEnumerable<Tasks>> GetAllPorParametroAsync(string? nome)
         {
             var query = _context.Tasks.AsNoTracking();
 
