@@ -60,6 +60,13 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
             return rowsAffected>0;
         }
 
+        public async Task<bool> RemoveByFlow(Guid flowId)
+        {
+            var rowsAffected = await _context.TaskFlowTasks.Where(p => p.TaskFlowId == flowId).ExecuteDeleteAsync();
+
+            return rowsAffected>0;
+        }
+
         public async Task RemoveAndShiftAsync(Guid flowId, Guid taskId)
         {
             var relacaoParaRemover = await _context.TaskFlowTasks

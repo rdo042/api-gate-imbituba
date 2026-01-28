@@ -10,5 +10,6 @@ namespace GateAPI.Domain.Repositories.Configuracao
         Task<TaskFlowTasks?> GetByOrderAsync(Guid flowId, int ordem);
         Task RemoveAndShiftAsync(Guid flowId, Guid taskId);
         Task<bool> Remove(Guid id);
+        Task<bool> RemoveByFlow(Guid flowId);
     }
 }

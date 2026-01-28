@@ -5,15 +5,26 @@
         public string Nome { get; private set; }
         public IEnumerable<Tasks> Tasks { get; private set; }
 
-        public TaskFlow(string nome, IEnumerable<Tasks> tasks) {
+        public TaskFlow(string nome, IEnumerable<Tasks>? tasks = null) {
             Id = Guid.NewGuid();
             Nome = nome;
-            Tasks = tasks;
+            Tasks = tasks ?? [];
 
             Validation();
         }
 
         private TaskFlow() { }
+
+        public void UpdateEntity(string nome)
+        {
+            Nome = nome;
+            Validation();
+        }
+
+        public void AddTasks(IEnumerable<Tasks> lista)
+        {
+            Tasks = lista;
+        }
 
         public static TaskFlow Load(Guid id, string nome, IEnumerable<Tasks> tasks)
         {
