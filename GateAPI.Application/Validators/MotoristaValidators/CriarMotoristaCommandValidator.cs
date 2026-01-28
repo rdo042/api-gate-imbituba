@@ -15,8 +15,8 @@ namespace GateAPI.Domain.Validators.MotoristaValidators
                 .WithMessage("Nome é obrigatório")
                 .MinimumLength(3)
                 .WithMessage("Nome deve ter no mínimo 3 caracteres")
-                .MaximumLength(100)
-                .WithMessage("Nome deve ter no máximo 100 caracteres");
+                .MaximumLength(255)
+                .WithMessage("Nome deve ter no máximo 255 caracteres");
 
             RuleFor(x => x.CPF)
                 .NotEmpty()
@@ -49,11 +49,6 @@ namespace GateAPI.Domain.Validators.MotoristaValidators
                 .Matches(@"^https?://")
                 .WithMessage("Foto deve ser uma URL válida (http ou https)")
                 .When(x => !string.IsNullOrEmpty(x.Foto));
-
-            RuleFor(x => x.ValidadeCnh)
-                .GreaterThan(DateOnly.FromDateTime(DateTime.Now))
-                .WithMessage("Data de validade da CNH não pode ser no passado")
-                .When(x => x.ValidadeCnh.HasValue);
         }
     }
 }

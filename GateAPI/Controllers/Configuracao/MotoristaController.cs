@@ -1,12 +1,10 @@
-﻿using GateAPI.Application.UseCases.Configuracao.Base;
-using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Atualizar;
+﻿using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Atualizar;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.AtualizarParcial;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarPorDocumento;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.BuscarTodos;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Criar;
 using GateAPI.Application.UseCases.Configuracao.MotoristaUC.Deletar;
-using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
-using GateAPI.Domain.Entities.Configuracao;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
 using GateAPI.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +35,7 @@ namespace GateAPI.Controllers.Configuracao
             //var query = new BuscarPorIdMotoristaQuery(id);
             //var result = await mediator.Send(query);
 
-            var result = await mediator.Send(new BuscarPorIdQuery<Motorista>(id));
+            var result = await mediator.Send(new BuscarPorIdMotoristaQuery(id));
             return result.IsSuccess ? OkResponse(result.Data) : BadRequestResponse(result.Error ?? "Erro ao buscar motorista");
         }
 
