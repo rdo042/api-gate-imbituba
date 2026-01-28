@@ -96,13 +96,11 @@ namespace GateAPI.Domain.Entities.Configuracao
 
         private static bool IsValidISO639(string codigo)
         {
-            // Validação simples: deve ter padrão xx-YY (ex: pt-BR, en-US, en)
             if (string.IsNullOrEmpty(codigo))
                 return false;
 
             var partes = codigo.Split('-');
             
-            // Aceita: "pt", "en", "pt-BR", "en-US"
             if (partes.Length == 1 && partes[0].Length == 2)
                 return partes[0].All(char.IsLower);
             

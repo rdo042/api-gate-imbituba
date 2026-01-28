@@ -39,7 +39,7 @@ namespace GateAPI.Domain.Entities.Configuracao
             };
 
             entidade.SetId(id);
-            //entidade.SetAudit();
+            entidade.Validation();
             return entidade;
         }
 
