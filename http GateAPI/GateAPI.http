@@ -1,0 +1,125 @@
+@GateAPI_HostAddress = http://localhost:5160
+@motorista_id = f47ac10b-58cc-4372-a567-0e02b2c3d479
+
+### ===== MOTORISTA ENDPOINTS =====
+
+### 1. GET - Buscar todos os motoristas com paginação
+GET {{GateAPI_HostAddress}}/api/motorista?pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### 2. GET - Buscar motorista por ID
+GET {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}
+Accept: application/json
+
+###
+
+### 3. GET - Buscar motorista por documento (CPF ou CNH)
+GET {{GateAPI_HostAddress}}/api/motorista/11805302094
+Accept: application/json
+
+###
+
+### 4. POST - Criar novo motorista
+POST {{GateAPI_HostAddress}}/api/motorista
+Content-Type: application/json
+
+{
+  "nome": "João da Silva",
+  "dataNascimento": "1985-05-20",
+  "rg": "426812177",
+  "cpf": "11805302094",
+  "cnh": "87105792980",
+  "validadeCnh": "2026-12-31",
+  "telefone": "31999999999",
+  "foto": "https://example.com/foto.jpg",
+  "status": "ATIVO"
+}
+
+###
+
+### 5. POST - Criar motorista com validação (sem foto)
+POST {{GateAPI_HostAddress}}/api/motorista
+Content-Type: application/json
+
+{
+  "nome": "Jane Silva",
+  "dataNascimento": "1990-03-15",
+  "rg": "351258772",
+  "cpf": "80333302010",
+  "cnh": "54509817637",
+  "validadeCnh": "2027-06-30",
+  "telefone": "31988888888",
+  "foto": null,
+  "status": "ATIVO"
+}
+
+###
+
+### 6. PUT - Atualizar motorista existente
+PUT {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}
+Content-Type: application/json
+
+{
+  "id": "{{motorista_id}}",
+  "data": {
+    "id": "{{motorista_id}}",
+    "nome": "João da Silva Atualizado",
+    "dataNascimento": "1985-05-20",
+    "rg": "426812177",
+    "cpf": "11805302094",
+    "cnh": "87105792980",
+    "validadeCnh": "2026-12-31",
+    "telefone": "31999999999",
+    "foto": "https://example.com/foto-atualizada.jpg",
+    "status": "ATIVO"
+  }
+}
+
+###
+
+### 7. PATCH - Atualizar status do motorista
+PATCH {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}/status
+Content-Type: application/json
+
+{
+  "id": "{{motorista_id}}",
+  "data": {
+    "status": "INATIVO"
+  }
+}
+
+###
+
+### 8. DELETE - Deletar motorista
+DELETE {{GateAPI_HostAddress}}/api/motorista/{{motorista_id}}
+Accept: application/json
+
+###
+
+### ===== EXEMPLOS ADICIONAIS =====
+
+### Criar motorista com dados completos
+POST {{GateAPI_HostAddress}}/api/motorista
+Content-Type: application/json
+
+{
+  "nome": "Carlos Alberto Pereira",
+  "dataNascimento": "1980-07-10",
+  "rg": "291342243",
+  "cpf": "87496215058",
+  "cnh": "29154768661",
+  "validadeCnh": "2025-11-15",
+  "telefone": "11987654321",
+  "foto": "https://example.com/carlos.jpg",
+  "status": "ATIVO"
+}
+
+###
+
+### Buscar motorista com validações de filtro
+GET {{GateAPI_HostAddress}}/api/motorista?pageNumber=1&pageSize=20
+Accept: application/json
+
+###
