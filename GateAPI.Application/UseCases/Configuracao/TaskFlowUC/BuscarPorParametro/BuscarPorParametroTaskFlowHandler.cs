@@ -21,7 +21,7 @@ namespace GateAPI.Application.UseCases.Configuracao.TaskFlowUC.BuscarPorParametr
             var tasks = await _taskFlowTasksRepository.GetByFlowIdAsync(result.Id) ?? [];
 
             if (tasks.Any())
-                result.AddTasks(tasks.Select(item=> item.Tasks));
+                result.AddTasks(tasks);
 
             return Result<TaskFlow>.Success(result);
         }

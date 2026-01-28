@@ -82,7 +82,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
             var repository = new TaskFlowTasksRepository(context, mapper);
 
             var entidade = new TaskFlowTasks(
-                new TaskFlow(_seedTaskFlow.Nome, []),
+                new TaskFlow(_seedTaskFlow.Nome),
                 Tasks.Load(_seedTasks.Id, _seedTasks.Nome, _seedTasks.Url, _seedTasks.Status),
                 1,
                 Domain.Enums.StatusEnum.ATIVO

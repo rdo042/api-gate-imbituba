@@ -18,7 +18,7 @@ namespace GateAPI.Tests.UseCase.Configuracao.TaskFlowUC
         [Fact]
         public async Task Handle_DeveRetornarSucesso()
         {
-            var entidade = TaskFlow.Load(Guid.NewGuid(), "Teste", []);
+            var entidade = TaskFlow.Load(Guid.NewGuid(), "Teste");
 
             var command = new AtualizarTaskFlowCommand(entidade.Id, entidade.Nome);
 

@@ -75,8 +75,7 @@ namespace GateAPI.Tests.Repositories.Configuracao
             var repository = new TaskFlowRepository(context, mapper);
 
             var entidade = new TaskFlow(
-                "Teste",
-                []
+                "Teste"
                 );
 
             // Act

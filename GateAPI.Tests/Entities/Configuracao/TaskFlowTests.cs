@@ -13,7 +13,7 @@ namespace GateAPI.Tests.Entities.Configuracao
 
             // Act
             var entity = new TaskFlow(
-                nome, []
+                nome
             );
 
             // Assert
@@ -26,7 +26,7 @@ namespace GateAPI.Tests.Entities.Configuracao
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new TaskFlow(
-                nome, []
+                nome
             ));
         }
 
@@ -44,8 +44,7 @@ namespace GateAPI.Tests.Entities.Configuracao
             // Act
             var entidade = TaskFlow.Load(
                 model.Id,
-                model.Nome,
-                []);
+                model.Nome);
 
             // Assert
             Assert.Equal(model.Id, entidade.Id);

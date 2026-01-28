@@ -3,12 +3,11 @@
     public class TaskFlow : BaseEntity
     {
         public string Nome { get; private set; }
-        public IEnumerable<Tasks> Tasks { get; private set; }
+        public IEnumerable<TaskFlowTasks> Tasks { get; private set; }
 
-        public TaskFlow(string nome, IEnumerable<Tasks>? tasks = null) {
+        public TaskFlow(string nome) {
             Id = Guid.NewGuid();
             Nome = nome;
-            Tasks = tasks ?? [];
 
             Validation();
         }
@@ -21,17 +20,16 @@
             Validation();
         }
 
-        public void AddTasks(IEnumerable<Tasks> lista)
+        public void AddTasks(IEnumerable<TaskFlowTasks> lista)
         {
             Tasks = lista;
         }
 
-        public static TaskFlow Load(Guid id, string nome, IEnumerable<Tasks> tasks)
+        public static TaskFlow Load(Guid id, string nome)
         {
             var entidade = new TaskFlow
             {
-                Nome = nome,
-                Tasks = tasks
+                Nome = nome
             };
 
             entidade.SetId(id);

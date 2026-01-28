@@ -8,7 +8,7 @@ namespace GateAPI.Tests.Entities.Configuracao
         public void Constructor_WithValidParameters_ShouldCreateTaskFlow()
         {
             // Arrange
-            var taskFlow = new TaskFlow("Teste", []);
+            var taskFlow = new TaskFlow("Teste");
             var task = Tasks.Load(Guid.NewGuid(), "Task1", "url", Domain.Enums.StatusEnum.ATIVO);
 
             // Act
@@ -27,7 +27,7 @@ namespace GateAPI.Tests.Entities.Configuracao
         public void AlterarOrdem_DeveAlterarOrdemDoTaskFlowTasks()
         {
             // Arrange
-            var taskFlow = new TaskFlow("Teste", []);
+            var taskFlow = new TaskFlow("Teste");
             var task = Tasks.Load(Guid.NewGuid(), "Task1", "url", Domain.Enums.StatusEnum.ATIVO);
 
             // Act

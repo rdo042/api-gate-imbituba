@@ -16,8 +16,7 @@ namespace GateAPI.Infra.Mappers.Configuracao
 
             var taskFlow = TaskFlow.Load(
                 model.TaskFlow.Id,
-                model.TaskFlow.Nome,
-                []
+                model.TaskFlow.Nome
             );
 
             return TaskFlowTasks.Load(

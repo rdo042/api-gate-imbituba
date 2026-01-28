@@ -7,13 +7,9 @@ namespace GateAPI.Infra.Mappers.Configuracao
     {
         public TaskFlow ToDomain(TaskFlowModel model)
         {
-            var listaTasks = model.TaskFlowTasks
-                .Select(item => Tasks.Load(item.Tasks.Id, item.Tasks.Nome, item.Tasks.Url, item.Tasks.Status));
-
             return TaskFlow.Load(
                 model.Id,
-                model.Nome,
-                listaTasks
+                model.Nome
             );
         }
 
