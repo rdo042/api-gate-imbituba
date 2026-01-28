@@ -89,10 +89,10 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
             int ordemRemovida = relacaoParaRemover.Ordem;
 
-            _context.TaskFlowTasks.Remove(relacaoParaRemover);
-            //var rowsAffected = await _context.TaskFlowTasks.Where(p => p.Id == relacaoParaRemover.Id).ExecuteDeleteAsync();
+            //_context.TaskFlowTasks.Remove(relacaoParaRemover);
+            var rowsAffected = await _context.TaskFlowTasks.Where(p => p.Id == relacaoParaRemover.Id).ExecuteDeleteAsync();
 
-            //if (rowsAffected == 0) throw new ArgumentException("Não encontrado relação para remover");
+            if (rowsAffected == 0) throw new ArgumentException("Não encontrado relação para remover");
 
             var tarefasParaReordenar = await _context.TaskFlowTasks
                 .Where(x => x.TaskFlowId == flowId && x.Ordem > ordemRemovida)

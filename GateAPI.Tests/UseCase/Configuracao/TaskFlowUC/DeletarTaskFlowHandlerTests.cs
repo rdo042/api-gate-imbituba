@@ -8,11 +8,13 @@ namespace GateAPI.Tests.UseCase.Configuracao.TaskFlowUC
     public class DeletarTaskFlowHandlerTests
     {
         private readonly Mock<ITaskFlowRepository> _repositoryMock;
+        private readonly Mock<ITaskFlowTasksRepository> _repositoryMock2;
         private readonly DeletarTaskFlowHandler _handler;
         public DeletarTaskFlowHandlerTests()
         {
             _repositoryMock = new Mock<ITaskFlowRepository>();
-            _handler = new DeletarTaskFlowHandler(_repositoryMock.Object);
+            _repositoryMock2 = new Mock<ITaskFlowTasksRepository>();
+            _handler = new DeletarTaskFlowHandler(_repositoryMock.Object, _repositoryMock2.Object);
         }
 
         [Fact]
@@ -23,6 +25,9 @@ namespace GateAPI.Tests.UseCase.Configuracao.TaskFlowUC
             var command = new DeletarTaskFlowCommand(entidade.Id);
 
             _repositoryMock.Setup(r => r.DeleteAsync(entidade.Id))
+                    .ReturnsAsync(true);
+
+            _repositoryMock2.Setup(r => r.RemoveByFlow(entidade.Id))
                     .ReturnsAsync(true);
 
             var result = await _handler.Handle(command);

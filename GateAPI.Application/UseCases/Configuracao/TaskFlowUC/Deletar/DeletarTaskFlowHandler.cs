@@ -4,9 +4,12 @@ using MediatR;
 
 namespace GateAPI.Application.UseCases.Configuracao.TaskFlowUC.Deletar
 {
-    public class DeletarTaskFlowHandler(ITaskFlowRepository taskFlow) : IRequestHandler<DeletarTaskFlowCommand, Result<object?>>
+    public class DeletarTaskFlowHandler(ITaskFlowRepository taskFlow,
+        ITaskFlowTasksRepository taskFlowTasks
+        ) : IRequestHandler<DeletarTaskFlowCommand, Result<object?>>
     {
         private readonly ITaskFlowRepository _taskFlowRepository = taskFlow;
+        private readonly ITaskFlowTasksRepository _taskFlowTasksRepository = taskFlowTasks;
 
         public async Task<Result<object?>> Handle(DeletarTaskFlowCommand command, CancellationToken cancellationToken = default)
         {
@@ -14,6 +17,8 @@ namespace GateAPI.Application.UseCases.Configuracao.TaskFlowUC.Deletar
 
             if (!result)
                 return Result<object?>.Failure("TaskFlow não encontrado pelo id " + command.Id);
+
+            _ = await _taskFlowTasksRepository.RemoveByFlow(command.Id);
 
             return Result<object?>.Success(null);
         }
