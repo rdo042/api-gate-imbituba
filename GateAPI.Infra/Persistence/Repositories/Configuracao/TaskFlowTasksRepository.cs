@@ -28,6 +28,7 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
                 .Where(x => x.TaskFlowId == flowId)
                 .Include(x=> x.TaskFlow)
                 .Include(x=> x.Tasks)
+                .AsNoTracking()
                 .ToListAsync();
 
             return query == null ? [] : query.Select(_mapper.ToDomain);
@@ -51,6 +52,18 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
                 .SingleOrDefaultAsync(x => x.TaskFlowId == flowId && x.TasksId == taskId);
 
             return model == null ? null : _mapper.ToDomain(model);
+        }
+
+        public async Task<int> GetMaxOrdemAsync(Guid flowId)
+        {
+            var query = await _context.TaskFlowTasks
+               .Where(x => x.TaskFlowId == flowId)
+               .AsNoTracking()
+               .ToListAsync();
+
+            var total = query.Count == 0 ? 0 : query.Max(x => x.Ordem);
+
+            return total;
         }
 
         public async Task<bool> Remove(Guid id)

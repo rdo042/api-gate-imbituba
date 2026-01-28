@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GateAPI.Application.Common.Models;
+using MediatR;
 
 namespace GateAPI.Application.UseCases.Configuracao.TaskFlowTasksUC.Criar
 {
-    public class CriarTaskFlowTasksCommand
-    {
-    }
+    public record CriarTaskFlowTasksCommand(Guid FlowId, Guid TasksId) : IRequest<Result<int>>;
 }

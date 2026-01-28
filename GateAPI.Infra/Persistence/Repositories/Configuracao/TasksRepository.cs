@@ -27,5 +27,15 @@ namespace GateAPI.Infra.Persistence.Repositories.Configuracao
 
             return lista;
         }
+
+        public async Task<Tasks?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var query = await _context.Tasks.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+            if (query is null)
+                return null;
+
+            return Tasks.Load(query.Id, query.Nome, query.Url, query.Status);
+        }
     }
 }

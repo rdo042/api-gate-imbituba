@@ -147,6 +147,22 @@ namespace GateAPI.Tests.Repositories.Configuracao
         }
 
         [Fact]
+        public async Task GetMaxOrdemAsync_DeveRetornarTotalLista()
+        {
+            // Arrange
+            using var context = CriarContextoInMemory();
+            var repository = new TaskFlowTasksRepository(context, mapper);
+
+            SeedContext(context);
+
+            // Act
+            var resultado = await repository.GetMaxOrdemAsync(_testSeed.TaskFlowId);
+
+            // Assert
+            Assert.Equal(2, resultado);
+        }
+
+        [Fact]
         public async Task RemoveAndShiftAsync_DeveRemoverItemEReorganizarLista()
         {
             // Arrange
