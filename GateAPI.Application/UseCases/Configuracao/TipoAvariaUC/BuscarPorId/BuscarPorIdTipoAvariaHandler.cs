@@ -2,7 +2,7 @@
 using GateAPI.Domain.Repositories.Configuracao;
 using MediatR;
 
-namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC
+namespace GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.BuscarPorId
 {
     public class BuscarPorIdTipoAvariaHandler : IRequestHandler<BuscarPorIdTipoAvariaQuery, Result<Domain.Entities.Configuracao.TipoAvaria?>>
     {

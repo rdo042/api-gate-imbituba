@@ -14,6 +14,8 @@
 
         protected void SetId(Guid id) => Id = id;
 
+        protected void CreateId() => Id = Guid.NewGuid();
+
         protected void SetAudit(
             DateTime createdAt, string createdBy,
             DateTime? updatedAt, string? updatedBy,

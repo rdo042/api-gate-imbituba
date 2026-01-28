@@ -1,6 +1,10 @@
 ﻿using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Atualizar;
 using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.AtualizarParcial;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.BuscarPorId;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.BuscarTodos;
 using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Criar;
+using GateAPI.Application.UseCases.Configuracao.TipoAvariaUC.Deletar;
 using GateAPI.Application.UseCases.Configuracao.TipoLacreUC.Deletar;
 using GateAPI.Requests;
 using MediatR;
