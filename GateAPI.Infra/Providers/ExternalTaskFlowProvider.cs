@@ -32,6 +32,65 @@ namespace GateAPI.Infra.Providers
         {
             try
             {
+                if (_options.IsMock)
+                {
+                    // Retorna dados mockados para testes
+                    return new TaskFlowPlateResponse
+                    {
+                        Header = new Header
+                        {
+                            ProductId = 1,
+                            Version = "1.0",
+                            DateTimeGeneration = DateTimeOffset.Now,
+                            SystemOrigin = "SYSTEM_TEST",
+                            TransactionId = "TX123456",
+                            TypeMessage = "RESPONSE",
+                            Company = "MinhaEmpresa",
+                            Flow = "ENTRADA",
+                            Checkpoint = new Checkpoint
+                            {
+                                Id = 10,
+                                Description = "Portaria Principal"
+                            }
+                        },
+                        Errors = new List<object>(),
+
+                        OcrVehiclePlate = licensePlate,//"ABC1D23",
+
+                        Driver = null, // ou um objeto fake se depois tipar isso melhor
+
+                        VehiclePassages = new List<VehiclePassage>
+                        {
+                            new VehiclePassage
+                            {
+                                ProductId = 1,
+                                SchedulingId = 999,
+                                Mission = "Carga",
+                                CurrentStatusPassage = "AGENDADO",
+                                PlannedDate = DateTime.Today,
+                                Terminal = "Terminal A",
+                                LicensePlate = "ABC1D23",
+                                EntryTime = null,
+                                ExitTime = null,
+                                OuterEntryTime = null,
+                                DateTimeInspection = null,
+                                VehicleType = "Caminhão",
+                                IdentifierTag = "TAG123",
+                                Schedules = new List<Schedule>
+                                {
+                                    new Schedule
+                                    {
+                                        Id = 1,
+                                        TrailerLicensePlate = "DEF4G56",
+                                        Container = "CONT1234567"
+                                    }
+                                }
+                            }
+                        }
+                    };
+                }
+
+
                 _httpClient.BaseAddress = new Uri(_options.BaseUrl);
 
                 var url = $"api/TaskFlow/GetTasksByLicensePlate?licensePlate={licensePlate}";

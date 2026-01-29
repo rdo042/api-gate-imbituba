@@ -48,6 +48,7 @@ namespace GateAPI.Infra
             //Providers
             services.AddScoped<ITokenProvider, TokenProvider>();
             services.AddScoped<ILprProvider, ExternalLprProvider>();
+            services.AddScoped<IExternalTaskFlowProvider, ExternalTaskFlowProvider>();
 
             //Services
             services.AddScoped<IPasswordHasher, PasswordHasher>();

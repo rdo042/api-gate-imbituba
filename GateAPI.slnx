@@ -2,7 +2,6 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>
-  <Project Path="GateAPI.Adapters/GateAPI.Adapters.csproj" Id="b1d82f46-41c3-4376-8a01-b3a56f5c2d23" />
   <Project Path="GateAPI.Application/GateAPI.Application.csproj" Id="6857f0e3-28ca-411e-b232-184af7ab0c58" />
   <Project Path="GateAPI.Domain/GateAPI.Domain.csproj" Id="5ce16877-1a82-4a90-bcd5-7d3880729d60" />
   <Project Path="GateAPI.Infra/GateAPI.Infra.csproj" Id="3bfcbe33-073e-415c-b27d-01375cd09d90" />

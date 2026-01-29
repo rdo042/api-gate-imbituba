@@ -1,5 +1,7 @@
 using FluentValidation;
+using GateAPI.Application.Common.Models;
 using MediatR;
+using System.Text.Json.Serialization;
 
 namespace GateAPI.Application.Behaviors
 {
@@ -40,7 +42,6 @@ namespace GateAPI.Application.Behaviors
             {
                 throw new ValidationException(failures);
             }
-
             return await next();
         }
     }

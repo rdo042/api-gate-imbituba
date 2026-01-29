@@ -4,5 +4,6 @@
     {
         public const string SectionName = "AdapterApi";
         public string BaseUrl { get; set; } = string.Empty;
+        public bool IsMock { get; set; }
     }
 }

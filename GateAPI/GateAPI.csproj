@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GateAPI.Adapters\GateAPI.Adapters.csproj" />
     <ProjectReference Include="..\GateAPI.Application\GateAPI.Application.csproj" />
     <ProjectReference Include="..\GateAPI.Infra\GateAPI.Infra.csproj" />
   </ItemGroup>
