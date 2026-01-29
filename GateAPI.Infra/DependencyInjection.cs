@@ -42,6 +42,9 @@ namespace GateAPI.Infra
             services.AddScoped<ITipoLacreRepository, TipoLacreRepository>();
             services.AddScoped<ITipoAvariaRepository, TipoAvariaRepository>();
             services.AddScoped<ILocalAvariaRepository, LocalAvariaRepository>();
+            services.AddScoped<ITaskFlowRepository, TaskFlowRepository>();
+            services.AddScoped<ITaskFlowTasksRepository, TaskFlowTasksRepository>();
+            services.AddScoped<ITasksRepository, TasksRepository>();
             services.AddScoped<IMotoristaRepository, MotoristaRepository>();
 
 
@@ -55,6 +58,9 @@ namespace GateAPI.Infra
 
             services.AddScoped<IMapper<TipoAvaria, TipoAvariaModel>, TipoAvariaMapper>();
             services.AddScoped<IMapper<LocalAvaria, LocalAvariaModel>, LocalAvariaMapper>();
+            services.AddScoped<IMapper<TaskFlow, TaskFlowModel>, TaskFlowMapper>();
+            services.AddScoped<IMapper<TaskFlowTasks, TaskFlowTasksModel>, TaskFlowTasksMapper>();
+            services.AddScoped<IMapper<Tasks, TasksModel>, TasksMapper>();
             services.AddScoped<IMapper<Motorista, MotoristaModel>, MotoristaMapper>();
 
 
